@@ -38,12 +38,12 @@
           <h5 class="modal-title" id="exampleModalLabel">Registracija</h5>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-            <form role="form" method="POST" >
+            <form role="form" method="POST"  @submit="registration" >
                 <div class="form-group">
-                    <label for="name">Ime</label>
-                    <input type="text" class="form-control" placeholder="Unesite Vase ime" >
-                    <label for="name">Prezime</label>
-                    <input type="text" class="form-control"  placeholder="Unesite Vase prezime" >
+                    <label for="name" >Ime</label>
+                    <input type="text" class="form-control" placeholder="Unesite Vase ime" v-model="user.name" >
+                    <label for="name" >Prezime</label>
+                    <input type="text" class="form-control"  placeholder="Unesite Vase prezime" v-model="user.surname" >
                     <div class="genderRow"> 
                         <label >Pol </label>
                         <div class="col"> 
@@ -54,20 +54,20 @@
                     <div> </div>
                     <label for="text" >Datum rodjenja</label>
                     <div class="genderRow">
-                      <input type="date" style="width: 390px;height: 30px;"  class="date"  > 
+                      <input type="date" style="width: 390px;height: 30px;"  class="date" v-model="user.birthday"  > 
                     </div>
                     
                     <label for="text" >Adresa</label>
                     <div>
                       <table>
                          <tr>
-                      <td><input type="text"  class="form-control" placeholder="Ulica"></td>
+                      <td><input type="text"  class="form-control" placeholder="Ulica" v-model="user.street"></td>
                     
-                        <td><input type="text" class="form-control" placeholder="Broj" ></td>
+                        <td><input type="text" class="form-control" placeholder="Broj" v-model="user.number"></td>
                         
                      <tr>
-                        <td> <input type="text" class="form-control" placeholder="Grad" ></td>
-                      <td><input type="text" class="form-control"  placeholder="Postanski broj" ></td>
+                        <td> <input type="text" class="form-control" placeholder="Grad" v-model="user.city" ></td>
+                      <td><input type="text" class="form-control"  placeholder="Postanski broj" v-model="user.zipCode" ></td>
                      </tr>
                      
                   
@@ -76,11 +76,11 @@
                     </div>
                     
                     <label for="usrname"><span class="glyphicon glyphicon-user"></span> Korisnicko ime</label>
-                    <input type="text" class="form-control" id="usrname" placeholder="Unesite korisnicko ime" >
+                    <input type="text" class="form-control" id="usrname" placeholder="Unesite korisnicko ime" v-model="user.username" >
                 </div>
                 <div class="form-group">
                   <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Lozinka</label>
-                  <input type="password" class="form-control"  id="psw" placeholder="Unesite lozinku" >
+                  <input type="password" class="form-control"  id="psw" placeholder="Unesite lozinku" v-model="user.password" >
                 </div>
                 <button type="submit" class="btn btn-success btn-block"><span ></span> Registruj se</button>
             </form>
@@ -100,7 +100,7 @@
           <h5 class="modal-title" id="exampleModalLabel">Prijava</h5>
         </div>
         <div class="modal-body" id="logovanje" style="padding:40px 50px;">
-            <form role="form" method='post'>
+            <form role="form" method='post' @submit="login">
                 <div class="form-group">
                   <label for="usrname"><span class="glyphicon glyphicon-user"></span> Korisnicko ime</label>
                   <input type="text" class="form-control" id="usrname" placeholder="Unesite korisnicko ime" v-model="user.username">
@@ -134,6 +134,8 @@
     
     <script src="js/jquery.min.js"></script>
     <script src="js/moment.min.js"></script>
+<script src="js/register.js"></script>
+<script src="js/login.js"></script>
 
    <script src="app/PlacesHomepage.js"></script>
    <script src="app/pocetnaRuter.js"></script> <!-- komponente treba dodavati pre rutera! -->
