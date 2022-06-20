@@ -1,0 +1,38 @@
+{
+  "Objekat2" : {
+    "id" : 2,
+    "name" : "Objekat2",
+    "type" : "SPORTSKI_CENTAR",
+    "description" : "Opis",
+    "status" : "ZATVORENO",
+    "workingTime" : "24/7",
+    "address" : {
+      "street" : "Bulevar oslobodjenja",
+      "number" : 2,
+      "city" : "Novi Sad",
+      "longitude" : 0.0,
+      "latitude" : 0.0,
+      "zipCode" : 21000
+    },
+    "logo" : "firstPhoto.jpg",
+    "grade" : 4.0
+  },
+  "Objekat1" : {
+    "id" : 1,
+    "name" : "Objekat1",
+    "type" : "BAZEN",
+    "description" : "Opis",
+    "status" : "OTVORENO",
+    "workingTime" : "24/7",
+    "address" : {
+      "street" : "Bulevar oslobodjenja",
+      "number" : 2,
+      "city" : "Novi Sad",
+      "longitude" : 0.0,
+      "latitude" : 0.0,
+      "zipCode" : 21000
+    },
+    "logo" : "firstPhoto.jpg",
+    "grade" : 5.0
+  }
+}
