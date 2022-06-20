@@ -135,40 +135,41 @@ methods:{
         // places.push(tmpList.slice())
       // }
 
-      this.places = tmpList2.slice()
+      // this.places = tmpList2.slice()
 
-      // if(this.search.type != -1) {
-      // var tmpList3 = []
-      // var check = ""
-      // if(this.search.type == 0) check="TERETANA"
-      // if(this.search.type == 1) check="BAZEN"
-      // if(this.search.type == 2) check="PLESNI_STUDIOS"
-      // if(this.search.type == 3) check="SPORTSKI_CENTAR"
-      //   for (let i = 0; i < tmpList2.length; i++) {
-      //       console.log("\ntmpList2[i].type: " + tmpList2[i].type)
-      //       console.log("\ncheck: " + check)
-      //       if (tmpList2[i].type.includes(check)) {
-      //           tmpList3.push(tmpList2[i])
-      //       }
-      //   }
-      // //   // places.push(tmpList.slice())
-      //  }
+      var tmpList3 = tmpList2.slice()
+      if(this.search.type != -1) {
+      tmpList3 = []
+      var check = ""
+      if(this.search.type == 0) check="TERETANA"
+      if(this.search.type == 1) check="BAZEN"
+      if(this.search.type == 2) check="PLESNI_STUDIOS"
+      if(this.search.type == 3) check="SPORTSKI_CENTAR"
+        for (let i = 0; i < tmpList2.length; i++) {
+            console.log("\ntmpList2[i].type: " + tmpList2[i].type)
+            console.log("\ncheck: " + check)
+            if (tmpList2[i].type.includes(check)) {
+                tmpList3.push(tmpList2[i])
+            }
+        }
+      //   // places.push(tmpList.slice())
+       }
 
-      
-      //  if(this.search.grade != -1) {
-      //   var tmpList4 = []
-      //   for (let i = 0; i < tmpList3.length; i++) {
-      //     console.log("\ntmpList3[i].type: " + tmpList3[i].grade.toString())
-      //       console.log("\nthis.search.grade: " + this.search.grade)
-      //       if (tmpList3[i].grade.toString().includes(this.search.grade)) {
-      //           tmpList4.push(tmpList3[i])
-      //       }
-      //   }
-      // //   // places.push(tmpList.slice())
-      // // }
+      var tmpList4 = tmpList3.slice()
+       if(this.search.grade != -1) {
+        tmpList4 = []
+        for (let i = 0; i < tmpList3.length; i++) {
+          console.log("\ntmpList3[i].type: " + tmpList3[i].grade.toString())
+            console.log("\nthis.search.grade: " + this.search.grade)
+            if (tmpList3[i].grade.toString().includes(this.search.grade.toString())) {
+                tmpList4.push(tmpList3[i])
+            }
+        }
+      //   // places.push(tmpList.slice())
+      }
 
 
-      // this.places = tmpList4.slice()
+     this.places = tmpList4.slice()
       // console.log("\ntmpList: " + JSON.stringify(tmpList4))
       console.log("\nplaces: " + JSON.stringify(this.places))
     }
