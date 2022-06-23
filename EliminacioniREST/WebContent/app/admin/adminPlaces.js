@@ -3,31 +3,30 @@ Vue.component("places-admin", {
         return{
             places:[], 
             selected:null,
-            search: {name:"", location:"", type:6, grade:""}
+            search: {name:"", location:"", type:4, grade:""}
         }
     },
 template: `
 <div class="containerInfo">
 
 	<!--pretraga-->
-	<div class="row" style="width:1400px !important; margin-left:8%;">
+	<div class="row" style="width:1400px !important; margin-left:12%;">
 		<div class="col-lg-12">
-					    <div class="row" style="width:1400px !important;">
-										        <div class="col-lg-2 col-md-3 col-sm-12 p-0 search">
+					    <div class="row" style="width:1400px !important;" >
+										        <div class="col-lg-2 col-md-3 col-sm-12 p-0 search" style="margin-right: 2rem;">
 										            <input type="text" class="form-control search-slt" placeholder="Naziv objekta" v-model="search.name">
 										        </div>
 										        <div class="col-lg-2 col-md-3 col-sm-12 p-0 search" >
-										            <input type="text" class="form-control search-slt" placeholder="Lokacija objekta" v-model="search.location">
+										            <input type="text" class="form-control search-slt" placeholder="Lokacija objekta" v-model="search.location" >
 										        </div>
                                                 <div class="dropdown col-lg-2 col-md-3 col-sm-12 p-0 filt">
-                                                    <select v-model="search.type" style="height: 35px; width: 150px; background-color:#6c757d; color:white;  border-radius: 4px;">Tip
-                                                     <option value=6>Tip restorana</option>
-                                                    <option  v-bind:value="0" style=" background-color:white; color: black">Italijanski</option>
-                                                    <option  v-bind:value="1" style=" background-color:white; color: black">Kineski</option>
-                                                    <option  v-bind:value="2" style=" background-color:white; color: black">Pica</option>
-                                                    <option  v-bind:value="3" style=" background-color:white; color: black">Rostilj</option>
-                                                    <option  v-bind:value="4" style=" background-color:white; color: black">Riblji</option>
-                                                    <option  v-bind:value="5" style=" background-color:white; color: black">Veganski</option>
+                                                    <select v-model="search.type" style="height: 35px; width: 150px; background-color:#6c757d; color:white;  border-radius: 4px; margin-left: 2rem;">Tip
+                                                     <option value=4>Tip objekta</option>
+                                                    <option  v-bind:value="0" style=" background-color:white; color: black">Teretana</option>
+                                                    <option  v-bind:value="1" style=" background-color:white; color: black">Bazen</option>
+                                                    <option  v-bind:value="2" style=" background-color:white; color: black">Plesni studio</option>
+                                                    <option  v-bind:value="3" style=" background-color:white; color: black">Sportski centar</option>
+                                                    
                                                     </select>
                                                    
                                                 </div>
@@ -51,7 +50,7 @@ template: `
 		
 		
 		
-		            <div class=" tab-pane container active">
+		            <div class=" tab-pane container active" style="margin-top: 3rem;">
 		            
 			            
 			                       <div v-for="p in places" :key="p.name" class="row"  >
@@ -70,10 +69,10 @@ template: `
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
 			                
-			                 <hr/>
+			               
 			                
 		             </div>
-		             
+		               <hr/>
 		                   <div v-for="p in places" :key="p.name" class="row"  >
                           <div v-if="p.status != 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
