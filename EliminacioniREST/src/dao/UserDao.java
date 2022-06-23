@@ -20,6 +20,8 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import dto.ChangeUserProfileDto;
+
 import dto.UserRegistrationDto;
 import enums.CustomerType;
 import enums.Gender;
@@ -173,4 +175,17 @@ public class UserDao {
 		}	
 		return null;
 	}
+	
+	
+	public void changeUserProfile(ChangeUserProfileDto user) {
+			User userChange = getUserByUsername(user.username);
+			userChange.setName(user.name);
+			userChange.setSurname(user.surname);
+			userChange.setAddress(new Address(user.street,user.number, user.city, 0, 0, user.zipCode));
+			userChange.setGender(user.gender);
+			userChange.setBirthday(user.birthday);
+			saveUsers();
+		}
+		
+	
 }

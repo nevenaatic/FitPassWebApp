@@ -2,20 +2,20 @@
   "nevena" : {
     "username" : "nevena",
     "password" : "nevena",
-    "name" : "dfsf",
-    "surname" : "dsfs",
+    "name" : "Nevena",
+    "surname" : "Atic",
     "gender" : "ZENSKI",
     "birthday" : 1655251200000,
     "role" : "KUPAC",
     "deleted" : false,
     "blocked" : false,
     "address" : {
-      "street" : "dsf",
+      "street" : "Pakao",
       "number" : 6,
-      "city" : "fs",
+      "city" : "Ns",
       "longitude" : 0.0,
       "latitude" : 0.0,
-      "zipCode" : 336
+      "zipCode" : 21000
     },
     "trainings" : [ ],
     "memberships" : [ ],
@@ -28,7 +28,7 @@
     },
     "place" : -1
   },
-    "admin" : {
+  "admin" : {
     "username" : "admin",
     "password" : "admin",
     "name" : "Marko",
@@ -57,7 +57,7 @@
     },
     "place" : -1
   },
-    "trener" : {
+  "trener" : {
     "username" : "trener",
     "password" : "trener",
     "name" : "Mirko",
@@ -86,7 +86,7 @@
     },
     "place" : -1
   },
-     "menadzer" : {
+  "menadzer" : {
     "username" : "menadzer",
     "password" : "menadzer",
     "name" : "Isidora",
