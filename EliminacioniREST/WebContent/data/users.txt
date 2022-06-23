@@ -20,7 +20,7 @@
     "trainings" : [ ],
     "memberships" : [ ],
     "visitedPlaces" : [ ],
-    "poens" : 0.0,
+    "poens" : 200.0,
     "customerInfo" : {
       "type" : "BRONZANI",
       "points" : 0.0,
@@ -34,7 +34,7 @@
     "name" : "Marko",
     "surname" : "Markovic",
     "gender" : "MUSKI",
-    "birthday" : 1655251200000,
+    "birthday" : 392947200000,
     "role" : "ADMIN",
     "deleted" : false,
     "blocked" : false,
@@ -49,7 +49,7 @@
     "trainings" : [ ],
     "memberships" : [ ],
     "visitedPlaces" : [ ],
-    "poens" : 0.0,
+    "poens" : 100.0,
     "customerInfo" : {
       "type" : "BRONZANI",
       "points" : 0.0,

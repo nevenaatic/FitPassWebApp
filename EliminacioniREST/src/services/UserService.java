@@ -132,7 +132,7 @@ public class UserService {
 		HttpSession session = request.getSession();
 		 if(session != null && session.getAttribute("loginUser")!= null) {
 			 session.invalidate();
-			 System.out.println("ODJAVA RADI");
+			
 			 	 return Response.status(Response.Status.ACCEPTED).entity("/EliminacioniREST/index.html")
 				 .build();
 		 }
@@ -143,4 +143,13 @@ public class UserService {
 			 .build();
 	
 }
+	
+	
+	@POST
+	@Path("/deleteUser")
+	public void deleteUser(String username){
+			UserDao users = getUsers();
+			System.out.println("USERNAME ZA BRISANJE  " +username);
+			users.deleteUserById(username);	
+	}
 }

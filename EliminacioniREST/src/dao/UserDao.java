@@ -186,6 +186,16 @@ public class UserDao {
 			userChange.setBirthday(user.birthday);
 			saveUsers();
 		}
+	
+	
+	//brisanje korisnika
+	public void deleteUserById(String username) {
+		User user = getUserByUsername(username);
+		if(user != null) {
+			user.setDeleted(true); //logicko brisanje
+			saveUsers();
+		}	
+	}
 		
 	
 }

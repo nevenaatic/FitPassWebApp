@@ -33,13 +33,13 @@ public class PlaceService {
 		PlaceDao places = (PlaceDao)context.getAttribute("places");
 		
 		if (places == null) {
-			System.out.println("USAO!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		
 			String contextPath = context.getRealPath("");
 			places = new PlaceDao(contextPath);
 			context.setAttribute("places", places);
-			System.out.println("Places: " + places.getPlaces());
+			
 		}
-		System.out.println("Places: " + places.getPlaces());
+	
 		return places;
 	}
 	

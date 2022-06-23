@@ -2,9 +2,80 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ADMIN</title>
+<title>Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/nav-bar.css">
+  
+ <!-- dodatno za butstrap-->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
+   <div >
+            <div   style="background-image: url(../pictures/firstPhoto.jpg); width: 1680px; height: 315px" >
+                <img style="  visibility: visible; height: 7rem; width: 20rem; position: fixed; margin-left: 2rem" class="logoPicture" src="../pictures/FitPass-logo-4-3.png">
+                <div >
+               
+                <button  type="button" style="margin-top: 1rem; margin-left: 1rem" class="btn btn-danger pull-right"  data-toggle="modal" data-target="#odjava">Odjavi se</button>
+            </div>
+            </div>
+     </div>
+
+
+    <!-- nav bar -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link" style="color: orange"  href="/EliminacioniREST/html/admin_profil.html#/profil"> Profil</a></li>
+        <li class="nav-item"><a class="nav-link"  style="color: orange" href="/EliminacioniREST/html/admin_profil.html#/">Objekti</a></li>
+        
+        <li class="nav-item"><a class="nav-link"  style="color: orange" href="/EliminacioniREST/html/admin_profil.html#/korisnici">Korisnici</a></li>
+       
+    </ul>
+     <div>
+     
+        <div id="adminRouter" >
+                <router-view></router-view>         
+        </div> 
+        
+     </div> 
+<!-- Modal logout-->
+        <div class="modal fade" id="odjava" role="dialog" >
+            <div class="modal-dialog" style="width: 400px;" >
+                <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                <h5 class="modal-title" id="exampleModalLabel">Odjavi se</h5>
+                </div>
+                <div class="modal-body" id="logovanje" style="padding:40px 50px;">
+                    <form role="form" method='get' @submit="logout">
+                      <div> <p> Da li ste sigurni da zelite da se odjavite?</p></div>
+                        <button type="submit" class="btn btn-danger btn-block"><span class="glyphicon glyphicon-off"></span> Odjava</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-default pull-left"  data-dismiss="modal">Odustani</button>   
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+ <script src="../vue.js"></script>
+    <script src="../vue-router.js"></script>
+    <script src="../axios.js"></script>
+    <script src="../jquery-3.4.1.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/moment.min.js"></script>
+    <script src="../js/logout.js"></script>
+
+	 <script src="../app/admin/adminProfile.js"></script>
+	  <script src="../app/admin/adminEditProfile.js"></script>
+	   <script src="../app/admin/adminAllUsers.js"></script>
+	     <script src="../app/admin/adminPlaces.js"></script>
+	  <script src="../app/admin/adminRouter.js"></script>
 </body>
 </html>

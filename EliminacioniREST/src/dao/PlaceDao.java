@@ -41,7 +41,7 @@ public class PlaceDao {
 	}
 	public void setPlaces(HashMap<String, Place> place) {
 		this.places = place;
-		System.out.println("Setter: " + this.places);
+		
 	}
 	
 	public String getFilePath() {

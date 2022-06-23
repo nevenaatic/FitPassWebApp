@@ -34,6 +34,8 @@ public class UserProfileService {
 		User userSesion = (User)request.getSession().getAttribute("loginUser");	
 		UserDao users = getUsers();
 		User user = users.getUserByUsername(userSesion.getUsername());
+		System.out.println("UCITAVAM ADMINA:");
+		System.out.println(user);
 		return user;
 	}
 
