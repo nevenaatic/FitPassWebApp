@@ -63,7 +63,7 @@
     "name" : "Mirko",
     "surname" : "Maric",
     "gender" : "MUSKI",
-    "birthday" : 1655251200000,
+    "birthday" : 172022400000,
     "role" : "TRENER",
     "deleted" : false,
     "blocked" : false,
