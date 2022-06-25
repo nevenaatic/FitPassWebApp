@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import dto.NewPlaceDto;
 import enums.PlaceType;
 import enums.Status;
 import model.Address;
@@ -28,7 +29,7 @@ import model.Place;
 
 public class PlaceDao {
 
-	private HashMap<String,Place> places;
+	private HashMap<Integer,Place> places;
 	private String filePath = "";
 	
 	@Context
@@ -36,10 +37,10 @@ public class PlaceDao {
 	@Context
 	HttpServletRequest request;
 	
-	public HashMap<String, Place> getPlaces() {
+	public HashMap<Integer, Place> getPlaces() {
 		return places;
 	}
-	public void setPlaces(HashMap<String, Place> place) {
+	public void setPlaces(HashMap<Integer, Place> place) {
 		this.places = place;
 		
 	}
@@ -52,14 +53,14 @@ public class PlaceDao {
 	}
 	
 	
-	public PlaceDao(HashMap<String, Place> places, String filePath) {
+	public PlaceDao(HashMap<Integer, Place> places, String filePath) {
 		super();
 		this.places = places;
 		this.filePath = filePath;
 	}
 	
 	public PlaceDao(String contextPath) {
-		this.setPlaces(new HashMap<String, Place>());
+		this.setPlaces(new HashMap<Integer, Place>());
 		this.setFilePath(contextPath);
 		
 		loadPlaces(contextPath);
@@ -80,9 +81,9 @@ public class PlaceDao {
 			objectMapper.setVisibilityChecker(
 					VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 			TypeFactory factory = TypeFactory.defaultInstance();
-			MapType type = factory.constructMapType(HashMap.class, String.class, Place.class);
+			MapType type = factory.constructMapType(HashMap.class, Integer.class, Place.class);
 			objectMapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-			this.places = ((HashMap<String, Place>) objectMapper.readValue(file, type));
+			this.places = ((HashMap<Integer, Place>) objectMapper.readValue(file, type));
 		} catch (FileNotFoundException fnfe) {
 			try {
 				file.createNewFile();
@@ -144,14 +145,49 @@ public class PlaceDao {
 	}
 	
 	
+	public Place createPlace(NewPlaceDto newPlace) {
+		Place place = new Place(generateIdPlace(), newPlace.name, newPlace.type, newPlace.description,newPlace.status, newPlace.workingTime, new Address( newPlace.street,newPlace.number, newPlace.city, newPlace.longitude, newPlace.latitude, newPlace.zipCode), 
+				generateLink(newPlace.logo), 1);
+		this.places.put(place.getId(), place);
+		System.out.println("DAO ");
+		savePlaces();
+		return  getPlaceById(place.getId());
+	}
+	
+	
+	private String generateLink(String link) {
+		String ret="";
+		//C:\fakepath\20180717_155517.jpg
+		String path[] = link.split("fakepath");
+		ret = path[1].substring(1);
+		System.out.println(ret);
+		return ret;
+	}
+	
+	private Integer generateIdPlace() {
+		int ret = 0;
+        for (Place placeBig : this.getValues())
+        {
+            for (Place place : this.getValues())
+            {
+                if (ret == place.getId())
+                {
+                    ++ret;
+                    break;
+                }
+            }
+        }
+        return ret;
+	}
+	
 	public Collection<Place> getValues() {
 		loadPlaces("");
 		return places.values();
 	}
-	public Place getPlaceByName(String name) {
+	public Place getPlaceById(int id) {
 		this.loadPlaces("");
 		for (Place place : getValues()) {
-			if(place.getName().equals(name)) {
+			if(place.getId()==id) {
 				return place;
 			}
 		}	
@@ -165,8 +201,8 @@ public class PlaceDao {
 		Place p1 = new Place(1, "Objekat1", PlaceType.BAZEN, "Opis", Status.OTVORENO, "24/7", address, "firstPhoto.jpg", 5);
 		Place p2 = new Place(2, "Objekat2", PlaceType.SPORTSKI_CENTAR, "Opis", Status.ZATVORENO, "24/7", address, "firstPhoto.jpg", 4);
 
-		getPlaces().put("Objekat1", p1);
-		getPlaces().put("Objekat2", p2);
+		getPlaces().put(1, p1);
+		getPlaces().put(2, p2);
 		
 		savePlaces();
 	}

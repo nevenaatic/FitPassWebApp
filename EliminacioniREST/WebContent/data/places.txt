@@ -1,5 +1,24 @@
 {
-  "Objekat2" : {
+
+  "1" : {
+    "id" : 1,
+    "name" : "Bazen Plava skoljka",
+    "type" : "BAZEN",
+    "description" : "Opis",
+    "status" : "OTVORENO",
+    "workingTime" : "24/7",
+    "address" : {
+      "street" : "Bulevar oslobodjenja",
+      "number" : 2,
+      "city" : "Novi Sad",
+      "longitude" : 0.0,
+      "latitude" : 0.0,
+      "zipCode" : 21000
+    },
+    "logo" : "bazen.jpg",
+    "grade" : 5.0
+  },
+  "2" : {
     "id" : 2,
     "name" : "SC Vojvodina",
     "type" : "SPORTSKI_CENTAR",
@@ -17,22 +36,23 @@
     "logo" : "sportskiCentar.jpg",
     "grade" : 4.0
   },
-  "Objekat1" : {
-    "id" : 1,
-    "name" : "Bazen Plava skoljka",
-    "type" : "BAZEN",
-    "description" : "Opis",
+ 
+  "4" : {
+    "id" : 4,
+    "name" : "Sportski centar ",
+    "type" : "SPORTSKI_CENTAR",
+    "description" : "GFD",
     "status" : "OTVORENO",
-    "workingTime" : "24/7",
+    "workingTime" : "GFDGD",
     "address" : {
-      "street" : "Bulevar oslobodjenja",
-      "number" : 2,
-      "city" : "Novi Sad",
+      "street" : "HFHFD",
+      "number" : 0,
+      "city" : "HFDHD",
       "longitude" : 0.0,
       "latitude" : 0.0,
-      "zipCode" : 21000
+      "zipCode" : 0
     },
-    "logo" : "bazen.jpg",
-    "grade" : 5.0
+    "logo" : "sportskiCentar3.jpg",
+    "grade" : 1.0
   }
 }

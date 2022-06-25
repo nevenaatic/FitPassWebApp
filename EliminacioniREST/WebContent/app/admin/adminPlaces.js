@@ -44,6 +44,9 @@ template: `
                                                 <div class="col-lg-1 col-md-3 col-sm-12 btn-search">
                                                     <button type="button" class="btn btn-danger wrn-btn" v-on:click="pretrazi()">Pretrazi kombinovano</button>
                                                 </div>
+                                                 <div class="col-lg-1 col-md-2 col-sm-8 btn-search">
+                                                    <button type="button" class="btn btn-success wrn-btn" ><a href="#/objekat"> +</a> </button>
+                                                </div>
 					    </div>
 		</div>
 	</div>

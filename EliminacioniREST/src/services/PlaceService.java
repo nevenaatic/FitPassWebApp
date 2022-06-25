@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import dao.PlaceDao;
 import dao.UserDao;
+import dto.NewPlaceDto;
 import dto.UserRegistrationDto;
 import model.Place;
 import model.User;
@@ -64,5 +65,16 @@ public class PlaceService {
 	public void populateDatabase() {
 		PlaceDao places = getPlaces();
 		places.populateDatabase();											
+	}
+	
+	
+	@POST
+	@Path("/newPlace")
+	//@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void addNewPlace(NewPlaceDto newPlace) {
+		System.out.println("DODAJEM");
+		PlaceDao places = getPlaces();
+		places.createPlace(newPlace);											
 	}
 }
