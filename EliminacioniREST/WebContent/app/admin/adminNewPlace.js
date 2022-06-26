@@ -11,84 +11,136 @@ template:
 <div class="containerInfo"> 
  <div class="row content">
           
-               <div class="col-sm-9">
+               <div class="col-sm-7">
+               
+             
                         <div class="informations" >
                             <form @submit='createPlace'>
-                                    <table>
-                                        <tr>
-                                            <td> Naziv: </td>
-                                            <td> <input class="form-control" type="text" v-model="place.name" placeholder="Naziv objekta"/> </td>
-                                        </tr>
-                                        <tr> 
-                                            <td>Adresa: </td>
-                                            <td> <input class="form-control" type="text"  v-model="place.address.street" placeholder="Ulica"> </td>
-                                            <td> <input class="form-control" type="number"  v-model="place.address.number" placeholder="Broj"> </td>
-                                              <td> <input class="form-control" type="text"  v-model="place.address.city"  placeholder="Grad"> </td>
-                                        </tr>
-                                         <tr> 
-                                            <td> </td>
-                                      
-                                 
-                                        </tr>
-                                           <tr> 
-                                            <td> Koordinate </td>
-                                            <td> <input class="form-control" type="number"  v-model="place.address.longitude" > </td>
-                                            <td> <input class="form-control" type="number"  v-model="place.address.latitude" > </td>
-                                            <td> <input class="form-control" type="number"  v-model="place.address.zipCode" > </td>
-                                        </tr>
-                                        <tr> 
-                                            <td>Tip objekta:</td>
-                                            <td>
-                                            <select class="form-control" v-model="place.type" placeholder="Izaberite tip objekta">
-                    <option  v-bind:value="0" style=" background-color:white; color: black">TERETANA</option>
-                     <option  v-bind:value="1" style=" background-color:white; color: black">BAZEN</option>
-                      <option  v-bind:value="2" style=" background-color:white; color: black">SPORTSKI CENTAR</option>
-                       <option  v-bind:value="3" style=" background-color:white; color: black">PLESNI STUDIO</option>
-                </select> </td>
-                                        </tr>
-                                        <tr> 
-                                            <td> Status:</td>
-                                            <td>
-                                                                                        <select class="form-control" v-model="place.status" placeholder="Izaberite status objekta">
-                    <option  v-bind:value="0" style=" background-color:white; color: black">OTVORENO</option>
-                     <option  v-bind:value="1" style=" background-color:white; color: black">ZATVORENO</option>
-                      
-                </select>
-                                            </td>
-                                            
-                                        </tr>
-                                        <tr> 
-                                            <td>Radno vreme: </td>
-                                            <td> <input type="text" class="form-control" v-model="place.workingTime"> </td>
-                                        </tr>
-                                        <tr> 
-                                            <td> Opis:</td>
-                                            <td> <input class="form-control" type="text" placeholder="ulica"  v-model="place.description"  > </td>
-                                         
-                                          </tr> 
-                                         <tr> 
-                                          <td> Logo: </td> 
-                                          <td><input type="file" onchange="encodeImageFileAsURL(this)" v-model="place.logo"></td>
-                                           
-                                        </tr>
+                              <div class="row"> 
+				               <div class="col-sm-2"> 
+				               <label> Naziv:
+				                </label>
+				               </div>
+				                <div class="col-sm-5"> 
+				               <input class="form-control" type="text" v-model="place.name" placeholder="Naziv objekta"/>
+				               </div>
+				               </div>
+               
+			                <div class="row"> 
+			                 <div class="col-sm-2"> 
+              					 <label> Adresa</label>
+				               </div>
+			               <div class="col-sm-3"> 
+              					 <input class="form-control" type="text"  v-model="place.address.street" placeholder="Ulica" id="streetID"> 
+				               </div>
+				                 <div class="col-sm-2"> 
+             						  <input class="form-control" type="number"  v-model="place.address.number" placeholder="Broj" id="numberID"> 
+				               </div>
+				               </div>
+                            
+                                <div class="row">
+                                  <div class="col-sm-2"> 
+               						<label> </label>
+				               </div>
+			               <div class="col-sm-3"> 
+             					 <input class="form-control" type="text"  v-model="place.address.city"  placeholder="Grad" id="cityID">
+				              </div>
+				            <div class="col-sm-2"> 
+              				  <input class="form-control" type="number"  v-model="place.address.zipCode" id="zipcodeID" >
+				               </div>
+				             </div>
+				               
+				         <div class="row">
+				              <div class="col-sm-2"> 
+              					 <label> Koordinate: </label>
+				               </div>
+				             <div class="col-sm-1"> 
+               					<p>gs-gd</p>
+				               </div>
+			               <div class="col-sm-2">            
+               					<input class="form-control" type="number"  v-model="place.address.longitude" id="longitudeID" >
+				           </div>
+				           <div class="col-sm-2"> 
+				            <input class="form-control" type="number"  v-model="place.address.latitude" id="latitudeID" >
+				               </div>
+				         </div>
+				               
+				               
+				          <div class="row">
+				            <div class="col-sm-2"> 
+              				 <label> Tip objekta: </label>
+				               </div>
+			               <div class="col-sm-5"> 
+				                <select class="form-control" v-model="place.type" placeholder="Izaberite tip objekta" style="background-color: lightgray">
+				                    <option  v-bind:value="0" style=" background-color:white; color: black">TERETANA</option>
+				                     <option  v-bind:value="1" style=" background-color:white; color: black">BAZEN</option>
+				                      <option  v-bind:value="2" style=" background-color:white; color: black">SPORTSKI CENTAR</option>
+				                       <option  v-bind:value="3" style=" background-color:white; color: black">PLESNI STUDIO</option>
+				                </select>
+				            </div>
+				           </div>
+				           
+				           <div class="row">
+				            <div class="col-sm-2"> 
+              				 <label> Status objekta: </label>
+				               </div>
+			               <div class="col-sm-5"> 
+				              <select class="form-control" v-model="place.status" placeholder="Izaberite status objekta" style="background-color: lightgray">
+				             
+				                    <option  v-bind:value="0" style=" background-color:white; color: black">OTVORENO</option>
+				                     <option  v-bind:value="1" style=" background-color:white; color: black">ZATVORENO</option>
+                			 </select>
+				            </div>
+				           </div>
+				           
+				            <div class="row">
+				            <div class="col-sm-2"> 
+              				 <label> Radno vreme: </label>
+				               </div>
+			               <div class="col-sm-5"> 
+				               <input type="text" class="form-control" v-model="place.workingTime" placeholder="od - do">
+				            </div>
+				           </div>
+				           
+				            <div class="row">
+				            <div class="col-sm-2"> 
+              				 <label> Opis: </label>
+				               </div>
+			               <div class="col-sm-5"> 
+				               <textarea type="text" class="form-control"  v-model="place.description" placeholder="Opis"> </textarea>
+				            </div>
+				           </div>
+				           
+				             <div class="row">
+				            <div class="col-sm-2"> 
+              				 <label> Logo: </label>
+				               </div>
+			               <div class="col-sm-5"> 
+				               <input type="file" onchange="encodeImageFileAsURL(this)" v-model="place.logo">
+				            </div>
+				           </div>
+				           <div class="row" style="margin-top: 3rem;">
+				           <div class="col-sm-2"> 
+
+				               </div>
+				            <div class="col-sm-2"> 
+              				<button type="button" class="btn btn-success" v-on:click="createPlace">Sacuvaj </button> 
+				               </div>
+			               <div class="col-sm-2"> 
+				              <button type="button" class="btn btn-secondary" v-on:click="otkazi">Otkazi</button>
+				            </div>
+				           </div>
                                      
-                                        
-                                    </table> 
-                                        <div v-if="mode" stylep="top-margin:5px;">
-                                    
-                                        </div>
-                                        <table>   
-                                        <tr style="height:10px;"> </tr>
-                                             <tr>  <td><button type="button" class="btn btn-success" v-on:click="createPlace">Sacuvaj </button> </td>
-                                             <td style="width:15px"> </td>       
-                                             <td>  <button type="button" class="btn btn-secondary" v-on:click="otkazi">Otkazi</button></td>
-                                             </tr>
-                                        </table>
-                               
+                              
                             </form>
                            
                         </div>
-                    </div>    
+                    </div>  
+                    
+                    <div class="col-sm-4" style="margin-left: -15rem;margin-top: 4rem;">
+                    Izaberite koordinate na mapi:
+                    <div id="map" class="map" style="width: 600px;height:400px;"> </div>
+                     </div>  
  </div>
    </div>
 `,
@@ -137,7 +189,7 @@ methods:{
       })
       .then(
         response => {
-        //  router.push(`/`);
+         router.push(`/`);
         } 
       )
       .catch(function(error){
@@ -151,9 +203,47 @@ methods:{
     changePassword: function(){
         this.mode=true
      }, 
+     
+      init: function(){
+        const map = new ol.Map({
+          target: 'map',
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.OSM()
+            })
+          ],
+          view: new ol.View({
+            center: ol.proj.fromLonLat([19.41, 44.82]),
+            zoom: 8
+          })
+        })
+        
+      map.on('click', function (evt) {          
+        var coord = ol.proj.toLonLat(evt.coordinate);
+        reverseGeocode(coord);
+        this.$emit('change-address', this.address);
+  })
+   },
+      previewMapChooseLocation: function () {
+        this.previewMap = !this.previewMap;
+        if (this.previewMap) {
+            // Draw map on screen
+            this.$nextTick(function () {
+                this.init();
+
+                // Seting some extra style for map
+                let c = document.getElementById("map").childNodes;
+                c[0].style.borderRadius  = '10px';
+                c[0].style.border = '4px solid lightgrey';
+            })
+        }
+      }
+  
 },
 mounted(){
-    
+   this.$nextTick(function () {
+        this.init();
+    })
 },
 filters: {
     dateFormat: function(value, format){
@@ -162,3 +252,82 @@ filters: {
     }
 }
 });
+
+ /**
+ * From coords get real address and put that value in form. 
+ * @param coords cords (x,y)
+ */
+function reverseGeocode(coords) {
+  fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + coords[0] + '&lat=' + coords[1])
+      .then(function (response) {
+          return response.json();
+      }).then(function (json) {
+         /* // LATITUDE & LONGITUDE
+          console.log(coords);
+          document.getElementById("longitudeID").value = coords[0];
+          document.getElementById("latitudeID").value = coords[1];
+
+          // TOWN 
+          console.log(json.address);
+          if (json.address.city) {
+              document.getElementById("townID").value = json.address.city;
+          }
+
+          // STREET
+          if (json.address.street) {
+              document.getElementById("streetID").value = json.address.street;
+          }
+
+          // NUMBER OF HOUSE
+          if (json.address.number) {
+              document.getElementById("numberID").value = json.address.number;
+          }
+
+          // ZIP CODE
+          if(json.address.zipCode){
+              document.getElementById("zipcodeID").value = json.address.zipCode;
+          }*/
+
+          let elem = document.getElementById("longitudeID");
+            elem.value = coords[0].toFixed(2);
+            elem.dispatchEvent(new Event('input'));
+            
+            let el = document.getElementById("latitudeID");
+                el.value = coords[1].toFixed(2);
+                el.dispatchEvent(new Event('input'));
+                
+            if (json.address.road) {
+                let el = document.getElementById("streetID");
+                el.value = json.address.road;
+                el.dispatchEvent(new Event('input'));
+            } 
+
+            if(json.address.streetNumber){
+                let el = document.getElementById("numberID");
+                el.value = json.address.number;
+                el.dispatchEvent(new Event('input'));
+            }
+
+            if (json.address.city) {
+                let el = document.getElementById("cityID");
+                el.value = json.address.city;
+                el.dispatchEvent(new Event('input'));
+             } else if (json.address.city_district) {
+                let el = document.getElementById("cityID");
+                el.value = json.address.city_district;
+                el.dispatchEvent(new Event('input'));
+            }
+                
+            if (json.address.postcode) {
+                let el = document.getElementById("zipcodeID");
+                el.value = json.address.postcode;
+                el.dispatchEvent(new Event('input'));
+            } 
+              
+          });
+
+           const util = require('util')
+           console.log(util.inspect(this.address, false, null, true)) 
+
+     // });
+    }

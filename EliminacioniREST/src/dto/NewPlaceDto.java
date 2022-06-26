@@ -11,7 +11,6 @@ public class NewPlaceDto {
 	public String description; //sadrzaj koji objekat ima u ponudi
 	public Status status;  //otvoren-zatvoren
 	public String workingTime;
-//	public Address address;
 	public String street; 
 	public int number;
 	public String city;

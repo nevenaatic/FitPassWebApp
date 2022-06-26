@@ -1,5 +1,22 @@
 {
-
+  "0" : {
+    "id" : 0,
+    "name" : "Plesni studio",
+    "type" : "PLESNI_STUDIO",
+    "description" : "Za decu uzrasta do 14 godina",
+    "status" : "OTVORENO",
+    "workingTime" : "09:00-20:00",
+    "address" : {
+      "street" : "\u0414\u0443\u043A\u0459\u0430\u043D\u0438\u043D\u043E\u0432\u0430",
+      "number" : 5,
+      "city" : "Belgrade",
+      "longitude" : 20.47,
+      "latitude" : 44.78,
+      "zipCode" : 11040
+    },
+    "logo" : "plesniStudio1.jpg",
+    "grade" : 1.0
+  },
   "1" : {
     "id" : 1,
     "name" : "Bazen Plava skoljka",
@@ -36,7 +53,6 @@
     "logo" : "sportskiCentar.jpg",
     "grade" : 4.0
   },
- 
   "4" : {
     "id" : 4,
     "name" : "Sportski centar ",
