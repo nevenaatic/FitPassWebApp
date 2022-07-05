@@ -187,6 +187,7 @@ public class User {
 	public void setPlace(int place) {
 		this.placeId = place;
 	}
+
 	
 	
 

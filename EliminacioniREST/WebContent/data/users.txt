@@ -1,4 +1,62 @@
 {
+  "nekiNovi" : {
+    "username" : "nekiNovi",
+    "password" : "nekiNovi",
+    "name" : "NEKIIIIIII",
+    "surname" : "NEKIIIIII",
+    "gender" : "MUSKI",
+    "birthday" : 1657756800000,
+    "role" : "MENADZER",
+    "deleted" : false,
+    "blocked" : false,
+    "address" : {
+      "street" : "uspenska",
+      "number" : 4,
+      "city" : "NS",
+      "longitude" : 0.0,
+      "latitude" : 0.0,
+      "zipCode" : 21000
+    },
+    "trainings" : [ ],
+    "memberships" : [ ],
+    "visitedPlaces" : [ ],
+    "poens" : 0.0,
+    "customerInfo" : {
+      "type" : "BRONZANI",
+      "points" : 0.0,
+      "sale" : 0.0
+    },
+    "place" : 5
+  },
+  "menadzercic" : {
+    "username" : "menadzercic",
+    "password" : "menadzercic",
+    "name" : "menadzercic",
+    "surname" : "menadzercic",
+    "gender" : "ZENSKI",
+    "birthday" : 1657756800000,
+    "role" : "MENADZER",
+    "deleted" : false,
+    "blocked" : false,
+    "address" : {
+      "street" : "uspenska",
+      "number" : 4,
+      "city" : "NS",
+      "longitude" : 0.0,
+      "latitude" : 0.0,
+      "zipCode" : 21000
+    },
+    "trainings" : [ ],
+    "memberships" : [ ],
+    "visitedPlaces" : [ ],
+    "poens" : 0.0,
+    "customerInfo" : {
+      "type" : "BRONZANI",
+      "points" : 0.0,
+      "sale" : 0.0
+    },
+    "place" : -1
+  },
   "nevena" : {
     "username" : "nevena",
     "password" : "nevena",
@@ -113,6 +171,6 @@
       "points" : 0.0,
       "sale" : 0.0
     },
-    "place" : -1
+    "place" : 3
   }
 }

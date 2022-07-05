@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import dto.ChangeUserProfileDto;
-
+import dto.NewPlaceWithManagerDto;
 import dto.UserRegistrationDto;
 import enums.CustomerType;
 import enums.Gender;
@@ -162,6 +162,17 @@ public class UserDao {
 		saveUsers();
 	}
 	
+	public User saveNewManager(NewPlaceWithManagerDto user) {
+		getUsers().put(user.managerUsername, new User(user.managerUsername, user.managerUsername, user.managerName, user.managerSurname, user.managerGender, user.managerBirthday, Role.MENADZER, false, false,
+				new Address(user.managerStreet, user.managerNumber, user.managerCity, 0, 0, user.managerZipCode), new ArrayList<Integer>(), new ArrayList<Integer>(), 
+				new ArrayList<Integer>(), 0, new Customer(CustomerType.BRONZANI,0,0), -1));
+	
+		saveUsers();
+		return getUserByUsername(user.managerUsername);
+	}
+	
+	
+	
 	public Collection<User> getValues() {
 		loadUsers("");
 		return users.values();
@@ -176,7 +187,17 @@ public class UserDao {
 		return null;
 	}
 	
+	public Collection<User> getAvailableManagers() {
+		ArrayList<User> ret = new ArrayList<User>();
+		for (User user : getValues()) {
+			if(user.getRole().equals(Role.MENADZER) && !user.getDeleted() && user.getPlace() == -1) {
+				ret.add(user);
+			}
+		}	
+		return ret;
+	}
 	
+
 	public void changeUserProfile(ChangeUserProfileDto user) {
 			User userChange = getUserByUsername(user.username);
 			userChange.setName(user.name);
@@ -195,6 +216,11 @@ public class UserDao {
 			user.setDeleted(true); //logicko brisanje
 			saveUsers();
 		}	
+	}
+	public void updateManagerPlace(User user, int id) {
+		User userChange = getUserByUsername(user.getUsername());
+		userChange.setPlace(id);
+		saveUsers();
 	}
 		
 	

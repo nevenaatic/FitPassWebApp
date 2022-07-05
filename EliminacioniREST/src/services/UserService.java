@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import dao.UserDao;
+import dto.AvailableManagerDto;
 import dto.UserLoginDto;
 import dto.UserRegistrationDto;
 import enums.Role;
@@ -152,4 +153,18 @@ public class UserService {
 			System.out.println("USERNAME ZA BRISANJE  " +username);
 			users.deleteUserById(username);	
 	}
+	
+	@GET
+	@Path("/availableManagers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<AvailableManagerDto> getAvailableManagers() {
+		ArrayList<AvailableManagerDto> ret = new ArrayList<>();
+		UserDao userDao = getUsers();
+		for(User u : userDao.getAvailableManagers() ) {
+			ret.add(new AvailableManagerDto(u.getUsername(), u.getName(), u.getSurname()));
+		}
+		
+		 return ret;
+		 }
+	
 }

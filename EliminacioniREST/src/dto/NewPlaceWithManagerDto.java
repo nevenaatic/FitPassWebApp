@@ -1,10 +1,12 @@
 package dto;
 
+import java.util.Date;
+
+import enums.Gender;
 import enums.PlaceType;
 import enums.Status;
-import model.Address;
 
-public class NewPlaceDto {
+public class NewPlaceWithManagerDto {
 	
 	public String name;
 	public PlaceType type;
@@ -18,6 +20,16 @@ public class NewPlaceDto {
 	public double latitude;
 	public int zipCode;
 	public String logo;
-	public String managerId;
+	public String managerName;
+	public String managerSurname;
+	public String managerUsername;
+	public Date managerBirthday;
+	public Gender managerGender;
+	public String managerStreet;
+	public int managerNumber;
+	public String managerCity;
+	public int managerZipCode;
 
 }
+
+

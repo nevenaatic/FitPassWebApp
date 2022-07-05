@@ -2,14 +2,17 @@ Vue.component("admin-newPlace", {
    
     data:function(){
         return{
-          place: { name: "", type: "", description: "", status: "", workingTime: "", address: { street: "", number: 0, city: "", longitude: 0, latitude: 0, zipCode: 0}, logo: ""}
-           
+          place: { name: "", type: "", description: "", status: "", workingTime: "", address: { street: "", number: 0, city: "", longitude: 0, latitude: 0, zipCode: 0}, logo: "", managerId: 0},
+           managers: [],
+           form: false,
+           manager: { managerName: "", managerSurname: "", managerUsername: "", managerBirthday : "", gender: 0, address :{ street: "", number: 0, city: "", longitude: 0, latitude: 0, zipCode: 0} }
         }
     },
 template: 
 `
+
 <div class="containerInfo"> 
- <div class="row content">
+    <div class="row content">
           
                <div class="col-sm-7">
                
@@ -54,81 +57,173 @@ template:
 				              <div class="col-sm-2"> 
               					 <label> Koordinate: </label>
 				               </div>
-				             <div class="col-sm-1"> 
-               					<p>gs-gd</p>
-				               </div>
+                          <div class="col-sm-1"> 
+                              <p>gs-gd</p>
+                            </div>
 			               <div class="col-sm-2">            
                					<input class="form-control" type="number"  v-model="place.address.longitude" id="longitudeID" >
-				           </div>
-				           <div class="col-sm-2"> 
-				            <input class="form-control" type="number"  v-model="place.address.latitude" id="latitudeID" >
-				               </div>
-				         </div>
+				             </div>
+                      <div class="col-sm-2"> 
+                            <input class="form-control" type="number"  v-model="place.address.latitude" id="latitudeID" >
+                        </div>
+				        </div>
 				               
-				               
-				          <div class="row">
-				            <div class="col-sm-2"> 
-              				 <label> Tip objekta: </label>
-				               </div>
-			               <div class="col-sm-5"> 
-				                <select class="form-control" v-model="place.type" placeholder="Izaberite tip objekta" style="background-color: lightgray">
-				                    <option  v-bind:value="0" style=" background-color:white; color: black">TERETANA</option>
-				                     <option  v-bind:value="1" style=" background-color:white; color: black">BAZEN</option>
-				                      <option  v-bind:value="2" style=" background-color:white; color: black">SPORTSKI CENTAR</option>
-				                       <option  v-bind:value="3" style=" background-color:white; color: black">PLESNI STUDIO</option>
-				                </select>
-				            </div>
-				           </div>
-				           
-				           <div class="row">
-				            <div class="col-sm-2"> 
-              				 <label> Status objekta: </label>
-				               </div>
-			               <div class="col-sm-5"> 
-				              <select class="form-control" v-model="place.status" placeholder="Izaberite status objekta" style="background-color: lightgray">
-				             
-				                    <option  v-bind:value="0" style=" background-color:white; color: black">OTVORENO</option>
-				                     <option  v-bind:value="1" style=" background-color:white; color: black">ZATVORENO</option>
-                			 </select>
-				            </div>
-				           </div>
-				           
-				            <div class="row">
-				            <div class="col-sm-2"> 
-              				 <label> Radno vreme: </label>
-				               </div>
-			               <div class="col-sm-5"> 
-				               <input type="text" class="form-control" v-model="place.workingTime" placeholder="od - do">
-				            </div>
-				           </div>
-				           
-				            <div class="row">
-				            <div class="col-sm-2"> 
-              				 <label> Opis: </label>
-				               </div>
-			               <div class="col-sm-5"> 
-				               <textarea type="text" class="form-control"  v-model="place.description" placeholder="Opis"> </textarea>
-				            </div>
-				           </div>
-				           
-				             <div class="row">
-				            <div class="col-sm-2"> 
-              				 <label> Logo: </label>
-				               </div>
-			               <div class="col-sm-5"> 
-				               <input type="file" onchange="encodeImageFileAsURL(this)" v-model="place.logo">
-				            </div>
-				           </div>
-				           <div class="row" style="margin-top: 3rem;">
-				           <div class="col-sm-2"> 
+				                <div class="row" v-if="managers.length !=0">
+                            <div class="col-sm-2" > 
+                              <label> Menadzer: </label>
+                              </div>
+                            <div class="col-sm-5"> 
+                                <select class="form-control" v-model="place.managerId" style="background-color: lightgray">
+                                    <option  v-bind:value="m.id" style=" background-color:white; color: black" v-for="m in managers">{{m.name}} {{m.surname}}  </option>
+                                  
+                                </select>
+                              </div>
+				                </div>   
 
-				               </div>
-				            <div class="col-sm-2"> 
-              				<button type="button" class="btn btn-success" v-on:click="createPlace">Sacuvaj </button> 
-				               </div>
-			               <div class="col-sm-2"> 
-				              <button type="button" class="btn btn-secondary" v-on:click="otkazi">Otkazi</button>
-				            </div>
+                           <div class="row" v-if="managers.length == 0" style="margin-top: 1rem; ">
+                                      <div class="col-sm-2" style="background:whitesmoke; margin-left: 1rem;"> 
+                                        <label> Menadzer: </label>
+                                        </div>
+                                      <div class="col-sm-5" style="background:whitesmoke; "> 
+                                       
+                                      </div>
+                              </div> 
+
+                              <div v-if="form" style="margin-left: 1rem; margin-bottom: 1rem; ">
+                                  <div class="row" >
+                                      <div class="col-sm-2" style="background:whitesmoke; "> 
+                                        <label> Ime: </label>
+                                        </div>
+                                        <div class="col-sm-5" style="background:whitesmoke; "> 
+                                        <input class="form-control" type="text" placeholder= "Ime menadzera" v-model="manager.managerName" >
+                                        </div>
+                                   </div> 
+                                   <div class="row">
+                                        <div class="col-sm-2" style="background:whitesmoke; "> 
+                                          <label> Prezime: </label>
+                                          </div>
+                                        <div class="col-sm-5" style="background:whitesmoke; "> 
+                                        <input class="form-control" type="text" placeholder="Prezime menadzera" v-model="manager.managerSurname">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3" style="background:whitesmoke; "> 
+                                          <label> Korisnicko ime: </label>
+                                          </div>
+                                        <div class="col-sm-5" style="margin-left: -6.5rem;background:whitesmoke;"> 
+                                        <input class="form-control" type="text" placeholder= "Korisnicko ime menadzera" v-model="manager.managerUsername">
+                                        </div>
+                                      </div>
+
+                                      <div class="row">
+                                      <div class="col-sm-3" style="background:whitesmoke;background:whitesmoke; " > 
+                                        <label> Datum rodjenja: </label>
+                                        </div>
+                                      <div class="col-sm-5" style="margin-left: -6.5rem;background:whitesmoke;"> 
+                                      <input class="form-control" type="date"  v-model="manager.managerBirthday">
+                                      </div>
+                                    </div>
+
+
+                                      <div class="row">
+                                          <div class="col-sm-2" style="background:whitesmoke; "> 
+                                            <label> Pol: </label>
+                                          </div>
+                                        <div class="col-sm-5" style="background:whitesmoke; "> 
+                                        <input type="radio" name="gender"  value="MUSKI" v-model="manager.gender"  style="margin-left: 0.2em"><small style="margin-left: 1em">Muski</small>
+                                        <input type="radio" name="gender"  value="ZENSKI" v-model="manager.gender"  style="margin-left: 2em"> <small  style="margin-left: 1em">Zenski</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-2" style="background:whitesmoke; "> 
+                                          <label> Adresa: </label>
+                                        </div>
+                                      <div class="col-sm-3" style="background:whitesmoke; "> 
+                                      <input type="text"  class="form-control" placeholder="Ulica" v-model="manager.address.street" >
+                                      </div>
+                                      <div class="col-sm-2" style="background:whitesmoke; "> 
+                                      <input type="text" class="form-control"   style="margin-left: -0.5em" v-model="manager.address.number">
+                                      </div>
+                                     </div>
+
+                                     <div class="row" >
+                                     <div class="col-sm-2" style="background:whitesmoke; "> 
+                                       <label> </label>
+                                     </div>
+                                   <div class="col-sm-3" style="background:whitesmoke; "> 
+                                   <input type="text" class="form-control" placeholder="Grad" v-model="manager.address.city" >
+                                   </div>
+                                   <div class="col-sm-2" style="background:whitesmoke; "> 
+                                   <input type="number"  class="form-control" v-model="manager.address.zipCode" style="margin-left:-0.5em">
+                                   </div>
+                                  </div>
+
+
+                                 </div> 
+				               
+                          <div class="row">
+                                    <div class="col-sm-2"> 
+                                      <label> Tip objekta: </label>
+                                      </div>
+                                  <div class="col-sm-5"> 
+                                      <select class="form-control" v-model="place.type" placeholder="Izaberite tip objekta" style="background-color: lightgray">
+                                          <option  v-bind:value="0" style=" background-color:white; color: black">TERETANA</option>
+                                          <option  v-bind:value="1" style=" background-color:white; color: black">BAZEN</option>
+                                            <option  v-bind:value="2" style=" background-color:white; color: black">SPORTSKI CENTAR</option>
+                                            <option  v-bind:value="3" style=" background-color:white; color: black">PLESNI STUDIO</option>
+                                      </select>
+                                  </div>
+                          </div>
+				           
+                        <div class="row">
+                              <div class="col-sm-2"> 
+                                <label> Status objekta: </label>
+                              </div>
+                              <div class="col-sm-5"> 
+                                    <select class="form-control" v-model="place.status" placeholder="Izaberite status objekta" style="background-color: lightgray">
+                                  
+                                          <option  v-bind:value="0" style=" background-color:white; color: black">OTVORENO</option>
+                                          <option  v-bind:value="1" style=" background-color:white; color: black">ZATVORENO</option>
+                                    </select>
+                                </div>
+                          </div>
+				           
+                        <div class="row">
+                          <div class="col-sm-2"> 
+                            <label> Radno vreme: </label>
+                            </div>
+                              <div class="col-sm-5"> 
+                                <input type="text" class="form-control" v-model="place.workingTime" placeholder="od - do">
+                              </div>
+                        </div>
+				           
+                        <div class="row">
+                            <div class="col-sm-2"> 
+                              <label> Opis: </label>
+                              </div>
+                        <div class="col-sm-5"> 
+                          <textarea type="text" class="form-control"  v-model="place.description" placeholder="Opis"> </textarea>
+                          </div>
+                      </div>
+				           
+                      <div class="row">
+                            <div class="col-sm-2"> 
+                              <label> Logo: </label>
+                              </div>
+                            <div class="col-sm-5"> 
+                              <input type="file" onchange="encodeImageFileAsURL(this)" v-model="place.logo">
+                            </div>
+                      </div>
+                      
+				           <div class="row" style="margin-top: 3rem;">
+                      <div class="col-sm-2"> </div>
+				              <div class="col-sm-2"> 
+              				  <button type="button" class="btn btn-success" v-on:click="create">Sacuvaj </button> 
+				              </div>
+                        <div class="col-sm-2"> 
+                          <button type="button" class="btn btn-secondary" v-on:click="otkazi">Otkazi</button>
+                        </div>
 				           </div>
                                      
                               
@@ -141,8 +236,12 @@ template:
                     Izaberite koordinate na mapi:
                     <div id="map" class="map" style="width: 600px;height:400px;"> </div>
                      </div>  
- </div>
-   </div>
+             </div>
+        </div>
+   
+  
+  
+  </div>
 `,
 methods:{
     changeProfile: function(event){
@@ -166,36 +265,95 @@ methods:{
         console.log(error)
     })
     },
-        createPlace: function(event){
-        
-      event.preventDefault()
-      console.log(this.place.type),
-      console.log(this.place.status),
-      axios.post("/EliminacioniREST/rest/place/newPlace", {
-      "name" : ''+ this.place.name,
-      "type" : ''+ this.place.type,
-       "description" : ''+ this.place.description,
-       "status" : ''+ this.place.status,
-       "workingTime" : ''+ this.place.workingTime,
-        "street":''+ this.place.address.street, 
-      "number":''+ this.place.address.number, 
-      "city":''+ this.place.address.city, 
-      "longitude" : '' + this.place.address.longitude, 
-       "latitude" : '' + this.place.address.latitude, 
-      "zipCode":''+ this.place.address.zipCode,
-      
-       "logo" : ''+ this.place.logo,
-    
-      })
+     getAvailableManagers: function(){
+     
+      axios.get("/EliminacioniREST/rest/user/availableManagers")
       .then(
         response => {
-         router.push(`/`);
+          this.managers= response.data;
+          console.log(this.managers);
         } 
       )
       .catch(function(error){
         console.log(error)
     })
     },
+    
+      create: function(event){  
+      event.preventDefault()
+      console.log(this.place.type),
+      console.log(this.place.status)
+
+      if(this.managers.length != 0){
+        this.createPlace();
+      }
+      else {
+        this.createPlaceWithManager();
+      }
+      },
+
+      createPlace: function(){
+        axios.post("/EliminacioniREST/rest/place/newPlace", {
+		      "name" : ''+ this.place.name,
+		      "type" : ''+ this.place.type,
+		       "description" : ''+ this.place.description,
+		       "status" : ''+ this.place.status,
+		       "workingTime" : ''+ this.place.workingTime,
+		        "street":''+ this.place.address.street, 
+		      "number":''+ this.place.address.number, 
+		      "city":''+ this.place.address.city, 
+		      "longitude" : '' + this.place.address.longitude, 
+		       "latitude" : '' + this.place.address.latitude, 
+		      "zipCode":''+ this.place.address.zipCode,
+		      
+		       "logo" : ''+ this.place.logo,
+		       "managerId" : ''+ this.place.managerId,
+		    
+		      }).then(
+		        response => {
+		         router.push(`/`);
+		        } 
+		      ).catch(function(error){
+		        console.log(error)
+		    })
+      },
+
+      createPlaceWithManager:function(){
+        axios.post("/EliminacioniREST/rest/place/newPlaceWithNewManager", {
+          "name" : ''+ this.place.name,
+          "type" : ''+ this.place.type,
+          "description" : ''+ this.place.description,
+          "status" : ''+ this.place.status,
+          "workingTime" : ''+ this.place.workingTime,
+            "street":''+ this.place.address.street, 
+          "number":''+ this.place.address.number, 
+          "city":''+ this.place.address.city, 
+          "longitude" : '' + this.place.address.longitude, 
+          "latitude" : '' + this.place.address.latitude, 
+          "zipCode":''+ this.place.address.zipCode, 
+          "logo" : ''+ this.place.logo,
+          "managerName" : ''+ this.manager.managerName, 
+          "managerSurname" : ''+ this.manager.managerSurname, 
+          "managerUsername" : ''+ this.manager.managerUsername, 
+          "managerBirthday" : ''+ this.manager.managerBirthday,
+          "managerGender" : ''+ this.manager.gender,
+          "managerStreet" : ''+ this.manager.address.street,
+          "managerNumber" : ''+ this.manager.address.number,
+          "managerCity" : ''+ this.manager.address.city,
+          "managerZipCode" : ''+ this.manager.address.zipCode,
+        })
+        .then(
+          response => {
+          router.push(`/`);
+          } 
+        )
+        .catch(function(error){
+          console.log(error)
+      })
+      },
+
+
+
     otkazi: function(event){
       event.preventDefault()
       router.push(`/`);
@@ -237,10 +395,16 @@ methods:{
                 c[0].style.border = '4px solid lightgrey';
             })
         }
-      }
+      },
+    
+    openForm: function(){
+      this.form == true;
+    }
   
 },
 mounted(){
+	this.getAvailableManagers(),
+
    this.$nextTick(function () {
         this.init();
     })

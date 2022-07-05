@@ -22,10 +22,12 @@ import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import dto.NewPlaceDto;
+import dto.NewPlaceWithManagerDto;
 import enums.PlaceType;
 import enums.Status;
 import model.Address;
 import model.Place;
+import model.User;
 
 public class PlaceDao {
 
@@ -147,9 +149,8 @@ public class PlaceDao {
 	
 	public Place createPlace(NewPlaceDto newPlace) {
 		Place place = new Place(generateIdPlace(), newPlace.name, newPlace.type, newPlace.description,newPlace.status, newPlace.workingTime, new Address( newPlace.street,newPlace.number, newPlace.city, newPlace.longitude, newPlace.latitude, newPlace.zipCode), 
-				generateLink(newPlace.logo), 1);
+				generateLink(newPlace.logo), 1, newPlace.managerId);
 		this.places.put(place.getId(), place);
-		System.out.println("DAO ");
 		savePlaces();
 		return  getPlaceById(place.getId());
 	}
@@ -160,7 +161,7 @@ public class PlaceDao {
 		//C:\fakepath\20180717_155517.jpg
 		String path[] = link.split("fakepath");
 		ret = path[1].substring(1);
-		System.out.println(ret);
+		
 		return ret;
 	}
 	
@@ -194,16 +195,13 @@ public class PlaceDao {
 		return null;
 	}
 	
-	public void populateDatabase() {
-		
-		Address address = new Address("Bulevar oslobodjenja", 2, "Novi Sad", 0, 0, 21000);
-		
-		Place p1 = new Place(1, "Objekat1", PlaceType.BAZEN, "Opis", Status.OTVORENO, "24/7", address, "firstPhoto.jpg", 5);
-		Place p2 = new Place(2, "Objekat2", PlaceType.SPORTSKI_CENTAR, "Opis", Status.ZATVORENO, "24/7", address, "firstPhoto.jpg", 4);
-
-		getPlaces().put(1, p1);
-		getPlaces().put(2, p2);
-		
+	public Place createPlaceWithManager(NewPlaceWithManagerDto newPlace, User manager) {
+		Place place = new Place(generateIdPlace(), newPlace.name, newPlace.type, newPlace.description,newPlace.status, newPlace.workingTime, new Address( newPlace.street,newPlace.number, newPlace.city, newPlace.longitude, newPlace.latitude, newPlace.zipCode), 
+				generateLink(newPlace.logo), 1, manager.getUsername());
+		this.places.put(place.getId(), place);
 		savePlaces();
+		return  getPlaceById(place.getId());
 	}
+	
+
 }

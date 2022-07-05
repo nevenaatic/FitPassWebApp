@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import dao.PlaceDao;
 import dao.UserDao;
 import dto.NewPlaceDto;
+import dto.NewPlaceWithManagerDto;
 import dto.UserRegistrationDto;
 import model.Place;
 import model.User;
@@ -44,6 +45,16 @@ public class PlaceService {
 		return places;
 	}
 	
+	private UserDao getUsers() {
+		UserDao users = (UserDao)context.getAttribute("users");	
+		if (users == null) {	
+			String contextPath = context.getRealPath("");
+			users = new UserDao(contextPath);
+			context.setAttribute("users", users);	
+		}
+		return users;
+	}
+	
 	@GET
 	@Path("/getAllPlaces")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -58,23 +69,48 @@ public class PlaceService {
 		return ret;
 	}
 	
-	@POST
-	@Path("/populateDatabase")
-	@Produces(MediaType.TEXT_HTML)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void populateDatabase() {
-		PlaceDao places = getPlaces();
-		places.populateDatabase();											
-	}
+
 	
 	
 	@POST
 	@Path("/newPlace")
-	//@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void addNewPlace(NewPlaceDto newPlace) {
-		System.out.println("DODAJEM");
 		PlaceDao places = getPlaces();
-		places.createPlace(newPlace);											
+		UserDao users = getUsers();
+		User user = users.getUserByUsername(newPlace.managerId);
+		Place  place = places.createPlace(newPlace);
+		user.setPlace(place.getId());
+		users.saveUsers();
+	}
+	
+	
+	@POST
+	@Path("/newPlaceWithNewManager")
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addNewPlace(NewPlaceWithManagerDto newPlace) {
+		PlaceDao places = getPlaces();
+		UserDao users = getUsers();
+		if(users.getUserByUsername(newPlace.managerUsername) != null) {
+			 return Response.status(Response.Status.BAD_REQUEST)
+					 .build();
+		}else {
+			User user = users.saveNewManager(newPlace);
+			Place place = places.createPlaceWithManager(newPlace, user);
+			users.updateManagerPlace(user, place.getId());
+			 return Response.status(Response.Status.CREATED)
+					 .build();
+		}												
+	}
+	
+	@POST
+	@Path("/place")
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void findById(int id) {
+		PlaceDao places = getPlaces();
+		places.getPlaceById(id);											
 	}
 }

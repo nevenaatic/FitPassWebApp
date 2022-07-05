@@ -14,9 +14,16 @@ public class Place {
 	private Address address;
 	private String logo;
 	private double grade;
+	private String managerId;
 	
 	
 	
+	public String getManagerId() {
+		return managerId;
+	}
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
 	public int getId() {
 		return id;
 	}
@@ -72,7 +79,7 @@ public class Place {
 		this.grade = grade;
 	}
 	public Place(int id,String name, PlaceType type, String description, Status status, String workingTime, Address address,
-			String logo, double grade) {
+			String logo, double grade, String managerId) {
 		super();
 		this.id= id;
 		this.name = name;
@@ -83,6 +90,7 @@ public class Place {
 		this.address = address;
 		this.logo = logo;
 		this.grade = grade;
+		this.managerId= managerId;
 	}
 	public Place() {
 		super();

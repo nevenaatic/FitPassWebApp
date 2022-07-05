@@ -41,11 +41,11 @@ template: `
                                                     </select>
                                                     </div>
                                                 
-                                                <div class="col-lg-1 col-md-3 col-sm-12 btn-search">
+                                                <div class="col-lg-1 col-md-2 col-sm-5 btn-search">
                                                     <button type="button" class="btn btn-danger wrn-btn" v-on:click="pretrazi()">Pretrazi kombinovano</button>
                                                 </div>
-                                                 <div class="col-lg-1 col-md-2 col-sm-8 btn-search">
-                                                    <button type="button" class="btn btn-success wrn-btn" ><a href="#/objekat"> +</a> </button>
+                                                 <div class="col-lg-1 col-md-2 col-sm-8 btn-search" >
+                                                    <button type="button" style="margin-left: 5rem;" class="btn btn-success wrn-btn" ><a href="#/noviObjekat"> +</a> </button>
                                                 </div>
 					    </div>
 		</div>
@@ -56,15 +56,18 @@ template: `
 		            <div class=" tab-pane container active" style="margin-top: 3rem;">
 		            
 			            
-			                       <div v-for="p in places" :key="p.name" class="row"  >
-                          <div v-if="p.status == 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
+			             <div v-for="p in places" :key="p.name" class="row"  >
+                         	<div v-if="p.status == 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;" v-on:click="getSelected(p)">
                               <div class="col-picture">
                                   <div><img :src="'../pictures/'+p.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
                                   
                                 </div>
                               </div>
+                              
+                              
                           </div>
-                          <div v-if="p.status == 'OTVORENO'" class="col" style="margin-left: -30rem; margin-top: 3rem;">
+                         
+                          <div v-if="p.status == 'OTVORENO'" class="col" style="margin-left: 2rem; margin-top: 3rem;">
                               <h4 style="width: 600px;" class="text">Naziv: {{p.name}} </h4>
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
@@ -72,11 +75,23 @@ template: `
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
 			                
-			               
+			               <div class="col" v-if="p.status == 'OTVORENO'">
+			                        <div class="buttons btn-group-vertical">
+ <button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+			                            <button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="changeRestaurant" >Izmeni</button>
+			                            <button style="width:100px;  margin-top:10px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#brisanje" v-on:click="getSelected(place)" style="padding-top:10px;">Izbrisi</button>
+
+			                        </div>
+			                    </div>
+			                   
 			                
 		             </div>
+		             
+		             
 		               <hr/>
-		                   <div v-for="p in places" :key="p.name" class="row"  >
+		               
+		               
+		                 <div v-for="p in places" :key="p.name" class="row"  >
                           <div v-if="p.status != 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
                                   <div><img :src="'../pictures/'+p.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
@@ -84,14 +99,23 @@ template: `
                                 </div>
                               </div>
                           </div>
-                          <div v-if="p.status != 'OTVORENO'" class="col" style="margin-left: -30rem; margin-top: 3rem;">
+                          <div v-if="p.status != 'OTVORENO'" class="col" style="margin-left: 2rem; margin-top: 3rem;">
                               <h4 style="width: 600px;" class="text">Naziv: {{p.name}} </h4>
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
-                          <hr/>
+                          
+                             <div class="col" v-if="p.status != 'OTVORENO'">
+			                        <div class="buttons btn-group-vertical">
+ <button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+			                            <button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="changeRestaurant" >Izmeni</button>
+			                            <button style="width:100px;  margin-top:10px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#brisanje" v-on:click="getSelected(place)" style="padding-top:10px;">Izbrisi</button>
+
+			                        </div>
+			                    </div>
+                         
                     </div>
 		             
 		             
@@ -103,8 +127,9 @@ methods:{
         getSelected: function(place){
         this.selected= place;
         },
-        goToObjekt : function (idR) {
-           // this.$router.push({path: `/restoran`, query:{ id: idR}})
+        goToObject : function (idR) {
+        
+            this.$router.push({path: `/objekat`, query:{ id: idR}})
         },
         pretrazi: function(){
             axios.post('/EliminacioniREST/rest/place/searchPlaces', this.search)
