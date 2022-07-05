@@ -106,11 +106,10 @@ public class PlaceService {
 	}
 	
 	@POST
-	@Path("/place")
-	@Produces(MediaType.TEXT_HTML)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void findById(int id) {
+	@Path("/profile")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Place findById(String id) {
 		PlaceDao places = getPlaces();
-		places.getPlaceById(id);											
+		return places.getPlaceById(Integer.parseInt(id));											
 	}
 }
