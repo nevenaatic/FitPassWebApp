@@ -4,7 +4,7 @@ Vue.component("admin-placeProfile", {
             place:{}, 
            id: 0,
            previewMap: false,
-            
+            trainings :[]
         }
     },
 template: `
@@ -36,18 +36,41 @@ template: `
 			                
 			                <div class="col-sm-4">
 			                 <div id="popup" class="ol-popup">
-            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-            <div id="popup-content"></div>
+					            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+					            <div id="popup-content"></div>
+          					  </div>
+           						 <div id="map" class="map" v-if="previewMap" style="width: 500px;height:200px; margin-right:50px;margin-top:20px"></div>
+        					</div>
+        					
+        				 </div>
+        </div>
+        
+			      <div class="tab-pane fade in active">
+			       <div class="containerInfo">
+            <div class="tab-content">
+                <div class="panel">
+                    <div class="row-artical">
+                        <div class="column" v-for="training in trainings" >
+                            <div class="card" >
+                            <img v-bind:src="'../pictures/'+  training.image" style="height:280px !important; width:320px !important; margin-left: 1rem" >
+                                <div class="container">
+                                    <h2>{{training.name}}</h2>
+                                    <p class="title">{{training.type}}</p>
+                                    <p>Duration: {{training.duration}}min</p>
+                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
+                                    Opis: {{training.description}}</div>
+                                </div>
+                            </div>
+                        </div>
+                                  </div>
             </div>
-            <div id="map" class="map" v-if="previewMap" style="width: 500px;height:200px; margin-right:50px;margin-top:20px"></div>
-        </div> </div>
-			               
+        </div>
+                    </div>
+                </div>     
 			                
 		             </div>
 		               <hr/>
 		                 
-                    </div>  
-                    
                     
                     
 		             
@@ -148,7 +171,16 @@ mounted(){
       .catch(function(error){
           console.log(error)
       });
-     
+      
+     axios.post("/EliminacioniREST/rest/training/placeTrainings", this.id)
+      .then( response => {
+          this.trainings = response.data;
+          console.log(this.trainings)
+      
+      })
+      .catch(function(error){
+          console.log(error)
+      });
 
 }
 });

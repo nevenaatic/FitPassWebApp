@@ -112,5 +112,24 @@
     "logo" : "teretane-na-novom-beogradu-2.jpg",
     "grade" : 1.0,
     "managerId" : "nekiNovi"
+  },
+  "6" : {
+    "id" : 6,
+    "name" : "MICA",
+    "type" : "BAZEN",
+    "description" : "dvgsdvf",
+    "status" : "OTVORENO",
+    "workingTime" : "00-24",
+    "address" : {
+      "street" : "bhdhfvcudsnv",
+      "number" : 8,
+      "city" : "Bogatic Municipality",
+      "longitude" : 19.43,
+      "latitude" : 44.86,
+      "zipCode" : 15350
+    },
+    "logo" : "bazen.jpg",
+    "grade" : 1.0,
+    "managerId" : "menadzercic"
   }
 }

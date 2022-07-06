@@ -89,7 +89,7 @@ template:
                                       </div>
                               </div> 
 
-                              <div v-if="form" style="margin-left: 1rem; margin-bottom: 1rem; ">
+                              <div v-if="managers.length == 0"  style="margin-left: 1rem; margin-bottom: 1rem; ">
                                   <div class="row" >
                                       <div class="col-sm-2" style="background:whitesmoke; "> 
                                         <label> Ime: </label>

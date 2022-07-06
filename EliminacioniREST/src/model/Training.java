@@ -12,8 +12,21 @@ public class Training {
 	private String usernameCoach; //username jedinstven
 	private String description;
 	private String image;
+	private Boolean deleted;
 	
 	
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+	public int getIdTraining() {
+		return idTraining;
+	}
+	public void setIdTraining(int idTraining) {
+		this.idTraining = idTraining;
+	}
 	public String getName() {
 		return name;
 	}
@@ -56,9 +69,10 @@ public class Training {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public Training(String name, TrainingType type, int idPlace, int duration, String usernameCoach, String description,
-			String image) {
+	public Training(int id,String name, TrainingType type, int idPlace, int duration, String usernameCoach, String description,
+			String image, boolean deleted) {
 		super();
+		this.idTraining = id;
 		this.name = name;
 		this.type = type;
 		this.idPlace = idPlace;
@@ -66,6 +80,7 @@ public class Training {
 		this.usernameCoach = usernameCoach;
 		this.description = description;
 		this.image = image;
+		this.deleted = deleted;
 	}
 	public Training() {
 		super();

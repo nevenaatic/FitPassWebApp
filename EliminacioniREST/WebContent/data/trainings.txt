@@ -1,0 +1,17 @@
+{
+"0": {
+
+	"idTraining": 0,
+	"name": "Aqua aerobik",
+	"type": 0,
+	"idPlace": 1,
+	"duration": 60,
+	"usernameCoach": "trener",
+	"description": "Odlican sport za ljubitelje vode",
+	"image": "plesniStudio1.jpg",
+	"deleted": false
+}
+
+
+
+}
