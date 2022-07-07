@@ -77,7 +77,7 @@ template: `
 			                
 			               <div class="col" v-if="p.status == 'OTVORENO'">
 			                        <div class="buttons btn-group-vertical">
- <button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+ 										<button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
 			                            <button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="changeRestaurant" >Izmeni</button>
 			                            <button style="width:100px;  margin-top:10px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#brisanje" v-on:click="getSelected(place)" style="padding-top:10px;">Izbrisi</button>
 

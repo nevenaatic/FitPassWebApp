@@ -59,16 +59,22 @@ template: `
                                 </div>
                               </div>
                           </div>
-                          <div v-if="p.status == 'OTVORENO'" class="col" style="margin-left: -30rem; margin-top: 3rem;">
+                          <div v-if="p.status == 'OTVORENO'" class="col" style=" margin-top: 3rem;">
                               <h4 style="width: 600px;" class="text">Naziv: {{p.name}} </h4>
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
-                          <hr/>
+                          
+                              <div class="col" v-if="p.status == 'OTVORENO'">
+			                        <div class="buttons btn-group-vertical">
+ 										<button style="width:100px; margin-top:40px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+			                       </div>
+			                       </div>
+                        
                     </div>
-
+  <hr/>
                     <div v-for="p in places" :key="p.name" class="row"  >
                           <div v-if="p.status != 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
@@ -77,14 +83,21 @@ template: `
                                 </div>
                               </div>
                           </div>
-                          <div v-if="p.status != 'OTVORENO'" class="col" style="margin-left: -30rem; margin-top: 3rem;">
+                          <div v-if="p.status != 'OTVORENO'" class="col" style=" margin-top: 3rem;">
                               <h4 style="width: 600px;" class="text">Naziv: {{p.name}} </h4>
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
-                          <hr/>
+                          
+                          
+                           <div class="col" v-if="p.status != 'OTVORENO'">
+			                        <div class="buttons btn-group-vertical">
+ 										<button style="width:100px; margin-top:40px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+			                       </div>
+			                  </div>
+                           </div>
                     </div>
 
                     
@@ -172,7 +185,12 @@ methods:{
      this.places = tmpList4.slice()
       // console.log("\ntmpList: " + JSON.stringify(tmpList4))
       console.log("\nplaces: " + JSON.stringify(this.places))
-    }
+    },
+    
+     goToObject : function (idR) {
+        
+            this.$router.push({path: `/objekat`, query:{ id: idR}})
+        },
 },
 computed: {
     
