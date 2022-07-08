@@ -5,7 +5,8 @@ Vue.component("place-profile", {
            id: 0,
            previewMap: false,
             trainings :[],
-            articals: true
+            articals: true,
+            comments: []
         }
     },
 template: `
@@ -33,7 +34,7 @@ template: `
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{place.grade}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{place.status}} </h4>
                              
-                               <button type="button" class="btn btn-success" v-on:click="showComments()"   >Komentari</button>
+                               <button type="button" class="btn btn-success" v-on:click="showComments()" v-if="articals"  >Komentari</button>
                                 <button type="button" class="btn btn-outline-success"   v-on:click="previewMapChooseLocation()"><i></i>See on map</button>
                           </div>
 			                
@@ -74,7 +75,50 @@ template: `
              </div>
           </div>    
           
-           
+           	<div class="tab-pane fade in active" v-if="!articals">
+		  <div class="containerInfo">
+		  <div v-if="this.comments.length == 0" style="margin-top: 2rem; margin-left: 16%"> <h4> Nema komentara jos uvek </h4></div> 
+		  
+            <div class="tab-content">
+                <div class="panel">
+                    <div class="row-artical">
+                    		<div class="media" v-for="comment in comments" style=" margin-left: 12%">
+		<div> 
+		
+        	<div class="row" > 
+        	
+		        	<div class="col-sm-1">  <div class="media-left media-top" >
+			            <img src="pictures/korisnik.png" class="media-object" style="width:90px; height: 90px; margin-right: 1em;">
+			            </div>  
+			         </div> 
+		            
+	        	<div class="col-sm-7">
+			        	<div class="media-body" style="width: 40%; margin-left: 0.5em;">
+			         		   <div class="row"  >
+			            	 		 <div class=" col-sm-2 "> <h4 style="font-style: bold">{{comment.usernameCustomer}}  </h4>  </div>  
+			            	   </div>  
+					            <div class="row" >
+			             		
+			            	     <div class="col-sm-3" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
+			                     </div>
+          			  
+                  				  <div class="row" style=" margin-left: 0.1rem" ><p>{{comment.comment}}</p>
+                  			  </div>
+               		  </div> 
+        			 </div>
+        	
+        </div>  
+          
+   <hr/>
+        </div>
+          </div>
+    
+                       
+                       </div>
+            		</div>
+        		</div>
+             </div>
+          </div> 
 			                
 	</div>
 		              
@@ -82,12 +126,21 @@ template: `
 </div>   
 `,
 methods:{
-      
-      showComments: function(){
-      this.articals= false;
-      
-      },
-      
+
+     	showComments: function(){
+     	this.articals= false;
+		 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", this.id)
+      .then( response => {
+        
+       this.comments =response.data,
+       console.log("KOMENTARI")
+       console.log(this.comments)
+       
+      })
+      .catch(function(error){
+          console.log(error)
+      });
+		},
         init: function(){
             const map = new ol.Map({
                 target: 'map',

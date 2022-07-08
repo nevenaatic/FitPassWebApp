@@ -7,7 +7,16 @@ public class Comment {
 	private int idPlace;
 	private String comment;
 	private double grade; 
+	private Boolean deleted;  //ukoliko je odbijen ovo je true
 	private Boolean approved;
+	
+	
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 	public int getIdComment() {
 		return idComment;
 	}
@@ -45,7 +54,7 @@ public class Comment {
 		this.approved = approved;
 	}
 	public Comment(int idComment, String usernameCustomer, int idPlace, String comment, double grade,
-			Boolean approved) {
+			Boolean approved, Boolean deleted) {
 		super();
 		this.idComment = idComment;
 		this.usernameCustomer = usernameCustomer;
@@ -53,6 +62,7 @@ public class Comment {
 		this.comment = comment;
 		this.grade = grade;
 		this.approved = approved;
+		this.deleted=deleted;
 	}
 	public Comment() {
 		super();

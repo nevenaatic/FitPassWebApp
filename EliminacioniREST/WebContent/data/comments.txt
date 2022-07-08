@@ -1,0 +1,36 @@
+{
+"0": {
+"idComment": 0,
+"usernameCustomer" : "nevena",
+"idPlace": 1,
+"comment": "Sve je bilo savrseno, voda cista i topla. Dolazim svakog vikenda",
+"grade": 5,
+"approved": true,
+"deleted": false
+
+
+},
+"1": {
+"idComment": 0,
+"usernameCustomer" : "nevena",
+"idPlace": 1,
+"comment": "Nista ne valja",
+"grade": 2,
+"approved": false,
+"deleted": false
+
+
+},
+"2": {
+"idComment": 0,
+"usernameCustomer" : "nevena",
+"idPlace": 1,
+"comment": "Nista ne valja",
+"grade": 2,
+"approved": false,
+"deleted": true
+
+
+}
+
+}

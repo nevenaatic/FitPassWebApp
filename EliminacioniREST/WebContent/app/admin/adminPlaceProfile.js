@@ -4,7 +4,9 @@ Vue.component("admin-placeProfile", {
             place:{}, 
            id: 0,
            previewMap: false,
-            trainings :[]
+            trainings :[],
+            show: false,
+            comments: []
         }
     },
 template: `
@@ -31,7 +33,9 @@ template: `
                               <h4 style="width: 600px;" class="text">Lokacija: {{place.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{place.grade}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{place.status}} </h4>
-                              <button type="button" class="btn btn-success"   v-on:click="previewMapChooseLocation()"><i></i>See on map</button>
+                               <button type="button" class="btn btn-success" v-if="!show"  v-on:click="getComments()">Komentari</button>
+                               
+                              <button type="button" class="btn btn-outline-success"   v-on:click="previewMapChooseLocation()"><i></i>See on map</button>
                           </div>
 			                
 			                <div class="col-sm-4">
@@ -43,28 +47,86 @@ template: `
         					</div>
         					
         				 </div>
-        </div>
+       		 </div>
         
-			      <div class="tab-pane fade in active">
+			      <div class="tab-pane fade in active" >
+			      
+			      
 			       <div class="containerInfo">
-            <div class="tab-content">
-                <div class="panel">
-                    <div class="row-artical">
-                        <div class="column" v-for="training in trainings" >
-                            <div class="card" >
-                            <img v-bind:src="'../pictures/'+  training.image" style="height:280px !important; width:320px !important; margin-left: 1rem" >
-                                <div class="container">
-                                    <h2>{{training.name}}</h2>
-                                    <p class="title">{{training.type}}</p>
-                                    <p>Duration: {{training.duration}}min</p>
-                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
-                                    Opis: {{training.description}}</div>
-                                </div>
-                            </div>
-                        </div>
+			            <div class="tab-content" v-if="!show">
+			                <div class="panel">
+			                    <div class="row-artical">
+			                        <div class="column" v-for="training in trainings" >
+			                            
+			                            <div class="card" >
+			                            <img v-bind:src="'../pictures/'+  training.image" style="height:280px !important; width:320px !important; margin-left: 1rem" >
+			                                
+			                                <div class="container">
+			                                    <h2>{{training.name}}</h2>
+			                                    <p class="title">{{training.type}}</p>
+			                                    <p>Duration: {{training.duration}}min</p>
+			                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
+			                                    Opis: {{training.description}}</div>
+			                                </div>
+			                                
+			                            </div>
+			                            
+			                        </div>
+			                        
                                   </div>
-            </div>
+           					 </div>
+      					  </div>
+      					  
+      					     <div v-if="show">
+            
+                <div class="tab-content">
+		<div class="panel">
+		 <div class="row-artical" style="margin-top: 1rem">
+		 <div v-if="this.comments.length == 0" style="margin-top: 2rem; margin-left: 12%"> <h4> Nema komentara jos uvek </h4></div> 	                          
+		<div class="media" v-for="comment in comments" style=" margin-left: 12%">
+		<div> 
+		
+        	<div class="row" > 
+        	
+		        	<div class="col-sm-1">  <div class="media-left media-top" >
+			            <img src="../pictures/korisnik.png" class="media-object" style="width:90px; height: 90px; margin-right: 1em;">
+			            </div>  
+			         </div> 
+		            
+	        	<div class="col-sm-7">
+			        	<div class="media-body" style="width: 40%; margin-left: 0.5em;">
+			         		   <div class="row"  >
+			            	 		 <div class=" col-sm-2 "> <h4 style="font-style: bold">{{comment.usernameCustomer}}  </h4>  </div>  
+			            	   </div>  
+					            <div class="row" >
+			             		
+			            	     <div class="col-sm-3" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
+			                     </div>
+          			  
+                  				  <div class="row"  ><p>{{comment.comment}}</p>
+                  			  </div>
+               		  </div> 
+        			 </div>
+        	
+        </div>  
+          
+   <hr/>
         </div>
+          </div>
+    
+			                        
+									    
+								
+                          
+           					 </div>
+      					  </div>
+                    </div>
+              
+       
+               </div>      
+		             
+      					  <!-- ne znam sta je -->
+      					  
                     </div>
                 </div>     
 			                
@@ -72,13 +134,26 @@ template: `
 		               <hr/>
 		                 
                     
-                    
-		             
+           
 		             
 		             
 </div>   
 `,
 methods:{
+
+		getComments: function(){
+		 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", this.id)
+      .then( response => {
+        this.show=true;
+       this.comments =response.data,
+       console.log("KOMENTARI")
+       console.log(this.comments)
+       
+      })
+      .catch(function(error){
+          console.log(error)
+      });
+		},
       
         init: function(){
             const map = new ol.Map({
