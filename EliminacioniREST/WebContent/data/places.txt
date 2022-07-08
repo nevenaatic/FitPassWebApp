@@ -34,7 +34,7 @@
       "zipCode" : 21000
     },
     "logo" : "bazen.jpg",
-    "grade" : 5.0,
+    "grade" : 4.0,
     "managerId" : null
   },
   "2" : {

@@ -203,5 +203,9 @@ public class PlaceDao {
 		return  getPlaceById(place.getId());
 	}
 	
-
+public void updateGrade(int id, double grade) {
+	Place place= getPlaceById(id); 
+	place.setGrade(grade);
+	savePlaces();
+}
 }

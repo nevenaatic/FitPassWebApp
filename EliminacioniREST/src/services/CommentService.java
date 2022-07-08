@@ -116,14 +116,12 @@ public class CommentService {
 	
 	@POST
 	@Path("/approve")
-	//@Produces(MediaType.APPLICATION_JSON)
 	public void approve(String id) {
-	System.out.println("USLA U APPROVE");
 		CommentDao commentsDao = getComments();
+		PlaceDao placeDao = getPlaces();
 	 commentsDao.updateStatus(Integer.parseInt(id), "accept");
-	 System.out.println(id);
-	 
 	 Comment c= commentsDao.getById(Integer.parseInt(id));
+	  placeDao.updateGrade(c.getIdPlace(), commentsDao.updateGrade(c.getGrade(), c.getIdPlace()));
 	 System.out.println(c.getApproved());
 	
 }

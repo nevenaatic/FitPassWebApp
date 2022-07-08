@@ -34,5 +34,23 @@
     "grade" : 2.0,
     "deleted" : true,
     "approved" : false
+  },
+  "4" : {
+    "idComment" : 4,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "Nista ne valja",
+    "grade" : 2.0,
+    "deleted" : false,
+    "approved" : true
+  },
+  "5" : {
+    "idComment" : 5,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "FUL",
+    "grade" : 5.0,
+    "deleted" : false,
+    "approved" : true
   }
 }

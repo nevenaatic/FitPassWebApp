@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -23,13 +24,14 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import dto.NewCommentDto;
 import model.Comment;
+import model.Place;
 
 public class CommentDao {
 
 
 
 		private HashMap<Integer,Comment> comments;
-		
+		private static final DecimalFormat df = new DecimalFormat("0.00");
 		@Context
 		ServletContext context;
 		@Context
@@ -38,7 +40,7 @@ public class CommentDao {
 		public HashMap<Integer, Comment> getComments() {
 			return comments;
 		}
-		public void setPlaces(HashMap<Integer, Comment> comments) {
+		public void setComments(HashMap<Integer, Comment> comments) {
 			this.comments = comments;
 			
 		}
@@ -50,7 +52,7 @@ public class CommentDao {
 		}
 		
 		public CommentDao() {
-			this.setPlaces(new HashMap<Integer, Comment>());
+			this.setComments(new HashMap<Integer, Comment>());
 			loadComments();
 		}
 		
@@ -167,6 +169,35 @@ public class CommentDao {
 			return  getValues();
 			
 		}
+		
+		public void createComment(Comment comment) {
+			this.comments.put(generateId(), comment);
+			saveComments();
+		}
+		
+		public double updateGrade(double grade, int placeId) {
+			Collection<Comment> comments = getValues();
+			double gradePlace = 0;
+			ArrayList<Comment> placeComments = new ArrayList<Comment>();
+			for(Comment c: comments) {
+				if(c.getIdPlace() == placeId && c.getApproved() && !c.getDeleted()) {
+					placeComments.add(c);
+				}
+			}
+			if(!placeComments.isEmpty()) {
+				double  sum= 0;
+				double size = placeComments.size();
+				for(Comment c : placeComments) {
+					sum +=c.getGrade();
+				}
+				gradePlace = Double.parseDouble(df.format(sum/size));
+				
+			} else {
+				gradePlace = grade;
+			}
+			return gradePlace;
+		}
+		
 		
 		public Comment getById(int id) {
 			this.loadComments();
