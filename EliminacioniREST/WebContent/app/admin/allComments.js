@@ -36,13 +36,13 @@ template: `
         			 </div>
         	<div class="col-sm-3">
         	<div class="row" >
-        	<button style="width: 40%; margin-bottom: 0.2rem" type="button" class="btn btn-secondary" v-if="!comment.approved && !comment.deleted"" v-on:click="changeStatus(comment.id)" >Odobri</button>  
+        	<button style="width: 40%; margin-bottom: 0.2rem" type="button" class="btn btn-secondary" v-if="!comment.approved && !comment.deleted"" v-on:click="approve(comment.idComment)" >Odobri</button>  
         	 </div>
         	 <div class="row">
-        	<button style="width: 40%" type="button" class="btn btn-danger" v-if="!comment.approved && !comment.deleted" v-on:click="changeStatus(comment.id)" >Odbij</button>  
+        	<button style="width: 40%" type="button" class="btn btn-danger" v-if="!comment.approved && !comment.deleted" v-on:click="reject(comment.idComment)" >Odbij</button>  
         	 </div>
         	  <div class="row" v-if="comment.deleted">
-        	<label style="color: red"> UNACCEPTED</label>
+        	<label style="color: red"> REJECTED</label>
         	 </div>
         	  </div>
         </div>  
@@ -76,10 +76,33 @@ template: `
         })
     },
     methods : {
-		changeStatus(id){
-            axios.post("/WebShopREST/rest/comments/approveComment", id)
+    
+    getAllComments:function(){
+     axios.get("/EliminacioniREST/rest/comment/getAllComments")
+        .then( response => {
+            this.allComments = response.data
+                console.log(this.allComments)
+                console.log(this.allComments[0].placeName)
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    },
+    
+		approve(id){
+            axios.post("/EliminacioniREST/rest/comment/approve", id)
             .then( response => {
-                this.allComments = response.data
+            console.log(response);
+                this.allComments = this.getAllComments()
+            })
+            .catch(function(error){
+                console.log(error)
+            })  
+        },
+        	reject(id){
+            axios.post("/EliminacioniREST/rest/comment/reject", id)
+            .then( response => {
+                this.allComments = this.getAllComments()
             })
             .catch(function(error){
                 console.log(error)

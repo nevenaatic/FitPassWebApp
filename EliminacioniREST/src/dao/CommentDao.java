@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -106,7 +107,7 @@ public class CommentDao {
 		}
 		
 		//ucitavanje sportskih objekata u fajl
-		public void savePlaces() {
+		public void saveComments() {
 			
 			File f = new File("WebContent/data/comments.txt");
 			FileWriter fileWriter = null;
@@ -152,5 +153,28 @@ public class CommentDao {
 	            }
 	        }
 	        return ret;
+		}
+		
+		
+		public Collection<Comment> updateStatus(int id, String type){
+			Comment comment = getById(id);
+			if(type.equals("reject")) {
+				comment.setDeleted(true);
+			} else if(type.equals("accept")) {
+				comment.setApproved(true);
+			}
+			saveComments();
+			return  getValues();
+			
+		}
+		
+		public Comment getById(int id) {
+			this.loadComments();
+			for(Comment c: getValues()) {
+				if(c.getIdComment() == id) {
+					return c;
+				}
+			}
+			return null;
 		}
 }

@@ -113,4 +113,27 @@ public class CommentService {
 		return ret;
 	
 }
+	
+	@POST
+	@Path("/approve")
+	//@Produces(MediaType.APPLICATION_JSON)
+	public void approve(String id) {
+	System.out.println("USLA U APPROVE");
+		CommentDao commentsDao = getComments();
+	 commentsDao.updateStatus(Integer.parseInt(id), "accept");
+	 System.out.println(id);
+	 
+	 Comment c= commentsDao.getById(Integer.parseInt(id));
+	 System.out.println(c.getApproved());
+	
+}
+	
+	@POST
+	@Path("/reject")
+	//@Produces(MediaType.APPLICATION_JSON)
+	public void reject(String id) {
+		ArrayList<CommentDto> ret = new ArrayList<CommentDto>();
+		CommentDao commentsDao = getComments();
+		 commentsDao.updateStatus(Integer.parseInt(id), "reject");
+}
 }

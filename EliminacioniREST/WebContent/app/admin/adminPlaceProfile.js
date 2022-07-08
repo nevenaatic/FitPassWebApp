@@ -83,7 +83,7 @@ template: `
 		<div class="panel">
 		 <div class="row-artical" style="margin-top: 1rem">
 		 <div v-if="this.comments.length == 0" style="margin-top: 2rem; margin-left: 12%"> <h4> Nema komentara jos uvek </h4></div> 	                          
-		<div class="media" v-for="comment in comments" style=" margin-left: 12%">
+		<div class="media" v-for="comment in comments" style=" margin-left: 14%">
 		<div> 
 		
         	<div class="row" > 
@@ -114,15 +114,9 @@ template: `
         </div>
           </div>
     
-			                        
-									    
-								
-                          
            					 </div>
       					  </div>
                     </div>
-              
-       
                </div>      
 		             
       					  <!-- ne znam sta je -->
@@ -130,8 +124,8 @@ template: `
                     </div>
                 </div>     
 			                
-		             </div>
-		               <hr/>
+		        </div>
+		      <hr/>
 		                 
                     
            

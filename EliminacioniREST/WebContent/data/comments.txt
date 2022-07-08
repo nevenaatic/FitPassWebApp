@@ -1,36 +1,38 @@
 {
-"0": {
-"idComment": 0,
-"usernameCustomer" : "nevena",
-"idPlace": 1,
-"comment": "Sve je bilo savrseno, voda cista i topla. Dolazim svakog vikenda",
-"grade": 5,
-"approved": true,
-"deleted": false
-
-
-},
-"1": {
-"idComment": 0,
-"usernameCustomer" : "nevena",
-"idPlace": 1,
-"comment": "Nista ne valja",
-"grade": 2,
-"approved": false,
-"deleted": false
-
-
-},
-"2": {
-"idComment": 0,
-"usernameCustomer" : "nevena",
-"idPlace": 1,
-"comment": "Nista ne valja",
-"grade": 2,
-"approved": false,
-"deleted": true
-
-
-}
-
+  "0" : {
+    "idComment" : 0,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "Sve je bilo savrseno, voda cista i topla. Dolazim svakog vikenda",
+    "grade" : 5.0,
+    "deleted" : false,
+    "approved" : true
+  },
+  "1" : {
+    "idComment" : 1,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "Nista ne valja",
+    "grade" : 2.0,
+    "deleted" : false,
+    "approved" : false
+  },
+  "2" : {
+    "idComment" : 2,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "Nista ne valja",
+    "grade" : 2.0,
+    "deleted" : true,
+    "approved" : false
+  },
+  "3" : {
+    "idComment" : 3,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "Grozno",
+    "grade" : 2.0,
+    "deleted" : true,
+    "approved" : false
+  }
 }
