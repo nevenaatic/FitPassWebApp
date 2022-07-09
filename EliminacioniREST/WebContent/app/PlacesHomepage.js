@@ -44,8 +44,80 @@ template: `
                          
                             </tr>
                         </table>
+		<div class="container">
+    		<!-- filtriranje -->
+                  <table style= " margin-left:-20px;">
+                <tr> 
 
-    
+                    <td>  </td> 
+                    <td style= "font-size: 16px;"> Filtrirajte sportske objekte po tipu:  </td> 
+                    <td>
+                    <div class="dropdown"> <button class="btn btn-secondary dropdown-toggle"  id="dropdownMenuButton" type="button" data-toggle="dropdown" style= "margin-left:10%;" aria-haspopup="true" aria-expanded="false">
+                            Tip objekta
+                            </button>
+            
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+                            <button class="dropdown-item" type="button" v-on:click="filterType('TERETANA')">TERETANA</button>
+                            <button class="dropdown-item" type="button" v-on:click="filterType('BAZEN')">BAZEN</button>
+                            <button class="dropdown-item" type="button" v-on:click="filterType('PLESNI_STUDIO')">PLESNI STUDIO</button>
+							<button class="dropdown-item" type="button" v-on:click="filterType('SPORTSKI_CENTAR')">SPORTSKI CENTAR</button>
+
+                            </span>
+                       </div>
+                            </td> 
+
+
+                        <td>  </td> 
+                        <td>  </td> 
+                        <td>  </td> 
+                        <td  style= "font-size: 16px; padding-left:20px;"> ili po statusu:  </td> 
+                        <td>
+                        <div class="dropdown"> 
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"  id="dropdownMenu2" style="margin-left:20%; margin-top:20%;" aria-haspopup="true" aria-expanded="false" >
+                           	Status
+                            </button>
+            
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenu2" >
+                            <button class="dropdown-item" type="button" v-on:click="filterStatus('OTVORENO')">OTVORENO</button>
+                            <button class="dropdown-item" type="button" v-on:click="filterStatus('ZATVORENO')">ZATVORENO</button>
+                          </span>
+                          </div>
+                        </td>
+                      <td style="width:50px;"> </td>
+        <td><button class="btn btn-secondary" type="button"  v-if="check" v-on:click="reset()">x</button> </td> 
+                      
+                </tr>
+
+            </table>
+
+			<!-- sortiranje --> 
+               <table style= " margin-left:-20px; margin-bottom: 3em;">
+                <tr> 
+
+                    <td>  </td> 
+                    <td style= "font-size: 16px;"> Sortiranje sportskih objekata po nekom od zadatih kriterijuma:  </td> 
+                    <td> 
+                    <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownMenuSort" style= "margin-left:10%; margin-top:10%" >
+                            Sortiraj
+                            </button>
+            
+                            <span class="dropdown-menu" aria-labelledby="dropdownMenuSort" >
+                            <button class="dropdown-item" type="button" v-on:click="sortNameAsc()">Naziv rastuce</button>
+                            <button class="dropdown-item" type="button" v-on:click="sortNameDesc()">Naziv opadajuce</button>
+                            <button class="dropdown-item" type="button" v-on:click="sortLocationAsc()">Lokacija rastuce</button>
+                            <button class="dropdown-item" type="button" v-on:click="sortLocationDesc()">Lokacija opadajuce</button>
+                            <button class="dropdown-item" type="button" v-on:click="sortGradeameAsc()">Ocena rastuce</button>
+                            <button class="dropdown-item" type="button" v-on:click="sortGradeDesc()">Ocena opadajuce</button>
+                            </span>
+
+                            </div>
+                        </td> 
+      
+                </tr>
+				<tr> </tr>
+            </table>  
+		</div>
               
             
             <div  style="margin-left: -15rem; margin-top: 3rem;"> 
@@ -199,6 +271,89 @@ methods:{
         
             this.$router.push({path: `/objekat`, query:{ id: idR}})
         },
+
+    filterStatus: function (status){
+        this.places = this.places.filter(place => place.status === status);
+        
+        this.check = true
+    },
+    
+    filterType: function (type){
+        this.places = this.places.filter(place => place.type === type);
+        
+        this.check = true
+    },
+    reset: function(){
+
+	this.places = this.allPlaces
+	this.check = false
+    
+    },
+    sortNameAsc: function() {
+        function compare(a, b) {
+          if (a.name < b.name)
+            return -1;
+          if (a.name > b.name)
+            return 1;
+          return 0;
+        }
+
+        return this.places.sort(compare);
+    }, 
+    sortNameDesc: function() {
+        function compare(a, b) {
+          if (a.name < b.name)
+            return 1;
+          if (a.name > b.name)
+            return -1;
+          return 0;
+        }
+        
+        return this.places.sort(compare);
+    },
+        sortLocationAsc: function() {
+        function compare(a, b) {
+          if (a.address.city < b.address.city)
+            return -1;
+          if (a.address.city > b.address.city)
+            return 1;
+          return 0;
+        }
+
+        return this.places.sort(compare);
+    }, 
+    sortLocationDesc: function() {
+        function compare(a, b) {
+          if (a.address.city < b.address.city)
+            return 1;
+          if (a.address.city > b.address.city)
+            return -1;
+          return 0;
+        }
+        
+        return this.places.sort(compare);
+    },
+        sortGradeAsc: function() {
+        function compare(a, b) {
+          if (a.grade < b.grade)
+            return -1;
+          if (a.grade > b.grade)
+            return 1;
+          return 0;
+        }
+
+        return this.place.sort(compare);
+    }, 
+    sortGradeDesc: function() {
+        function compare(a, b) {
+          if (a.grade < b.grade)
+            return 1;
+          if (a.grade > b.grade)
+            return -1;
+          return 0;
+        } 
+        return this.places.sort(compare);
+    }
 },
 computed: {
     
