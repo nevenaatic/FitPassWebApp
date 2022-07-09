@@ -32,6 +32,7 @@ template: `
                               <h4 style="width: 600px;" class="text">Tip objekta: {{place.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{place.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{place.grade}} </h4>
+							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{place.status}} </h4>
                              
                                <button type="button" class="btn btn-success" v-on:click="showComments()" v-if="articals"  >Komentari</button>

@@ -67,6 +67,7 @@ template: `
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
+							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
 			                
@@ -87,6 +88,7 @@ template: `
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
+							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
                           <hr/>

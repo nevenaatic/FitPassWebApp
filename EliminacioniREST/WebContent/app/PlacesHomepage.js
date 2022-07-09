@@ -51,7 +51,7 @@ template: `
             <div  style="margin-left: -15rem; margin-top: 3rem;"> 
                <div class=" tab-pane container active">
 
-                    <div v-for="p in places" :key="p.name" class="row"  >
+                    <div v-for="p in places" :key="'A' + p.name" class="row"  >
                           <div v-if="p.status == 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
                                   <div><img :src="'pictures/'+p.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
@@ -64,7 +64,9 @@ template: `
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
+							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
+							
                           </div>
                           
                               <div class="col" v-if="p.status == 'OTVORENO'">
@@ -75,7 +77,7 @@ template: `
                         
                     </div>
   <hr/>
-                    <div v-for="p in places" :key="p.name" class="row"  >
+                    <div v-for="p in places" :key="'B' + p.name" class="row"  >
                           <div v-if="p.status != 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
                                   <div><img :src="'pictures/'+p.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
@@ -88,6 +90,7 @@ template: `
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{p.grade}} </h4>
+							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
                           
@@ -127,14 +130,15 @@ methods:{
       var tmpList1 = []
       // if(this.search.name) {
         for (let i = 0; i < this.allPlaces.length; i++) {
-          console.log("this.allPlaces[i].name.toLowerCase()" + this.allPlaces[i].name.toLowerCase())
-          console.log(this.search.name)
+/*          console.log("this.allPlaces[i].name.toLowerCase()" + this.allPlaces[i].name.toLowerCase())
+          console.log(this.search.name)*/
             if (this.allPlaces[i].name.toLowerCase().includes(this.search.name)) {
-              console.log("\nIDEMOOOO" + JSON.stringify(this.allPlaces[i]))
+/*              console.log("\nIDEMOOOO" + JSON.stringify(this.allPlaces[i]))*/
                 tmpList1.push(this.allPlaces[i])
-              console.log("\nIDEMOOOO222222" + JSON.stringify(tmpList1))
+/*              console.log("\nIDEMOOOO222222" + JSON.stringify(tmpList1))*/
             }
         }
+		console.log("tmpList1:		" + tmpList1)
         // places.push(tmpList.slice())
       // }
 
@@ -145,6 +149,7 @@ methods:{
                 tmpList2.push(tmpList1[i])
             }
         }
+		console.log("tmpList2:		" + tmpList2)
         // places.push(tmpList.slice())
       // }
 
@@ -156,7 +161,7 @@ methods:{
       var check = ""
       if(this.search.type == 0) check="TERETANA"
       if(this.search.type == 1) check="BAZEN"
-      if(this.search.type == 2) check="PLESNI_STUDIOS"
+      if(this.search.type == 2) check="PLESNI_STUDIO"
       if(this.search.type == 3) check="SPORTSKI_CENTAR"
         for (let i = 0; i < tmpList2.length; i++) {
             console.log("\ntmpList2[i].type: " + tmpList2[i].type)
@@ -167,6 +172,7 @@ methods:{
         }
       //   // places.push(tmpList.slice())
        }
+		console.log("tmpList3:		" + tmpList3)
 
       var tmpList4 = tmpList3.slice()
        if(this.search.grade != -1) {
@@ -180,6 +186,8 @@ methods:{
         }
       //   // places.push(tmpList.slice())
       }
+
+	console.log("tmpList4:		" + tmpList4)
 
 
      this.places = tmpList4.slice()
