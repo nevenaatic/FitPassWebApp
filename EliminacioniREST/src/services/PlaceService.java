@@ -69,8 +69,18 @@ public class PlaceService {
 		return ret;
 	}
 	
-
+	@GET
+	@Path("/myPlace")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Place getManagerPlace() {
+		PlaceDao places = getPlaces();
+		User userSesion = (User)request.getSession().getAttribute("loginUser");	
+		
+		 return places.getPlaceById(userSesion.getPlace());
 	
+	}
+	
+
 	
 	@POST
 	@Path("/newPlace")

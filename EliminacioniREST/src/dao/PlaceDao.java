@@ -185,6 +185,7 @@ public class PlaceDao {
 		loadPlaces("");
 		return places.values();
 	}
+	
 	public Place getPlaceById(int id) {
 		this.loadPlaces("");
 		for (Place place : getValues()) {

@@ -18,6 +18,9 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import dto.NewTrainingDto;
+import enums.TrainingType;
+import model.Comment;
 import model.Training;
 import model.User;
 
@@ -138,13 +141,44 @@ public class TrainingDao {
 	public Collection<Training> getTrainingsForPlace(int id){
 		ArrayList<Training> ret= new ArrayList<Training>();
 		for(Training t : getValues()) {
-			if(t.getIdPlace() == id) {
+			if(t.getIdPlace() == id && !t.getDeleted()) {
 				ret.add(t);
 			}
 		}
 		return ret;	
 	}
 	
+	public void createTraining(NewTrainingDto training) {
+		Training newTraining = new Training(generateId(), training.name, training.type, training.idPlace, training.duration, training.coachUsername, training.description, training.image,false );
+		this.trainings.put(newTraining.getIdTraining(), newTraining);
+		saveTrainings();
 	
+	}
+	
+	public boolean checkName(String name) {
+		boolean ret = false;
+		for(Training t : getValues()) {
+			if(t.getName().toLowerCase().equals(name.toLowerCase())) {
+				ret = true;
+			}
+		}
+		return ret;
+	}
+
+	private int generateId() {
+		int ret = 0;
+        for (Training trainingBig : this.getValues())
+        {
+            for (Training training : this.getValues())
+            {
+                if (ret == training.getIdTraining())
+                {
+                    ++ret;
+                    break;
+                }
+            }
+        }
+        return ret;
+	}
 	
 }
