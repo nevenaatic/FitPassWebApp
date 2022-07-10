@@ -15,11 +15,12 @@ public class Membership {
 	private double price;
 	private String usernameCustomer;
 	private MembershipStatus membershipStatus;
+	private int placeId; //objekat na koji se odnosi
 	
 	private int numberOfTerms; //dnevni broj termina, moze biti neogranicen, mozda bi mogao enum?
 
 	public Membership(String id, MembershipType type, Date paidDate, Date dateValidFrom, Date dateValidTo, double price,
-			String usernameCustomer, MembershipStatus membershipStatus, int numberOfTerms) {
+			String usernameCustomer, MembershipStatus membershipStatus, int numberOfTerms, int placeId) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -30,6 +31,15 @@ public class Membership {
 		this.usernameCustomer = usernameCustomer;
 		this.membershipStatus = membershipStatus;
 		this.numberOfTerms = numberOfTerms;
+		this.placeId = placeId;
+	}
+	
+	public int getPlaceId() {
+		return placeId;
+	}
+
+	public void setPlaceId(int placeId) {
+		this.placeId = placeId;
 	}
 
 	public String getId() {

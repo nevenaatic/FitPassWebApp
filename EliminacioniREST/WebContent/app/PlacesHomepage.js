@@ -145,7 +145,7 @@ template: `
 			                        <div class="buttons btn-group-vertical">
  										<button style="width:100px; margin-top:40px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
 			                       </div>
-			                       </div>
+			                  </div>
                         
                     </div>
   <hr/>

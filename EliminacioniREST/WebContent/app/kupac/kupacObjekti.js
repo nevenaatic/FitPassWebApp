@@ -62,7 +62,7 @@ template: `
                                 </div>
                               </div>
                           </div>
-                          <div v-if="p.status == 'OTVORENO'" class="col" style="margin-left: -30rem; margin-top: 3rem;">
+                          <div v-if="p.status == 'OTVORENO'" class="col" style="margin-top: 3rem;">
                               <h4 style="width: 600px;" class="text">Naziv: {{p.name}} </h4>
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
@@ -70,15 +70,21 @@ template: `
 							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
+
+			               <div class="col" v-if="p.status == 'OTVORENO'">
+			                        <div class="buttons btn-group-vertical">
+ 										<button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+			                        </div>
+			               </div>
 			                
 			                 <hr/>
 			                
 		             </div>
 		             
-		                   <div v-for="p in places" :key="p.name" class="row"  >
+		             <div v-for="p in places" :key="p.name" class="row"  >
                           <div v-if="p.status != 'OTVORENO'" class = "col" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
-                                  <div><img :src="'../pictures/'+p.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
+                                <div><img :src="'../pictures/'+p.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
                                   
                                 </div>
                               </div>
@@ -91,6 +97,12 @@ template: `
 							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{p.status}} </h4>
                           </div>
+
+			               <div class="col" v-if="p.status != 'OTVORENO'">
+			                        <div class="buttons btn-group-vertical">
+ 										<button style="width:100px; margin-top:10px;" type="button" class="btn btn-secondary" v-on:click="goToObject(p.id)" >Prikazi</button>
+			                        </div>
+			                    </div>
                           <hr/>
                     </div>
 		             
@@ -103,8 +115,9 @@ methods:{
         getSelected: function(place){
         this.selected= place;
         },
-        goToObjekt : function (idR) {
-           // this.$router.push({path: `/restoran`, query:{ id: idR}})
+        goToObject : function (idR) {
+        
+            this.$router.push({path: `/objekat`, query:{ id: idR}})
         },
         pretrazi: function(){
             axios.post('/EliminacioniREST/rest/place/searchPlaces', this.search)
