@@ -3,7 +3,7 @@ const AllUsersComponent = {template: '<allUsers-manager></allUsers-manager>'}
 const AdminProfileComponent = {template: '<admin-profile></admin-profile>'}
 const AdminEditProfileComponent = {template: '<admin-editProfile></admin-editProfile>'}
 const PlaceCoachesComponent = {template: '<place-coaches></place-coaches>'}
-const TrainingsComponent = {template: '<manager-trainings></manager-trainings>'}
+const CommentComponent = {template: '<manager-comment></manager-comment>'}
 const EditPlaceComponent = {template: '<edit-training></edit-training>'}
 const AddTrainingComponent = {template: '<add-training></add-training>'}
 
@@ -16,7 +16,7 @@ const router = new VueRouter({
         {path : '/izmeniProfil', component: AdminEditProfileComponent}, //izmena profila
        {path : '/musterije', component: AllUsersComponent}, //svi korisnici,
         {path : '/treneri', component: PlaceCoachesComponent}, //svi treneri koji su u tom objektu
-       {path : '/treninzi', component: TrainingsComponent}, //svi dostupni treninzi u objektu
+       {path : '/komentari', component: CommentComponent}, 
        {path : '/izmeniTrening', component: EditPlaceComponent}, 
        {path : '/dodajTrening', component: AddTrainingComponent}, 
     ]

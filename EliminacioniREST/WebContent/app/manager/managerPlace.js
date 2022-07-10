@@ -5,7 +5,7 @@ Vue.component("place-manager", {
       	trainings: [],
       	comments: [],
       	show: false,
-      
+      com: false,
       	editedPlace : {},
       	training : {}
         }
@@ -32,7 +32,7 @@ template: `
                               <h4 style="width: 600px;" class="text">Lokacija: {{place.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{place.grade}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{place.status}} </h4>
-                               <button type="button" class="btn btn-success" v-if="!show"  v-on:click="getComments(place.id)">Komentari</button>
+                            <!--   <button type="button" class="btn btn-success" v-if="!show"  v-on:click="getComments(place.id)">Komentari</button> -->
                                 <!-- <button type="button" class="btn btn-secondary" v-if="!show"  v-on:click="editPlace()">Izmeni</button> -->
                                <button type="button" class="btn btn-secondary"  v-on:click="addTraining()">Dodaj trening</button>
                           </div>
@@ -64,62 +64,17 @@ template: `
 			                            </div>
 			                            
 			                        </div>
-			                        
+			                         
+                                
                                   </div>
+                                 
            					 </div>
-      					
+           					  
+           					 
+           					
       					  
-      	<!--   komentari --> 
-      					  
-      				<div v-if="show">
-            
-                <div class="tab-content">
-					<div class="panel">
-					 <div class="row-artical" style="margin-top: 1rem">
-					 <div v-if="this.comments.length == 0" style="margin-top: 2rem; margin-left: 12%"> <h4> Nema komentara jos uvek </h4></div> 	                          
-					<div class="media" v-for="comment in comments" style=" margin-left: 14%">
-					<div> 
-		
-			        	<div class="row" > 
-			        	
-					        	<div class="col-sm-1">  <div class="media-left media-top" >
-						            <img src="../pictures/korisnik.png" class="media-object" style="width:90px; height: 90px; margin-right: 1em;">
-						            </div>  
-						         </div> 
-					            
-				        	<div class="col-sm-7">
-						        	<div class="media-body" style="width: 40%; margin-left: 0.5em;">
-						         		   <div class="row"  >
-						            	 		 <div class=" col-sm-2 "> <h4 style="font-style: bold">{{comment.usernameCustomer}}  </h4>  </div>  
-						            	   </div>  
-								            <div class="row" >
-						             		
-						            	     <div class="col-sm-3" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
-						                     </div>
-			          			  
-			                  				  <div class="row"  ><p>{{comment.comment}}</p>
-			                  			  </div>
-			               		  </div> 
-			        			 </div>
-						        	
-						        </div>  
-						          
-						  	 <hr/>
-			 		       </div>
-			          </div>
-			    
-           			 </div>
-      				</div>
-                    </div>
-               </div>      
-		             
-      					  <!-- ne znam sta je -->
-      					  
-                    </div>
-                </div>     
-			                
-		        </div>
-		      <hr/>
+    
+             
 		                 
 	</div>  
 			             
@@ -127,27 +82,28 @@ template: `
 `,
 methods:{
 
-addTraining: function(){
+		addTraining: function(){
 	
-	   this.$router.push({path: `/dodajTrening`, query:{ id: this.place.id}})
-		},
+	  	 this.$router.push({path: `/dodajTrening`, query:{ id: this.place.id}})
+			},
 
-edit: function(idR){
- 		this.$router.push({path: `/izmeniTrening`, query: { id: idR }})
-		},
+		edit: function(idR){
+	 		this.$router.push({path: `/izmeniTrening`, query: { id: idR }})
+			},
 
 		getComments: function(id){
-		 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", id)
-      .then( response => {
-        this.show=true;
-       this.comments =response.data,
-       console.log("KOMENTARI")
-       console.log(this.comments)
-       
-      })
-      .catch(function(error){
-          console.log(error)
-      });
+			 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", id)
+	      .then( response => {
+	        this.show=true;
+	        this.com= true
+	       this.comments =response.data,
+	       console.log("KOMENTARI")
+	       console.log(this.comments)
+	       
+	      })
+	      .catch(function(error){
+	          console.log(error)
+	      });
 		},
 		getTrainings: function(id){
  			axios.post("/EliminacioniREST/rest/training/placeTrainings", id)

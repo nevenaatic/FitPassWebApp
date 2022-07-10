@@ -183,5 +183,18 @@ public class UserService {
 		 }
 	
 	
+	@POST
+	@Path("/getCoachesForPlace")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getCoachesForObject(String placeId) {
+		UserDao users = getUsers();
+		ArrayList<User> ret = new ArrayList<User>();
+		for(User u: users.getValues()) {
+			if(u.getPlace() == Integer.parseInt(placeId)) {
+				ret.add(u);
+			}
+		}
+		return ret;
+	}
 	
 }

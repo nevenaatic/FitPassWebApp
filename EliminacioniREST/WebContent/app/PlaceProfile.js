@@ -83,7 +83,7 @@ template: `
                 <div class="panel">
                     <div class="row-artical">
                     		<div class="media" v-for="comment in comments" style=" margin-left: 12%">
-		<div> 
+									<div> 
 		
         	<div class="row" > 
         	
@@ -93,13 +93,13 @@ template: `
 			         </div> 
 		            
 	        	<div class="col-sm-7">
-			        	<div class="media-body" style="width: 40%; margin-left: 0.5em;">
+			        	<div class="media-body" style="width: 20rem; margin-left: 0.5em;">
 			         		   <div class="row"  >
 			            	 		 <div class=" col-sm-2 "> <h4 style="font-style: bold">{{comment.usernameCustomer}}  </h4>  </div>  
 			            	   </div>  
 					            <div class="row" >
 			             		
-			            	     <div class="col-sm-3" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
+			            	     <div class="col-sm-6" > <span v-for="g in comment.grade" > <span class="fa fa-star checked"></span></span> </div>
 			                     </div>
           			  
                   				  <div class="row" style=" margin-left: 0.1rem" ><p>{{comment.comment}}</p>
@@ -128,18 +128,18 @@ template: `
 methods:{
 
      	showComments: function(){
-     	this.articals= false;
-		 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", this.id)
-      .then( response => {
-        
-       this.comments =response.data,
-       console.log("KOMENTARI")
-       console.log(this.comments)
-       
-      })
-      .catch(function(error){
-          console.log(error)
-      });
+		     	this.articals= false;
+				 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", this.id)
+		      .then( response => {
+		        
+		       this.comments =response.data,
+		       console.log("KOMENTARI")
+		       console.log(this.comments)
+		       
+		      })
+		      .catch(function(error){
+		          console.log(error)
+		      });
 		},
         init: function(){
             const map = new ol.Map({

@@ -52,5 +52,23 @@
     "grade" : 5.0,
     "deleted" : false,
     "approved" : true
+  },
+  "6" : {
+    "idComment" : 6,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 3,
+    "comment" : "HAHHHIDHNKBBHBHBHHVVGHVJVHVHVVHVHVHVHVHVHVHVHVHVHVHVVHVHVHVHVHVHVHVHVHVHVHVHVHVVHVHVHVHVHV",
+    "grade" : 5.0,
+    "deleted" : false,
+    "approved" : true
+  },
+  "7" : {
+    "idComment" : 7,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 3,
+    "comment" : "Sve je bilo savrseno",
+    "grade" : 5.0,
+    "deleted" : true,
+    "approved" : false
   }
 }

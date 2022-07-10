@@ -113,6 +113,24 @@ public class CommentService {
 		return ret;
 	
 }
+	@POST
+	@Path("/getAllCommentsForPlace")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<CommentDto> getAllCommentsForPlace(String id) {
+		ArrayList<CommentDto> ret = new ArrayList<CommentDto>();
+		CommentDao commentsDao = getComments();
+		PlaceDao placeDao = getPlaces();
+		
+		for (Comment comment : commentsDao.getValues()) {
+			if(  comment.getIdPlace() == Integer.parseInt(id)) {
+				System.out.println(comment.getIdComment());
+			ret.add(new CommentDto(comment.getIdComment(),comment.getUsernameCustomer(),comment.getIdPlace(), placeDao.getPlaceById(comment.getIdPlace()).getName(),
+					comment.getComment(), comment.getGrade(), comment.getApproved(), comment.getDeleted()));
+		}
+		}
+		return ret;
+	
+}
 	
 	@POST
 	@Path("/approve")
