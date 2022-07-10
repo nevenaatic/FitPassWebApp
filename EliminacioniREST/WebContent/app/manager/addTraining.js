@@ -4,7 +4,8 @@ Vue.component("add-training", {
             place: {},
             training: {},
             coaches: [],
-            placeId : 0
+            placeId : 0,
+            show: true
       
         }
     },
@@ -27,18 +28,20 @@ template: `
 			   
 			      <div class="row rows"> 
 					 <div class="col-sm-2"> 
-						<label> Tip treninga:</label>
+						<label> Tip:</label>
 					 </div>
 					<div class="col-sm-2"> 
 						  <select class="form-control" v-model="training.type"  style="background-color: lightgray">
                                           <option  v-bind:value="0" style=" background-color:white; color: black">GRUPNII</option>
                                           <option  v-bind:value="1" style=" background-color:white; color: black">PERSONALNI</option>
                                            <option  v-bind:value="2" style=" background-color:white; color: black">TERETANA</option>
-                                           
+                                           <option  v-bind:value="3" style=" background-color:white; color: black" >SAUNA</option>
+                                           <option  v-bind:value="4" style=" background-color:white; color: black">NEMA</option>
                             </select>
 					 </div>
-					 <div class="col-sm-1"> <label style="margin-top: 1rem;"> trener</label>  </div>
-					  <div class="col-sm-2"> 
+					 <div class="col-sm-1" > <label style="margin-top: 1rem;"> trener</label>  </div>
+					  <div class="col-sm-2" > 
+					  
                                 <select class="form-control" v-model="training.coachUsername" style="background-color: lightgray">
                                     <option  v-bind:value="m.username" style=" background-color:white; color: black" v-for="m in coaches">{{m.name}} {{m.surname}}  </option>
                                   
@@ -97,6 +100,9 @@ methods:{
 	},
 
        saveTraining: function(){
+       if(this.training.type == 3 || this.training.type == 4 ){
+       this.training.coachUsername == "/"
+       }
         axios.post("/EliminacioniREST/rest/training/createTraining", {
       "name":''+ this.training.name,
       "type":''+ this.training.type, 
@@ -115,6 +121,9 @@ methods:{
         alert(error)
     })
        },
+       changeView:function(){
+       this.show = false
+       }
 },
 mounted(){
    this.placeId = this.$route.query.id,

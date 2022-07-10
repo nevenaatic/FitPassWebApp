@@ -1,5 +1,5 @@
 package enums;
 
 public enum TrainingType {
-GRUPNI, PERSONALNI, TERETANA
+GRUPNI, PERSONALNI, TERETANA, SAUNA, NEMA
 }
