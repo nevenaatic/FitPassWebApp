@@ -168,5 +168,20 @@ public class UserService {
 		 }
 	
 	
+	@GET
+	@Path("/coach")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getCoach() {
+		ArrayList<User> ret = new ArrayList<>();
+		UserDao userDao = getUsers();
+		for(User u : userDao.getValues() ) {
+			if(u.getRole().equals(Role.TRENER))
+			ret.add(u);
+		}
+		
+		 return ret;
+		 }
+	
+	
 	
 }

@@ -1,17 +1,46 @@
 {
-"0": {
-
-	"idTraining": 0,
-	"name": "Aqua aerobik",
-	"type": 0,
-	"idPlace": 1,
-	"duration": 60,
-	"usernameCoach": "trener",
-	"description": "Odlican sport za ljubitelje vode",
-	"image": "plesniStudio1.jpg",
-	"deleted": false
-}
-
-
-
+  "0" : {
+    "idTraining" : 0,
+    "name" : "Aqua aerobik",
+    "type" : "GRUPNI",
+    "idPlace" : 1,
+    "duration" : 60,
+    "usernameCoach" : "trener",
+    "description" : "Odlican sport za ljubitelje vode",
+    "image" : "plesniStudio1.jpg",
+    "deleted" : false
+  },
+  "1" : {
+    "idTraining" : 1,
+    "name" : "plivanje",
+    "type" : "PERSONALNI",
+    "idPlace" : 3,
+    "duration" : 150,
+    "usernameCoach" : "trener",
+    "description" : "Plivanje",
+    "image" : "bazen4.jpg",
+    "deleted" : false
+  },
+  "2" : {
+    "idTraining" : 2,
+    "name" : "Aqua aerobik",
+    "type" : "PERSONALNI",
+    "idPlace" : 3,
+    "duration" : 60,
+    "usernameCoach" : "trener",
+    "description" : "Plivanje",
+    "image" : "bazen4.jpg",
+    "deleted" : false
+  },
+  "3" : {
+    "idTraining" : 3,
+    "name" : "trening 2",
+    "type" : "PERSONALNI",
+    "idPlace" : 3,
+    "duration" : 50,
+    "usernameCoach" : "trener",
+    "description" : "Plivanje",
+    "image" : "bazen4.jpg",
+    "deleted" : true
+  }
 }

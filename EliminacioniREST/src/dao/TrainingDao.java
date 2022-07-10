@@ -149,22 +149,30 @@ public class TrainingDao {
 	}
 	
 	public void createTraining(NewTrainingDto training) {
-		Training newTraining = new Training(generateId(), training.name, training.type, training.idPlace, training.duration, training.coachUsername, training.description, training.image,false );
+		Training newTraining = new Training(generateId(), training.name, training.type, training.idPlace, training.duration, training.coachUsername, training.description, generateLink(training.image),false );
 		this.trainings.put(newTraining.getIdTraining(), newTraining);
 		saveTrainings();
 	
 	}
 	
-	public boolean checkName(String name) {
+	public boolean checkName(String name, int id) {
 		boolean ret = false;
 		for(Training t : getValues()) {
-			if(t.getName().toLowerCase().equals(name.toLowerCase())) {
+			if(t.getIdPlace() == id &&  t.getName().toLowerCase().equals(name.toLowerCase())) {
 				ret = true;
 			}
 		}
 		return ret;
 	}
-
+	public boolean checkNameEdit(String name, int idPlace, int idTraining) {
+		boolean ret = false;
+		for(Training t : getValues()) {
+			if(t.getIdPlace() == idPlace && t.getIdTraining() != idTraining && t.getName().toLowerCase().equals(name.toLowerCase())) {
+				ret = true;
+			}
+		}
+		return ret;
+	}
 	private int generateId() {
 		int ret = 0;
         for (Training trainingBig : this.getValues())
@@ -181,4 +189,30 @@ public class TrainingDao {
         return ret;
 	}
 	
+	private String generateLink(String link) {
+		String ret="";
+		//C:\fakepath\20180717_155517.jpg
+		String path[] = link.split("fakepath");
+		ret = path[1].substring(1);
+		
+		return ret;
+	}
+
+	public void editTraining(Training training) {
+		Training trainingChange = getById(training.getIdTraining());
+		trainingChange.setName(training.getName());
+		trainingChange.setDescription(training.getDescription());
+		trainingChange.setDuration(training.getDuration());
+		trainingChange.setImage(training.getImage());
+		saveTrainings();
+		
+	}
+
+	public Collection<Training> delete(int parseInt) {
+		Training trainingChange = getById(parseInt);
+		trainingChange.setDeleted(true);
+		System.out.println(trainingChange.getDeleted());
+		saveTrainings();
+		return getTrainingsForPlace(trainingChange.getIdPlace());
+	}
 }

@@ -45,7 +45,7 @@ public class TrainingService {
 	@Path("/placeTrainings")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Training> getTrainingsForPlace(String id) {
-		System.out.println(id);
+		
 		TrainingDao trainings = getTrainings();
 		ArrayList<Training> ret = new ArrayList<Training>();
 		try {
@@ -79,12 +79,42 @@ public class TrainingService {
 	public Response createTraining(NewTrainingDto training) {
 		TrainingDao trainingDao = getTrainings();
 
-		if(trainingDao.checkName(training.name)) {
-			return Response.status(Response.Status.BAD_REQUEST).build();
+		if(trainingDao.checkName(training.name,training.idPlace)) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Sadrzaj sa ovim nazivom vec postoji! ").build();
 		}
 		trainingDao.createTraining(training);
 		return Response.status(Response.Status.CREATED).build();	
 	}
 		
+	@POST
+	@Path("/editTraining")
+	@Produces(MediaType.TEXT_HTML)
+	public Response editTraining(Training training) {
+		TrainingDao trainingDao = getTrainings();
+
+		if(trainingDao.checkNameEdit(training.getName(), training.getIdPlace(), training.getIdTraining())) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Sadrzaj sa ovim nazivom vec postoji! ").build();
+		}
+		trainingDao.editTraining(training);
+		return Response.status(Response.Status.NO_CONTENT).build();	
+	}
 	
+	@POST
+	@Path("/getTraining")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Training getById(String id) {
+		TrainingDao trainingDao = getTrainings();
+
+		return trainingDao.getById(Integer.parseInt(id));
+	}
+	
+	@POST
+	@Path("/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Training> delete(String id) {
+		TrainingDao trainingDao = getTrainings();
+
+		return trainingDao.delete(Integer.parseInt(id));
+		 
+	}
 }
