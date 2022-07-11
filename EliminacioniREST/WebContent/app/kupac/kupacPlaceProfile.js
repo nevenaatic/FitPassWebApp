@@ -6,9 +6,13 @@ Vue.component("kupac-placeProfile", {
            previewMap: false,
             trainings :[],
             show: false,
-            comments: []
+            comments: [],
+			price: "",
+			description: "",
+			membershipType: -1
         }
     },
+
 template: `
 <div class="containerInfo">
 
@@ -37,7 +41,27 @@ template: `
                                
                               <button type="button" class="btn btn-outline-success"   v-on:click="previewMapChooseLocation()"><i></i>See on map</button>
                           </div>
-			                
+			              
+                          <div  class="col-sm-4" style=" margin-top: 3rem;">
+                            <select v-model="membershipType" style="height: 35px; width: 120px; background-color:#6c757d; color:white;  border-radius: 4px; font-size: 14px;" @change="onChange()">Tip                                             
+                                <option v-bind:value=-1>Tip clanarine</option>
+                           	    <option  v-bind:value="0" style=" margin-left: 5px;background-color:white; color: black">Mesecna</option>
+                                <option  v-bind:value="1" style="margin-left: 5px; background-color:white; color: black">Godisnja</option>
+                            </select>
+							<br>
+							<div>
+							  <label for="description">Description: </label>
+								<br>
+							  <input type="text" id="description" name="description" v-model='description' disabled>
+								<br>
+							  <label for="price">Price: </label>
+								<br>
+							  <input type="text" id="price" name="price" v-model='price' disabled>
+								<br><br>
+							<button type="button" class="" v-if="membershipType != -1"  v-on:click="buyMembership()">Kupi clanarinu!</button>
+							</div>
+                          </div>
+
 			                <div class="col-sm-4">
 			                 <div id="popup" class="ol-popup">
 					            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -223,7 +247,36 @@ methods:{
                     c[0].style.border = '4px solid lightgrey';
                 })
             }
-          }
+          },
+
+	onChange: function(){
+
+		if(this.membershipType == -1){
+			this.description = ""
+			this.price = ""
+		}
+		
+		if(this.membershipType == 0){
+			this.description = "Mesecna clanarina!"
+			this.price = 3200
+		}
+		
+		if(this.membershipType == 1){
+			this.description = "Godisnja clanarina!"
+			this.price = 25000
+		}
+
+	},
+	
+	buyMembership: function() {
+		let membership = {}
+		membership.placeId = this.id
+		membership.membershipType = this.membershipType
+		membership.price = this.price
+		membership.usernameCustomer = localStorage.getItem("userLogged")
+		axios.post("/EliminacioniREST/rest/membership/buyMembership", membership)
+	}
+	
 },
 mounted(){
 	this.id = this.$route.query.id,
@@ -252,4 +305,6 @@ mounted(){
       });
 
 }
+
+
 });

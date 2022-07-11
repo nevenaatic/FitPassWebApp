@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletContext;
@@ -20,12 +22,15 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import dto.MembershipDto;
+import enums.MembershipStatus;
+import enums.MembershipType;
 import model.Membership;
 import model.Place;
 
 public class MembershipDao {
 
-	private HashMap<Integer,Membership> memberships;
+	private HashMap<String,Membership> memberships;
 	private String filePath = "";
 	
 	@Context
@@ -33,10 +38,10 @@ public class MembershipDao {
 	@Context
 	HttpServletRequest request;
 	
-	public HashMap<Integer, Membership> getMemberships() {
+	public HashMap<String, Membership> getMemberships() {
 		return memberships;
 	}
-	public void setMemberships(HashMap<Integer, Membership> memberships) {
+	public void setMemberships(HashMap<String, Membership> memberships) {
 		this.memberships = memberships;
 		
 	}
@@ -49,14 +54,14 @@ public class MembershipDao {
 	}
 	
 	
-	public MembershipDao(HashMap<Integer, Membership> memberships, String filePath) {
+	public MembershipDao(HashMap<String, Membership> memberships, String filePath) {
 		super();
 		this.memberships = memberships;
 		this.filePath = filePath;
 	}
 	
 	public MembershipDao(String contextPath) {
-		this.setMemberships(new HashMap<Integer, Membership>());
+		this.setMemberships(new HashMap<String, Membership>());
 		this.setFilePath(contextPath);
 		
 		loadMemberships(contextPath);
@@ -77,9 +82,9 @@ public class MembershipDao {
 			objectMapper.setVisibilityChecker(
 					VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 			TypeFactory factory = TypeFactory.defaultInstance();
-			MapType type = factory.constructMapType(HashMap.class, Integer.class, Membership.class);
+			MapType type = factory.constructMapType(HashMap.class, String.class, Membership.class);
 			objectMapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-			this.memberships = ((HashMap<Integer, Membership>) objectMapper.readValue(file, type));
+			this.memberships = ((HashMap<String, Membership>) objectMapper.readValue(file, type));
 		} catch (FileNotFoundException fnfe) {
 			try {
 				file.createNewFile();
@@ -138,5 +143,41 @@ public class MembershipDao {
 				}
 			}
 		}
+	}
+	
+	public void buyMembership(MembershipDto dto) {
+		
+		Date now = new Date();
+		String nowString = Long.toString(now.getTime());
+		
+		Membership m = new Membership();
+		m.setId(nowString.substring(nowString.length() - 10));
+		m.setType(MembershipType.values()[Integer.parseInt(dto.getMembershipType())]);
+		m.setPaidDate(now);
+		m.setDateValidFrom(now);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(now);
+		
+		if(m.getType() == MembershipType.MESECNA) {
+			cal.add(Calendar.MONTH, 1);
+			m.setDateValidTo(cal.getTime());
+			m.setNumberOfTerms(30);
+		}
+		
+		if(m.getType() == MembershipType.GODISNJA) {
+			cal.add(Calendar.YEAR, 1);
+			m.setDateValidTo(cal.getTime());
+			m.setNumberOfTerms(365);
+		}
+		
+		m.setPrice(Double.parseDouble(dto.getPrice()));
+		m.setUsernameCustomer(dto.getUsernameCustomer());
+		m.setMembershipStatus(MembershipStatus.AKTIVNA);
+		m.setPlaceId(Integer.parseInt(dto.getPlaceId()));
+		
+		
+		memberships.put(m.getId(), m);
+		saveMemberships();
 	}
 }
