@@ -1,12 +1,16 @@
 package dao;
 
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,9 +27,11 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import dto.KupacTrainingDto;
 import enums.MembershipStatus;
 import model.Membership;
 import model.TrainingHistory;
+import model.User;
 
 public class TrainingHistoryDao {
 
@@ -192,6 +198,8 @@ public class TrainingHistoryDao {
 //		saveTrainingHistorys();
 //	}
 	
+	
+	
 	public Collection<TrainingHistory> getMyTrainingHistory(String username) {
 		ArrayList<TrainingHistory> ret = new ArrayList<>();
 		for(TrainingHistory t: getValues() ) {
@@ -213,7 +221,9 @@ public class TrainingHistoryDao {
 		return mdao.getValues();
 	}
 	
-	public void checkInForTraining(TrainingHistory th) {
+	public void checkInForTraining(TrainingHistory th, User coach) {
+		System.out.println("DATUM = ");
+		System.out.println(th.getStartDate());
 		
 		//provera da li ima clanarinu 
 		boolean foundActiveMembership = false;
@@ -234,14 +244,35 @@ public class TrainingHistoryDao {
 		//ako nema clanarinu izadji iz funkcije(ne belezi trening)
 		if(foundActiveMembership == false) return;
 		
-		Date now = new Date();
-		String nowString = Long.toString(now.getTime());
-		
-		th.setStartDate(now);
+		//Date now = new Date();
+		//String nowString = Long.toString(now.getTime());
+		String nowString = Long.toString(th.getStartDate().getTime());
+		th.setStartDate(th.getStartDate());
 		th.setCanceled(false);
+		System.out.println(coach.getSurname());
+		th.setUsernameCoach(coach.getUsername());
+		
 		trainingHistory.put(nowString, th);
 		saveTrainingHistory();
 		
 
+	}
+	public boolean canICancel(TrainingHistory th) {
+		Calendar today = Calendar.getInstance();
+		today.setTime(new Date()); //danasnji
+		
+		
+		
+		Calendar daysBeforeTraining = Calendar.getInstance();
+		daysBeforeTraining.setTime(th.getStartDate()); 
+		daysBeforeTraining.add(Calendar.DAY_OF_MONTH, -2);
+	
+		
+		if(daysBeforeTraining.getTime().after(today.getTime())) {
+			return true; 
+		}
+		return false;
+		
+		
 	}
 }

@@ -61,11 +61,11 @@ public class TrainingService {
 			for( Training t: trainings.getTrainingsForPlace(Integer.parseInt(id))) {
 				if(!t.getUsernameCoach().equals("/") || t.getUsernameCoach()!= null) {
 				ret.add(new TrainingViewDto(t.getIdTraining(), t.getName(), t.getType(), t.getIdPlace(),
-					t.getDuration(), this.getCoachForTraining(t.getUsernameCoach()).getName(), this.getCoachForTraining(t.getUsernameCoach()).getSurname(), "", t.getDescription(), t.getImage(), t.getDeleted(), t.getPrice()));
+					t.getDuration(), this.getCoachForTraining(t.getUsernameCoach()).getName(), this.getCoachForTraining(t.getUsernameCoach()).getSurname(), this.getCoachForTraining(t.getUsernameCoach()).getUsername(),"", t.getDescription(), t.getImage(), t.getDeleted(), t.getPrice()));
 				}
 				else {
 					ret.add(new TrainingViewDto(t.getIdTraining(), t.getName(), t.getType(), t.getIdPlace(),
-							t.getDuration(), "/", "/", "", t.getDescription(), t.getImage(), t.getDeleted(), t.getPrice()));
+							t.getDuration(), "/", "/",null, "", t.getDescription(), t.getImage(), t.getDeleted(), t.getPrice()));
 				}
 			} 
 		} catch (Exception e) {

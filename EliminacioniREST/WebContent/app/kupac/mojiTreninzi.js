@@ -2,7 +2,9 @@ Vue.component("kupac-treninzi", {
     data(){
         return{
           
-      trainings: []
+      trainings: [],
+      today: new Date(),
+      show: false,
         }
     },
 
@@ -20,6 +22,7 @@ template: `
             <th scope="col">Datum</th>
             <th scope="col">Naziv treninga</th>
             <th scope="col">Sportski objekat</th>
+            <th> </th> 
           </tr>
         </thead>
         <tbody>
@@ -27,6 +30,7 @@ template: `
             <td>{{t.date | dateFormat('DD.MM.YYYY.')}}</td>
             <td>{{t.name}}</td>
              <td>{{t.place}}</td>
+             <td><button v-if="t.canICancel"> Otkazi </button> </td>
             <div>
             
             </div>
@@ -59,7 +63,9 @@ mounted(){
 
    	 axios.get("/EliminacioniREST/rest/trainingHistory/getTrainingsByUser")
       .then( response => {
+     
           this.trainings = response.data;
+          console.log(this.trainings)
       
       })
       .catch(function(error){

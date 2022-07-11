@@ -16,6 +16,7 @@ import dao.MembershipDao;
 import dao.PlaceDao;
 import dao.TrainingDao;
 import dao.TrainingHistoryDao;
+import dao.UserDao;
 import dto.KupacTrainingDto;
 import dto.MembershipViewDto;
 import model.Place;
@@ -61,11 +62,23 @@ public class TrainingHistoryService {
 			return trainings;
 	}
 	
+	private UserDao getUsers() {
+		UserDao users = (UserDao)context.getAttribute("users");	
+		if (users == null) {	
+			String contextPath = context.getRealPath("");
+			users = new UserDao(contextPath);
+			context.setAttribute("users", users);	
+		}
+		return users;
+	}
+	
 	@POST
 	@Path("/checkInForTraining")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void checkInForTraining(TrainingHistory th) {
-		getTrainingHistory().checkInForTraining(th);
+		UserDao userDao = getUsers();
+		
+		getTrainingHistory().checkInForTraining(th, userDao.getUserByUsername(th.getUsernameCoach()));
 	}
 	
 	@GET
@@ -76,13 +89,22 @@ public class TrainingHistoryService {
 		TrainingDao trainingDao = getTrainings();
 		User userSession = (User)request.getSession().getAttribute("loginUser");
 		Collection<KupacTrainingDto> ret = new ArrayList<>();
-		
+		System.out.println("TRAIZM");
 		for(TrainingHistory th: getTrainingHistory().getMyTrainingHistory(userSession.getUsername())) {
 			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
 			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
-			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName));
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th)));
 		}
 		
 		return ret;
 	}
+	
+	@POST
+	@Path("/checkCancelling")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean canICancel(TrainingHistory th) {
+		return getTrainingHistory().canICancel(th);
+	}
 }
+
+

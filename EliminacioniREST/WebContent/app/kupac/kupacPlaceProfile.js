@@ -9,7 +9,8 @@ Vue.component("kupac-placeProfile", {
             comments: [],
 			price: "",
 			description: "",
-			membershipType: -1
+			membershipType: -1,
+			trainingDate: new Date(),
         }
     },
 
@@ -89,9 +90,11 @@ template: `
 			                                    <h2>{{training.name}}</h2>
 			                                    <p class="title">{{training.type}}</p>
 			                                    <p>Duration: {{training.duration}}min</p>
+			                                    <p>Trener: {{training.coachName}}   {{training.coachSurname}} </p>
 			                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
 			                                    Opis: {{training.description}}</div>
-												 <button type="button"  v-on:click="checkInForTraining(training)">Prijavi se za trening!</button>
+			                                    <input type="date" class="form-control" style="width: 150px;" v-model="trainingDate"> </input>
+												 <button type="button" class="btn btn-secondary"  v-on:click="checkInForTraining(training, trainingDate)">Prijavi se za trening!</button>
 			                                </div>
 			                                
 			                            </div>
@@ -278,11 +281,14 @@ methods:{
 		axios.post("/EliminacioniREST/rest/membership/buyMembership", membership)
 	},
 	
-	checkInForTraining: function(training) {
+	checkInForTraining: function(training, trDate) {
 		let trainingDto = {}
+		console.log(trDate)
+		trainingDto.startDate = trDate
 		trainingDto.idTraining = training.idTraining
 		trainingDto.usernameCustomer = localStorage.getItem("userLogged")
-		trainingDto.usernameCoach = training.usernameCoach
+		trainingDto.usernameCoach = training.coachUsername
+		console.log(trainingDto.usernameCoach)
 		trainingDto.placeId = this.id
 		axios.post("/EliminacioniREST/rest/trainingHistory/checkInForTraining", trainingDto)
 	}

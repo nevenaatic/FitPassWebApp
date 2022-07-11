@@ -1,26 +1,22 @@
 {
-  "1657562652097" : {
-    "startDate" : 1657562652097,
-    "idTraining" : 0,
+
+
+
+  "1660348800000" : {
+    "startDate" : 1660348800000,
+    "idTraining" : 2,
     "usernameCustomer" : "nevena",
-    "usernameCoach" : null,
-    "placeId" : 1,
+    "usernameCoach" : "trener",
+    "placeId" : 3,
     "canceled" : false
   },
-  "1657562237434" : {
-    "startDate" : 1657562237434,
-    "idTraining" : 0,
+  "1659744000000" : {
+    "startDate" : 1659744000000,
+    "idTraining" : 8,
     "usernameCustomer" : "nevena",
-    "usernameCoach" : null,
-    "placeId" : 1,
-    "canceled" : false
-  },
-  "1657566412760" : {
-    "startDate" : 1657566412760,
-    "idTraining" : 1,
-    "usernameCustomer" : "nevena",
-    "usernameCoach" : null,
+    "usernameCoach" : "trener",
     "placeId" : 3,
     "canceled" : false
   }
+
 }

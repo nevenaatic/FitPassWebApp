@@ -9,6 +9,7 @@ public class TrainingViewDto {
 	public int idPlace; //objekat kom pripada 
 	public int duration; //minuti ili sati
 	public String coachName; //username jedinstven
+	public String coachSurname;
 	public String coachUsername;
 	public String placeName;
 	public String description;
@@ -16,7 +17,7 @@ public class TrainingViewDto {
 	public Boolean deleted;
 	public int price;
 	public TrainingViewDto(int idTraining, String name, TrainingType type, int idPlace, int duration, String coachName,
-			String coachUsername, String placeName, String description, String image, Boolean deleted, int price) {
+			String coachSurname,	String coachUsername, String placeName, String description, String image, Boolean deleted, int price) {
 		super();
 		this.idTraining = idTraining;
 		this.name = name;
@@ -24,6 +25,7 @@ public class TrainingViewDto {
 		this.idPlace = idPlace;
 		this.duration = duration; 
 		this.coachName = coachName;
+		this.coachSurname = coachSurname;
 		this.coachUsername = coachUsername;
 		this.placeName = placeName;
 		this.description = description;
