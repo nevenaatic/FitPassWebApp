@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 
 import dao.UserDao;
 import dto.AvailableManagerDto;
+import dto.NewUserDto;
 import dto.UserLoginDto;
 import dto.UserRegistrationDto;
 import enums.Role;
@@ -152,6 +153,25 @@ public class UserService {
 			UserDao users = getUsers();
 			System.out.println("USERNAME ZA BRISANJE  " +username);
 			users.deleteUserById(username);	
+	}
+	
+	@POST
+	@Path("/createUser")
+	@Produces(MediaType.TEXT_HTML)
+	public Response createUser(NewUserDto user){
+			UserDao users = getUsers();
+			if(users.getUserByUsername(user.username) != null) {
+				Response 
+				 .status(Response.Status.BAD_REQUEST)
+				 .entity("Korisnik sa ovim korisnickim imenom vec postoji!")
+				 .build();
+			} else {
+				users.saveNewUser(user);
+				 
+			}
+			
+				return Response.status(Response.Status.CREATED)
+						 .build();
 	}
 	
 	@GET

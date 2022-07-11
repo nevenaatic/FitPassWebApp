@@ -103,7 +103,8 @@ template: `
                         </td> 
       
                 </tr>
-				<tr> </tr>
+				<tr  style= "height: 1rem"> </tr>
+				<tr><td>  </td> <td style= "font-size: 16px;"> Za kreiranje novog korisnika (menadzer ili trener):  </td> <td> <button type="button" class="btn btn-secondary" v-on:click="addUser()"> Dodaj korisnika </button>  </td>  </tr>
             </table> 
     
 
@@ -181,7 +182,7 @@ template: `
   },
   methods : {
     addUser : function () {
-       // router.push(`/dodajKorisnika`)
+       router.push(`/noviKorisnik`)
     }, 
   
    

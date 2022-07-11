@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import dto.ChangeUserProfileDto;
 import dto.NewPlaceWithManagerDto;
+import dto.NewUserDto;
 import dto.UserRegistrationDto;
 import enums.CustomerType;
 import enums.Gender;
@@ -220,6 +221,12 @@ public class UserDao {
 	public void updateManagerPlace(User user, int id) {
 		User userChange = getUserByUsername(user.getUsername());
 		userChange.setPlace(id);
+		saveUsers();
+	}
+	public void saveNewUser(NewUserDto dto) {
+		User user = new User(dto.username, dto.username, dto.name, dto.surname, dto.gender, dto.birthday, dto.role, false, false, new Address(dto.street,dto.number, dto.city, 0,0, dto.zipCode), 
+				new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),  0,new Customer(CustomerType.BRONZANI,0,0), -1 );
+		getUsers().put(user.getUsername(), user);
 		saveUsers();
 	}
 		

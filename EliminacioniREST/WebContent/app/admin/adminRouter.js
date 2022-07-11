@@ -6,6 +6,7 @@ const NewPlaceComponent = {template: '<admin-newPlace></admin-newPlace>'}
 const PlaceProfileComponent = {template: '<admin-placeProfile></admin-placeProfile>'}
 const CommentsComponent = {template: '<admin-comments></admin-comments>'}
 const CommentsUnacceptedComponent = {template: '<admin-unaccepted></admin-unaccepted>'}
+const AdminAddUserComponent = {template: '<add-user></add-user>'}
 
 
 
@@ -21,6 +22,7 @@ const router = new VueRouter({
         {path : '/objekat', component: PlaceProfileComponent}, 
          {path : '/komentari', component: CommentsComponent}, 
          {path : '/odbijeni', component: CommentsUnacceptedComponent}, 
+          {path : '/noviKorisnik', component: AdminAddUserComponent}, 
     ]
 })
 
