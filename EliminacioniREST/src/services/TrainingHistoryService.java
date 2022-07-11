@@ -2,9 +2,11 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -93,7 +95,7 @@ public class TrainingHistoryService {
 		for(TrainingHistory th: getTrainingHistory().getMyTrainingHistory(userSession.getUsername())) {
 			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
 			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
-			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th),placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType()));
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th),placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType(), th.isCanceled()));
 		}
 		
 		return ret;
@@ -112,10 +114,68 @@ public class TrainingHistoryService {
 		for(TrainingHistory th: getTrainingHistory().getCoachTrainingHistory(userSession.getUsername())) {
 			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
 			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
-			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, getTrainingHistory().canCoachCancel(th,trainingDao.getById(th.getIdTraining()).getType() ) , placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType() ));
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, getTrainingHistory().canCoachCancel(th,trainingDao.getById(th.getIdTraining()).getType() ) , placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType(), th.isCanceled() ));
 		}
 		
 		return ret;
+	}
+	
+	@POST
+	@Path("/cancelCoach")
+	@Consumes(MediaType.APPLICATION_JSON)	
+	@Produces(MediaType.TEXT_HTML)
+	public void cancelCoach(KupacTrainingDto dto) {
+		PlaceDao placeDao = getPlaces();
+		TrainingDao trainingDao = getTrainings();
+		String thTime = Long.toString(dto.getDate().getTime());
+		User userSession = (User)request.getSession().getAttribute("loginUser");//trener
+		Collection<TrainingHistory> ret = getTrainingHistory().getCoachTrainingHistory(userSession.getUsername());
+		getTrainingHistory().cancelCoach(userSession, dto);
+	
+	
+	}
+	
+	@POST
+	@Path("/cancelCoach2")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void cancelCoach(String date) {
+		PlaceDao placeDao = getPlaces();
+		TrainingDao trainingDao = getTrainings();
+		//String thTime = Long.toString(d.getTime());
+		User userSession = (User)request.getSession().getAttribute("loginUser");//trener
+		Collection<TrainingHistory> ret = getTrainingHistory().getCoachTrainingHistory(userSession.getUsername());
+		//getTrainingHistory().cancelCoach(userSession, dto);
+		getTrainingHistory().cancelCoach2(userSession, date);
+	
+	}
+	
+	@POST
+	@Path("/cancelUser2")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void cancelUser2(String date) {
+		PlaceDao placeDao = getPlaces();
+		TrainingDao trainingDao = getTrainings();
+		//String thTime = Long.toString(d.getTime());
+		User userSession = (User)request.getSession().getAttribute("loginUser");//trener
+		Collection<TrainingHistory> ret = getTrainingHistory().getCoachTrainingHistory(userSession.getUsername());
+		//getTrainingHistory().cancelCoach(userSession, dto);
+		getTrainingHistory().cancelUser2(userSession, date);
+	
+	}
+	
+	@POST
+	@Path("/cancelUser")
+	@Consumes(MediaType.APPLICATION_JSON)
+	
+	public void cancelUser(KupacTrainingDto dto) {
+		PlaceDao placeDao = getPlaces();
+		TrainingDao trainingDao = getTrainings();
+		String thTime = Long.toString(dto.getDate().getTime());
+		User userSession = (User)request.getSession().getAttribute("loginUser");//user
+		Collection<TrainingHistory> ret = getTrainingHistory().getMyTrainingHistory(userSession.getUsername());
+		getTrainingHistory().cancelUser(userSession, dto);
+	
+	
 	}
 	
 	@POST

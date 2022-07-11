@@ -13,6 +13,7 @@ public class KupacTrainingDto {
 	public Boolean canICancel;
 	public PlaceType placeType; 
 	public TrainingType trainingType; 
+	public Boolean isCanceled;
 	
 	public Date getDate() {
 		return date;
@@ -38,7 +39,7 @@ public class KupacTrainingDto {
 		this.place = place;
 		this.name = name;
 	}
-	public KupacTrainingDto(Date date, String place, String name, Boolean type, PlaceType plType, TrainingType trType) {
+	public KupacTrainingDto(Date date, String place, String name, Boolean type, PlaceType plType, TrainingType trType, Boolean canceled) {
 		super();
 		this.date = date;
 		this.place = place;
@@ -46,6 +47,7 @@ public class KupacTrainingDto {
 		this.canICancel = type;
 		this.placeType= plType;
 		this.trainingType = trType;
+		this.isCanceled = canceled;
 	}
 	
 }

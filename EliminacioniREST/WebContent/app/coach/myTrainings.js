@@ -31,7 +31,8 @@ template: `
              <td>{{t.place}}</td>
               <td>{{t.placeType}}</td>
                <td>{{t.trainingType}}</td>
-             <td><button v-if="t.canICancel"> Otkazi </button> </td>
+             <td><button v-if="t.canICancel && !t.isCanceled" v-on:click="otkazi(t.date)"> Otkazi </button> </td>
+          <td v-if="t.isCanceled">OTKAZAN</td>
             <div>
             
             </div>
@@ -48,7 +49,31 @@ template: `
 </div>   
 `,
 methods:{
+       otkazi(tr){
+       console.log(tr)
+       var datum = (tr).toString()
+       console.log(datum)
+        axios.post("/EliminacioniREST/rest/trainingHistory/cancelCoach2", datum)
+      .then( response => {
+     
+         // this.trainings = response.data;
+//console.log(this.trainings)
+      	 axios.get("/EliminacioniREST/rest/trainingHistory/getTrainingsForCoach")
+      .then( response => {
+     
+          this.trainings = response.data;
+          console.log(this.trainings)
+      
+      })
+      .catch(function(error){
+          console.log(error)
+      });
+      })
+      .catch(function(error){
+          console.log(error)
+      });
        
+       }
 },
 filters: {
     dateFormat: function(value, format){

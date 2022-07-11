@@ -204,7 +204,7 @@ public class TrainingHistoryDao {
 	public Collection<TrainingHistory> getMyTrainingHistory(String username) {
 		ArrayList<TrainingHistory> ret = new ArrayList<>();
 		for(TrainingHistory t: getValues() ) {
-			if(t.getUsernameCustomer().equals(username)) {
+			if(t.getUsernameCustomer().equals(username) ) {
 				ret.add(t);
 			}
 		}
@@ -214,7 +214,7 @@ public class TrainingHistoryDao {
 	public Collection<TrainingHistory> getCoachTrainingHistory(String username) {
 		ArrayList<TrainingHistory> ret = new ArrayList<>();
 		for(TrainingHistory t: getValues() ) {
-			if(t.getUsernameCoach().equals(username) && t.getUsernameCoach()!= null) {
+			if(t.getUsernameCoach().equals(username) && t.getUsernameCoach()!= null ) {
 				ret.add(t);
 			}
 		}
@@ -304,5 +304,56 @@ public class TrainingHistoryDao {
 		
 		
 	}
-
+	
+	public void cancelUser(User user, KupacTrainingDto dto) {
+		String thTime = Long.toString(dto.getDate().getTime());
+		Collection<TrainingHistory> ret = getMyTrainingHistory(user.getUsername());
+		
+		for(TrainingHistory th: ret) {
+			String nowString = Long.toString(th.getStartDate().getTime()); //vreme za kljuc 
+			if( nowString.equals(thTime) && !th.isCanceled()) {
+				th.setCanceled(true);
+			}
+		}
+		saveTrainingHistory();
+	}
+	
+	
+	public void cancelCoach(User user, KupacTrainingDto dto) {
+		String thTime = Long.toString(dto.getDate().getTime());
+		Collection<TrainingHistory> ret = getCoachTrainingHistory(user.getUsername());
+		
+		for(TrainingHistory th: ret) {
+			String nowString = Long.toString(th.getStartDate().getTime()); //vreme za kljuc 
+			if( nowString.equals(thTime) && !th.isCanceled()) {
+				th.setCanceled(true);
+			}
+		}
+		saveTrainingHistory();
+	}
+	public void cancelCoach2(User user,String dto) {
+		//String thTime = Long.toString(dto.getTime());
+		Collection<TrainingHistory> ret = getCoachTrainingHistory(user.getUsername());
+		
+		for(TrainingHistory th: ret) {
+			String nowString = Long.toString(th.getStartDate().getTime()); //vreme za kljuc 
+			if( nowString.equals(dto) && !th.isCanceled()) {
+				th.setCanceled(true);
+			}
+		}
+		saveTrainingHistory();
+	}
+	
+	public void cancelUser2(User user,String dto) {
+		//String thTime = Long.toString(dto.getTime());
+		Collection<TrainingHistory> ret = getMyTrainingHistory(user.getUsername());
+		
+		for(TrainingHistory th: ret) {
+			String nowString = Long.toString(th.getStartDate().getTime()); //vreme za kljuc 
+			if( nowString.equals(dto) && !th.isCanceled()) {
+				th.setCanceled(true);
+			}
+		}
+		saveTrainingHistory();
+	}
 }
