@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import enums.MembershipStatus;
 import enums.MembershipType;
 import model.Membership;
 import model.Place;
+import java.util.Collection;
 
 public class MembershipDao {
 
@@ -180,4 +182,20 @@ public class MembershipDao {
 		memberships.put(m.getId(), m);
 		saveMemberships();
 	}
+	
+	public Collection<Membership> getMyMemberships(String username) {
+		ArrayList<Membership> ret = new ArrayList<>();
+		for(Membership m: getValues() ) {
+			if(m.getUsernameCustomer().equals(username)) {
+				ret.add(m);
+			}
+		}
+		return ret;
+	}
+	
+	
+	public Collection<Membership> getValues(){
+		loadMemberships("");
+		return memberships.values();
+		}
 }
