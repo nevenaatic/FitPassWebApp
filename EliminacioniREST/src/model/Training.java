@@ -13,8 +13,15 @@ public class Training {
 	private String description;
 	private String image;
 	private Boolean deleted;
+	private int price; 
 	
 	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public Boolean getDeleted() {
 		return deleted;
 	}
@@ -70,7 +77,7 @@ public class Training {
 		this.image = image;
 	}
 	public Training(int id,String name, TrainingType type, int idPlace, int duration, String usernameCoach, String description,
-			String image, boolean deleted) {
+			String image, boolean deleted, int price) {
 		super();
 		this.idTraining = id;
 		this.name = name;
@@ -81,6 +88,7 @@ public class Training {
 		this.description = description;
 		this.image = image;
 		this.deleted = deleted;
+		this.price = price;
 	}
 	public Training() {
 		super();

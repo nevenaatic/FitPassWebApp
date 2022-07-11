@@ -142,14 +142,16 @@ public class TrainingDao {
 		ArrayList<Training> ret= new ArrayList<Training>();
 		for(Training t : getValues()) {
 			if(t.getIdPlace() == id && !t.getDeleted()) {
+				
 				ret.add(t);
+			
 			}
 		}
 		return ret;	
 	}
 	
 	public void createTraining(NewTrainingDto training) {
-		Training newTraining = new Training(generateId(), training.name, training.type, training.idPlace, training.duration, training.coachUsername, training.description, generateLink(training.image),false );
+		Training newTraining = new Training(generateId(), training.name, training.type, training.idPlace, training.duration, training.coachUsername, training.description, generateLink(training.image),false, training.price );
 		this.trainings.put(newTraining.getIdTraining(), newTraining);
 		saveTrainings();
 	
@@ -203,7 +205,7 @@ public class TrainingDao {
 		trainingChange.setName(training.getName());
 		trainingChange.setDescription(training.getDescription());
 		trainingChange.setDuration(training.getDuration());
-		trainingChange.setImage(training.getImage());
+		trainingChange.setImage(generateLink(training.getImage()));
 		saveTrainings();
 		
 	}

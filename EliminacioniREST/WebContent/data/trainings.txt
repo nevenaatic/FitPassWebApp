@@ -8,7 +8,8 @@
     "usernameCoach" : "trener",
     "description" : "Odlican sport za ljubitelje vode",
     "image" : "plesniStudio1.jpg",
-    "deleted" : false
+    "deleted" : false,
+    "price" : 0
   },
   "1" : {
     "idTraining" : 1,
@@ -19,7 +20,8 @@
     "usernameCoach" : "trener",
     "description" : "Plivanje",
     "image" : "bazen4.jpg",
-    "deleted" : false
+    "deleted" : false,
+    "price" : 0
   },
   "2" : {
     "idTraining" : 2,
@@ -28,9 +30,10 @@
     "idPlace" : 3,
     "duration" : 60,
     "usernameCoach" : "trener",
-    "description" : "Plivanje",
+    "description" : "Vezbice",
     "image" : "bazen4.jpg",
-    "deleted" : false
+    "deleted" : false,
+    "price" : 0
   },
   "3" : {
     "idTraining" : 3,
@@ -41,6 +44,44 @@
     "usernameCoach" : "trener",
     "description" : "Plivanje",
     "image" : "bazen4.jpg",
-    "deleted" : true
+    "deleted" : true,
+    "price" : 0
+  },
+  "4" : {
+    "idTraining" : 4,
+    "name" : "Sauna",
+    "type" : "SAUNA",
+    "idPlace" : 3,
+    "duration" : 20,
+    "usernameCoach" : "/",
+    "description" : "Sauna, cena za dati vremenski period",
+    "image" : "C:\\fakepath\\empty.jpg",
+    "deleted" : true,
+    "price" : 0
+  },
+
+  "7" : {
+    "idTraining" : 7,
+    "name" : "dfdsf",
+    "type" : "TERETANA",
+    "idPlace" : 3,
+    "duration" : 522,
+    "usernameCoach" : "trener",
+    "description" : "fgdgvd",
+    "image" : "mpty.jpg",
+    "deleted" : true,
+    "price" : 5
+  },
+  "8" : {
+    "idTraining" : 8,
+    "name" : "novi trening",
+    "type" : "GRUPNI",
+    "idPlace" : 3,
+    "duration" : 45,
+    "usernameCoach" : "trener",
+    "description" : "nujhdcfsicfai",
+    "image" : "empty.jpg",
+    "deleted" : false,
+    "price" : 0
   }
 }

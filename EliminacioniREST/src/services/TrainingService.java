@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import dao.TrainingDao;
 import dao.UserDao;
 import dto.NewTrainingDto;
+import dto.TrainingViewDto;
 import model.Training;
 import model.User;
 
@@ -39,17 +40,34 @@ public class TrainingService {
 		}
 			return trainings;
 	}
-	
+	private UserDao getUsers() {
+		UserDao users = (UserDao)context.getAttribute("users");
+		if(users == null) {
+			users = new UserDao("");
+			context.setAttribute( "users",users);
+		}
+			return users;
+	}
 
+	
 	@POST
 	@Path("/placeTrainings")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Collection<Training> getTrainingsForPlace(String id) {
+	public Collection<TrainingViewDto> getTrainingsForPlace(String id) {
 		
 		TrainingDao trainings = getTrainings();
-		ArrayList<Training> ret = new ArrayList<Training>();
+		ArrayList<TrainingViewDto> ret = new ArrayList<TrainingViewDto>();
 		try {
-			ret= (ArrayList<Training>) trainings.getTrainingsForPlace(Integer.parseInt(id));
+			for( Training t: trainings.getTrainingsForPlace(Integer.parseInt(id))) {
+				if(!t.getUsernameCoach().equals("/") || t.getUsernameCoach()!= null) {
+				ret.add(new TrainingViewDto(t.getIdTraining(), t.getName(), t.getType(), t.getIdPlace(),
+					t.getDuration(), this.getCoachForTraining(t.getUsernameCoach()).getName(), this.getCoachForTraining(t.getUsernameCoach()).getSurname(), "", t.getDescription(), t.getImage(), t.getDeleted(), t.getPrice()));
+				}
+				else {
+					ret.add(new TrainingViewDto(t.getIdTraining(), t.getName(), t.getType(), t.getIdPlace(),
+							t.getDuration(), "/", "/", "", t.getDescription(), t.getImage(), t.getDeleted(), t.getPrice()));
+				}
+			} 
 		} catch (Exception e) {
 			
 		}
@@ -57,6 +75,40 @@ public class TrainingService {
 	
 	}
 	
+	@POST
+	@Path("/getCoachesForPlace")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getCoachesForObject(String placeId) {
+		UserDao users = getUsers();
+		ArrayList<User> ret = new ArrayList<User>() ;
+		ArrayList<User> ret2 = new ArrayList<User>() ;
+		TrainingDao trainingDao = getTrainings();
+		Training training = new Training();
+		Collection<Training> placeTrainings = trainingDao.getTrainingsForPlace(Integer.parseInt(placeId));
+		
+		
+		for(Training  t: placeTrainings) {
+			User u =users.getUserByUsername(t.getUsernameCoach());
+			
+			
+				ret.add(u);
+			
+			}
+		
+	
+		 ret2.add(ret.get(0)); 
+		 for(User u1: ret) {
+			 for(User u2: ret2) {
+				 if(!u1.getUsername().equals(u2.getUsername())) {
+					 ret2.add(u1);
+				 }
+			 }
+		 }
+		 
+		 
+		return ret2;
+		}
+
 	
 	@GET
 	@Path("/trainingsForCoach")
@@ -82,6 +134,7 @@ public class TrainingService {
 		if(trainingDao.checkName(training.name,training.idPlace)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Sadrzaj sa ovim nazivom vec postoji! ").build();
 		}
+		
 		trainingDao.createTraining(training);
 		return Response.status(Response.Status.CREATED).build();	
 	}
@@ -116,5 +169,17 @@ public class TrainingService {
 
 		return trainingDao.delete(Integer.parseInt(id));
 		 
+	}
+	
+	
+	private User getCoachForTraining(String username) {
+		User user = new User();
+		for(User u: this.getUsers().getValues()) {
+			if(u.getUsername().equals(username)) {
+				user= u;
+				break;
+			}
+		}
+		return user;
 	}
 }

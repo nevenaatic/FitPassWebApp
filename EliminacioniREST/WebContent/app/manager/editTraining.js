@@ -62,8 +62,9 @@ template: `
 `,
 methods:{
 	editTraining: function(){
+	console.log(this.image)
 	if(this.image != ""){
-		this.training.image= image
+		this.training.image= this.image
 		}
 	  axios.post("/EliminacioniREST/rest/training/editTraining", {
 	  "idTraining": + this.training.idTraining,
@@ -75,6 +76,7 @@ methods:{
        "description":''+ this.training.description,
 		"image":''+ this.training.image,  
 		"deleted" :  this.training.deleted,
+		"price": this.training.price
      
      })
       .then(

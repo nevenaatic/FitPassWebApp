@@ -65,6 +65,9 @@ template: `
 			                                    <h2>{{training.name}}</h2>
 			                                    <p class="title">{{training.type}}</p>
 			                                    <p>Duration: {{training.duration}}min</p>
+			                                    <p>Trener: {{training.coachName}} {{training.coachUsername}}</p>
+			                                     <p v-if="training.price !=0 ">Cena: {{training.price}} din</p>
+			                                      <p v-if="training.price ==0 ">Cena: bez dodatnog placanja</p>
 			                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
 			                                    Opis: {{training.description}}</div>
 			                                </div>

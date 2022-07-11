@@ -39,10 +39,11 @@ template: `
                                            <option  v-bind:value="4" style=" background-color:white; color: black">NEMA</option>
                             </select>
 					 </div>
-					 <div class="col-sm-1" > <label style="margin-top: 1rem;"> trener</label>  </div>
+					 <div class="col-sm-1" > <label style="margin-top: 1rem;"> Trener:</label>  </div>
 					  <div class="col-sm-2" > 
 					  
                                 <select class="form-control" v-model="training.coachUsername" style="background-color: lightgray">
+                                <option  style=" background-color:white; color: black" >Nema trenera  </option>
                                     <option  v-bind:value="m.username" style=" background-color:white; color: black" v-for="m in coaches">{{m.name}} {{m.surname}}  </option>
                                   
                                 </select>
@@ -54,8 +55,14 @@ template: `
 					 <div class="col-sm-2"> 
 						<label> Trajanje:</label>
 					 </div>
-					<div class="col-sm-5"> 
+					<div class="col-sm-2"> 
 						  <input class="form-control" type="number" v-model="training.duration" />
+					 </div>
+					  <div class="col-sm-1"> 
+						<label> Cena:</label>
+					 </div>
+					 	<div class="col-sm-2"> 
+						  <input class="form-control" type="number" v-model="training.price" />
 					 </div>
 			   </div>
 			   
@@ -103,6 +110,12 @@ methods:{
        if(this.training.type == 3 || this.training.type == 4 ){
        this.training.coachUsername == "/"
        }
+       if(this.training.image==undefined){
+       this.training.image="C:\\fakepath\empty.jpg"
+       }
+       if(this.training.coachUsername==undefined){
+       this.training.coachUsername == "/"
+       }
         axios.post("/EliminacioniREST/rest/training/createTraining", {
       "name":''+ this.training.name,
       "type":''+ this.training.type, 
@@ -111,6 +124,7 @@ methods:{
       "duration":''+ this.training.duration, 
       "coachUsername":''+ this.training.coachUsername, 
       "idPlace":''+ this.placeId,
+      "price" : this.training.price
      })
       .then(
         response => {

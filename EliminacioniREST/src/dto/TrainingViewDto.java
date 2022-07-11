@@ -22,7 +22,7 @@ public class TrainingViewDto {
 		this.name = name;
 		this.type = type;
 		this.idPlace = idPlace;
-		this.duration = duration;
+		this.duration = duration; 
 		this.coachName = coachName;
 		this.coachUsername = coachUsername;
 		this.placeName = placeName;

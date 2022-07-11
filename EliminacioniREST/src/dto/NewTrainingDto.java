@@ -12,10 +12,10 @@ public class NewTrainingDto {
 	public int duration;
 	public String coachUsername;
 	public int idPlace;
-	
+	public int price; 
 	
 	public NewTrainingDto(String name, TrainingType type, String image, String description, int duration,
-			String coachUsername, int idPlace) {
+			String coachUsername, int idPlace, int price) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -24,6 +24,7 @@ public class NewTrainingDto {
 		this.duration = duration;
 		this.coachUsername = coachUsername;
 		this.idPlace = idPlace;
+		this.price = price;
 	}
 	public NewTrainingDto() {
 		super();

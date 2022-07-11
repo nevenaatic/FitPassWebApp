@@ -39,9 +39,10 @@ template: `
 `,
 methods:{
        getCoaches: function(id){
-       	axios.post("/EliminacioniREST/rest/user/getCoachesForPlace", id)
+       	axios.post("/EliminacioniREST/rest/training/getCoachesForPlace", id)
       .then( response => {
         
+    
        this.coaches = response.data
  	console.log(this.coaches)
       })
