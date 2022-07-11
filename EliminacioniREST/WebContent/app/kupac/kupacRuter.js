@@ -3,7 +3,7 @@ const ProfilKupacComponent = {template: '<profil-kupac></profil-kupac>'}
 const IzmeniProfilComponent = {template: '<izmeniProfil-kupac></izmeniProfil-kupac>'}
 const PlaceProfileComponent = {template: '<kupac-placeProfile></kupac-placeProfile>'}
 const MembershipComponent = {template: '<kupac-clanarina></kupac-clanarina>'}
-
+const TrainingsComponent = {template: '<kupac-treninzi></kupac-treninzi>'}
 
 const router = new VueRouter({
     mode: 'hash',
@@ -13,6 +13,7 @@ const router = new VueRouter({
         {path : '/izmeniProfil', component: IzmeniProfilComponent}, //izmena profila
      	{path : '/objekat', component: PlaceProfileComponent}, //profil objekta
      	{path : '/clanarine', component: MembershipComponent}, //clanarine
+     	{path : '/treninzi', component: TrainingsComponent}, 
         
     ]
 })
