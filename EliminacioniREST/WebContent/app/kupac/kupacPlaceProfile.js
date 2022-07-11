@@ -80,8 +80,8 @@ template: `
 			       <div class="containerInfo">
 			            <div class="tab-content" v-if="!show">
 			                <div class="panel">
-			                    <div class="row-artical">
-			                        <div class="column" v-for="training in trainings" >
+			                    <div class="row">
+			                        <div class="col-sm-4" v-for="training in trainings" >
 			                            
 			                            <div class="card" >
 			                            <img v-bind:src="'../pictures/'+  training.image" style="height:280px !important; width:320px !important; margin-left: 1rem" >
@@ -92,14 +92,14 @@ template: `
 			                                    <p>Duration: {{training.duration}}min</p>
 			                                    <p>Trener: {{training.coachName}}   {{training.coachSurname}} </p>
 			                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
-			                                    Opis: {{training.description}}</div>
-			                                    <input type="date" class="form-control" style="width: 150px;" v-model="trainingDate"> </input>
-												 <button type="button" class="btn btn-secondary"  v-on:click="checkInForTraining(training, trainingDate)">Prijavi se za trening!</button>
+			                                    Opis: {{training.description}}  </div>
+			                                    <div class="row"> <div class="col-sm-2"><input type="date" class="form-control" style="width: 150px;" v-model="trainingDate"> </input> </div><div class="col-sm-2">  <button type="button" class="btn btn-secondary"  v-on:click="checkInForTraining(training, trainingDate)">Prijavi se za trening!</button></div>  </div> 
+			                                 
 			                                </div>
-			                                
+			                                 </div>
 			                            </div>
-			                            
-			                        </div>
+			                           
+			                        
 			                        
                                   </div>
            					 </div>
