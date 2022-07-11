@@ -91,6 +91,7 @@ template: `
 			                                    <p>Duration: {{training.duration}}min</p>
 			                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
 			                                    Opis: {{training.description}}</div>
+												 <button type="button"  v-on:click="checkInForTraining(training)">Prijavi se za trening!</button>
 			                                </div>
 			                                
 			                            </div>
@@ -275,6 +276,15 @@ methods:{
 		membership.price = this.price
 		membership.usernameCustomer = localStorage.getItem("userLogged")
 		axios.post("/EliminacioniREST/rest/membership/buyMembership", membership)
+	},
+	
+	checkInForTraining: function(training) {
+		let trainingDto = {}
+		trainingDto.idTraining = training.idTraining
+		trainingDto.usernameCustomer = localStorage.getItem("userLogged")
+		trainingDto.usernameCoach = training.usernameCoach
+		trainingDto.placeId = this.id
+		axios.post("/EliminacioniREST/rest/trainingHistory/checkInForTraining", trainingDto)
 	}
 	
 },

@@ -8,6 +8,9 @@ public class TrainingHistory {
 	private int idTraining;
 	private String usernameCustomer; //kupac
 	private String usernameCoach; //trener ako ga ima
+	private int placeId; // objekat u kom je trening
+	private boolean canceled; // otkazan
+	
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -31,6 +34,18 @@ public class TrainingHistory {
 	}
 	public void setUsernameCoach(String usernameCoach) {
 		this.usernameCoach = usernameCoach;
+	}
+	public int getPlaceId() {
+		return placeId;
+	}
+	public void setPlaceId(int placeId) {
+		this.placeId = placeId;
+	}
+	public boolean isCanceled() {
+		return canceled;
+	}
+	public void setCanceled(boolean canceled) {
+		this.canceled = canceled;
 	}
 	public TrainingHistory(Date startDate, int idTraining, String usernameCustomer, String usernameCoach) {
 		super();

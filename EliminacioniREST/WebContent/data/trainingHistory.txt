@@ -1,0 +1,26 @@
+{
+  "1657562652097" : {
+    "startDate" : 1657562652097,
+    "idTraining" : 0,
+    "usernameCustomer" : "nevena",
+    "usernameCoach" : null,
+    "placeId" : 1,
+    "canceled" : false
+  },
+  "1657562237434" : {
+    "startDate" : 1657562237434,
+    "idTraining" : 0,
+    "usernameCustomer" : "nevena",
+    "usernameCoach" : null,
+    "placeId" : 1,
+    "canceled" : false
+  },
+  "1657566412760" : {
+    "startDate" : 1657566412760,
+    "idTraining" : 1,
+    "usernameCustomer" : "nevena",
+    "usernameCoach" : null,
+    "placeId" : 3,
+    "canceled" : false
+  }
+}
