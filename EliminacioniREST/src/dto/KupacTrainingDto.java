@@ -2,12 +2,17 @@ package dto;
 
 import java.util.Date;
 
+import enums.PlaceType;
+import enums.TrainingType;
+
 public class KupacTrainingDto {
 
 	private Date date;
 	private String place;
 	private String name;
 	public Boolean canICancel;
+	public PlaceType placeType; 
+	public TrainingType trainingType; 
 	
 	public Date getDate() {
 		return date;
@@ -33,12 +38,14 @@ public class KupacTrainingDto {
 		this.place = place;
 		this.name = name;
 	}
-	public KupacTrainingDto(Date date, String place, String name, Boolean type) {
+	public KupacTrainingDto(Date date, String place, String name, Boolean type, PlaceType plType, TrainingType trType) {
 		super();
 		this.date = date;
 		this.place = place;
 		this.name = name;
 		this.canICancel = type;
+		this.placeType= plType;
+		this.trainingType = trType;
 	}
 	
 }

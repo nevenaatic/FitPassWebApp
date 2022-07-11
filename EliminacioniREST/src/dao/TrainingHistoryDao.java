@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import dto.KupacTrainingDto;
 import enums.MembershipStatus;
+import enums.TrainingType;
 import model.Membership;
 import model.TrainingHistory;
 import model.User;
@@ -210,6 +211,15 @@ public class TrainingHistoryDao {
 		return ret;
 	}
 	
+	public Collection<TrainingHistory> getCoachTrainingHistory(String username) {
+		ArrayList<TrainingHistory> ret = new ArrayList<>();
+		for(TrainingHistory t: getValues() ) {
+			if(t.getUsernameCoach().equals(username) && t.getUsernameCoach()!= null) {
+				ret.add(t);
+			}
+		}
+		return ret;
+	}
 	
 	public Collection<TrainingHistory> getValues(){
 		loadTrainingHistory("");
@@ -275,4 +285,24 @@ public class TrainingHistoryDao {
 		
 		
 	}
+	
+	public boolean canCoachCancel(TrainingHistory th, TrainingType type ) {
+		Calendar today = Calendar.getInstance();
+		today.setTime(new Date()); //danasnji
+		
+		
+		
+		Calendar daysBeforeTraining = Calendar.getInstance();
+		daysBeforeTraining.setTime(th.getStartDate()); 
+		daysBeforeTraining.add(Calendar.DAY_OF_MONTH, -2);
+	
+		
+		if(daysBeforeTraining.getTime().after(today.getTime()) && type.equals(TrainingType.PERSONALNI) ) {
+			return true; 
+		}
+		return false;
+		
+		
+	}
+
 }

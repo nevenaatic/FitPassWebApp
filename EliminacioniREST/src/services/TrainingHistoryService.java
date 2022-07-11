@@ -93,7 +93,26 @@ public class TrainingHistoryService {
 		for(TrainingHistory th: getTrainingHistory().getMyTrainingHistory(userSession.getUsername())) {
 			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
 			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
-			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th)));
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th),placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType()));
+		}
+		
+		return ret;
+	}
+	
+	
+	@GET
+	@Path("/getTrainingsForCoach")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<KupacTrainingDto> getTrainingsByCoach() {
+		PlaceDao placeDao = getPlaces();
+		TrainingDao trainingDao = getTrainings();
+		User userSession = (User)request.getSession().getAttribute("loginUser");//trener
+		Collection<KupacTrainingDto> ret = new ArrayList<>();
+		System.out.println("Trazi za trenera");
+		for(TrainingHistory th: getTrainingHistory().getCoachTrainingHistory(userSession.getUsername())) {
+			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
+			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, getTrainingHistory().canCoachCancel(th,trainingDao.getById(th.getIdTraining()).getType() ) , placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType() ));
 		}
 		
 		return ret;
