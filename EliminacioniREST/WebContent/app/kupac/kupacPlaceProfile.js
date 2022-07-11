@@ -1,14 +1,18 @@
-Vue.component("place-profile", {
+Vue.component("kupac-placeProfile", {
     data(){
         return{
             place:{}, 
            id: 0,
            previewMap: false,
             trainings :[],
-            articals: true,
-            comments: []
+            show: false,
+            comments: [],
+			price: "",
+			description: "",
+			membershipType: -1
         }
     },
+
 template: `
 <div class="containerInfo">
 
@@ -22,7 +26,7 @@ template: `
 			                       <div  class="row"  >
                           <div  class = "col-sm-4" style="border-radius: 4px;margin-left: -3rem;">
                               <div class="col-picture">
-                                  <div><img :src="'pictures/'+place.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
+                                  <div><img :src="'../pictures/'+place.logo" style="height:220px !important; width:300px !important;border-radius: 4px; margin-right: 3em; " class="img-thumbnail" >
                                   
                                 </div>
                               </div>
@@ -32,13 +36,32 @@ template: `
                               <h4 style="width: 600px;" class="text">Tip objekta: {{place.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{place.address.city}} </h4>
                               <h4 style="width: 600px;" class="text">Prosecna ocena: {{place.grade}} </h4>
-							  <h4 style="width: 600px;" class="text">Radno vreme: {{p.workingTime}} </h4>
                               <h4 style="width: 600px;" class="text">Status: {{place.status}} </h4>
-                             
-                               <button type="button" class="btn btn-success" v-on:click="showComments()" v-if="articals"  >Komentari</button>
-                                <button type="button" class="btn btn-outline-success"   v-on:click="previewMapChooseLocation()"><i></i>See on map</button>
+                               <button type="button" class="btn btn-success" v-if="!show"  v-on:click="getComments()">Komentari</button>
+                               
+                              <button type="button" class="btn btn-outline-success"   v-on:click="previewMapChooseLocation()"><i></i>See on map</button>
                           </div>
-			                
+			              
+                          <div  class="col-sm-4" style=" margin-top: 3rem;">
+                            <select v-model="membershipType" style="height: 35px; width: 120px; background-color:#6c757d; color:white;  border-radius: 4px; font-size: 14px;" @change="onChange()">Tip                                             
+                                <option v-bind:value=-1>Tip clanarine</option>
+                           	    <option  v-bind:value="0" style=" margin-left: 5px;background-color:white; color: black">Mesecna</option>
+                                <option  v-bind:value="1" style="margin-left: 5px; background-color:white; color: black">Godisnja</option>
+                            </select>
+							<br>
+							<div>
+							  <label for="description">Description: </label>
+								<br>
+							  <input type="text" id="description" name="description" v-model='description' disabled>
+								<br>
+							  <label for="price">Price: </label>
+								<br>
+							  <input type="text" id="price" name="price" v-model='price' disabled>
+								<br><br>
+							<button type="button" class="" v-if="membershipType != -1"  v-on:click="buyMembership()">Kupi clanarinu!</button>
+							</div>
+                          </div>
+
 			                <div class="col-sm-4">
 			                 <div id="popup" class="ol-popup">
 					            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -48,65 +71,63 @@ template: `
         					</div>
         					
         				 </div>
-        				 
-        			 
-        </div>
+       		 </div>
         
-       
-		<div class="tab-pane fade in active" v-if="articals">
-		  <div class="containerInfo">
-            <div class="tab-content">
-                <div class="panel">
-                    <div class="row-artical">
-                        <div class="column" v-for="training in trainings" >
-                            <div class="card" >
-                            <img v-bind:src="'pictures/'+  training.image" style="height:280px !important; width:320px !important; margin-left: 1rem" >
-                                <div class="container">
-                                    <h2>{{training.name}}</h2>
-                                    <p class="title">{{training.type}}</p>
-                                    <p>Duration: {{training.duration}}min</p>
-                                     <p>Trener: {{training.coachName}} {{training.coachUsername}}</p>
-			                                     <p v-if="training.price !=0 ">Cena: {{training.price}} din</p>
-			                                      <p v-if="training.price ==0 ">Cena: bez dodatnog placanja</p>
-                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
-                                    Opis: {{training.description}}</div>
-                                </div>
-                            </div>
-                        </div>
-                       </div>
-            		</div>
-        		</div>
-             </div>
-          </div>    
-          
-           	<div class="tab-pane fade in active" v-if="!articals">
-		  <div class="containerInfo">
-		  <div v-if="this.comments.length == 0" style="margin-top: 2rem; margin-left: 16%"> <h4> Nema komentara jos uvek </h4></div> 
-		  
-            <div class="tab-content">
-                <div class="panel">
-                    <div class="row-artical">
-                    		<div class="media" v-for="comment in comments" style=" margin-left: 12%">
-									<div> 
+			      <div class="tab-pane fade in active" >
+			      
+			      
+			       <div class="containerInfo">
+			            <div class="tab-content" v-if="!show">
+			                <div class="panel">
+			                    <div class="row-artical">
+			                        <div class="column" v-for="training in trainings" >
+			                            
+			                            <div class="card" >
+			                            <img v-bind:src="'../pictures/'+  training.image" style="height:280px !important; width:320px !important; margin-left: 1rem" >
+			                                
+			                                <div class="container">
+			                                    <h2>{{training.name}}</h2>
+			                                    <p class="title">{{training.type}}</p>
+			                                    <p>Duration: {{training.duration}}min</p>
+			                                     <div style=" word-wrap: break-word; width: 280px; margin-left: 0em ">
+			                                    Opis: {{training.description}}</div>
+			                                </div>
+			                                
+			                            </div>
+			                            
+			                        </div>
+			                        
+                                  </div>
+           					 </div>
+      					  </div>
+      					  
+      					     <div v-if="show">
+            
+                <div class="tab-content">
+		<div class="panel">
+		 <div class="row-artical" style="margin-top: 1rem">
+		 <div v-if="this.comments.length == 0" style="margin-top: 2rem; margin-left: 12%"> <h4> Nema komentara jos uvek </h4></div> 	                          
+		<div class="media" v-for="comment in comments" style=" margin-left: 14%">
+		<div> 
 		
         	<div class="row" > 
         	
 		        	<div class="col-sm-1">  <div class="media-left media-top" >
-			            <img src="pictures/korisnik.png" class="media-object" style="width:90px; height: 90px; margin-right: 1em;">
+			            <img src="../pictures/korisnik.png" class="media-object" style="width:90px; height: 90px; margin-right: 1em;">
 			            </div>  
 			         </div> 
 		            
 	        	<div class="col-sm-7">
-			        	<div class="media-body" style="width: 20rem; margin-left: 0.5em;">
+			        	<div class="media-body" style="width: 40%; margin-left: 0.5em;">
 			         		   <div class="row"  >
 			            	 		 <div class=" col-sm-2 "> <h4 style="font-style: bold">{{comment.usernameCustomer}}  </h4>  </div>  
 			            	   </div>  
 					            <div class="row" >
 			             		
-			            	     <div class="col-sm-6" > <span v-for="g in comment.grade" > <span class="fa fa-star checked"></span></span> </div>
+			            	     <div class="col-sm-3" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
 			                     </div>
           			  
-                  				  <div class="row" style=" margin-left: 0.1rem" ><p>{{comment.comment}}</p>
+                  				  <div class="row"  ><p>{{comment.comment}}</p>
                   			  </div>
                		  </div> 
         			 </div>
@@ -117,34 +138,41 @@ template: `
         </div>
           </div>
     
-                       
-                       </div>
-            		</div>
-        		</div>
-             </div>
-          </div> 
+           					 </div>
+      					  </div>
+                    </div>
+               </div>      
+		             
+      					  <!-- ne znam sta je -->
+      					  
+                    </div>
+                </div>     
 			                
-	</div>
-		              
-	             
+		        </div>
+		      <hr/>
+		                 
+                    
+           
+		             
+		             
 </div>   
 `,
 methods:{
 
-     	showComments: function(){
-		     	this.articals= false;
-				 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", this.id)
-		      .then( response => {
-		        
-		       this.comments =response.data,
-		       console.log("KOMENTARI")
-		       console.log(this.comments)
-		       
-		      })
-		      .catch(function(error){
-		          console.log(error)
-		      });
+		getComments: function(){
+		 axios.post("/EliminacioniREST/rest/comment/getCommentsForPlace", this.id)
+      .then( response => {
+        this.show=true;
+       this.comments =response.data,
+       console.log("KOMENTARI")
+       console.log(this.comments)
+       
+      })
+      .catch(function(error){
+          console.log(error)
+      });
 		},
+      
         init: function(){
             const map = new ol.Map({
                 target: 'map',
@@ -219,7 +247,36 @@ methods:{
                     c[0].style.border = '4px solid lightgrey';
                 })
             }
-          }
+          },
+
+	onChange: function(){
+
+		if(this.membershipType == -1){
+			this.description = ""
+			this.price = ""
+		}
+		
+		if(this.membershipType == 0){
+			this.description = "Mesecna clanarina!"
+			this.price = 3200
+		}
+		
+		if(this.membershipType == 1){
+			this.description = "Godisnja clanarina!"
+			this.price = 25000
+		}
+
+	},
+	
+	buyMembership: function() {
+		let membership = {}
+		membership.placeId = this.id
+		membership.membershipType = this.membershipType
+		membership.price = this.price
+		membership.usernameCustomer = localStorage.getItem("userLogged")
+		axios.post("/EliminacioniREST/rest/membership/buyMembership", membership)
+	}
+	
 },
 mounted(){
 	this.id = this.$route.query.id,
@@ -248,4 +305,6 @@ mounted(){
       });
 
 }
+
+
 });

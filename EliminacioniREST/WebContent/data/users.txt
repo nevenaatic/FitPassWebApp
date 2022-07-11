@@ -26,7 +26,7 @@
       "points" : 0.0,
       "sale" : 0.0
     },
-    "place" : 5
+    "place" : -1
   },
   "nevena" : {
     "username" : "nevena",
