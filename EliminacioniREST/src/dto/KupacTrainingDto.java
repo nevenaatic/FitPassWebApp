@@ -8,12 +8,14 @@ import enums.TrainingType;
 public class KupacTrainingDto {
 
 	private Date date;
+	
 	private String place;
 	private String name;
 	public Boolean canICancel;
 	public PlaceType placeType; 
 	public TrainingType trainingType; 
 	public Boolean isCanceled;
+	public int idPlace; 
 	
 	public Date getDate() {
 		return date;
@@ -39,7 +41,7 @@ public class KupacTrainingDto {
 		this.place = place;
 		this.name = name;
 	}
-	public KupacTrainingDto(Date date, String place, String name, Boolean type, PlaceType plType, TrainingType trType, Boolean canceled) {
+	public KupacTrainingDto(Date date, String place, String name, Boolean type, PlaceType plType, TrainingType trType, Boolean canceled, int id) {
 		super();
 		this.date = date;
 		this.place = place;
@@ -48,6 +50,7 @@ public class KupacTrainingDto {
 		this.placeType= plType;
 		this.trainingType = trType;
 		this.isCanceled = canceled;
+		this.idPlace = id;
 	}
 	
 }

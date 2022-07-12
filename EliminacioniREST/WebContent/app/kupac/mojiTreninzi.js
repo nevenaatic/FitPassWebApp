@@ -5,7 +5,10 @@ Vue.component("kupac-treninzi", {
       trainings: [],
       today: new Date(),
       show: false,
-      check: false
+      check: false,
+      comment: {},
+     com: false,
+     selected: {}
         }
     },
 
@@ -123,6 +126,7 @@ template: `
                <td>{{t.trainingType}}</td>
              <td><button v-if="t.canICancel && !t.isCanceled" v-on:click="otkazi(t.date)"> Otkazi </button> </td>
                 <td v-if="t.isCanceled">OTKAZAN</td>
+                 <td v-if="t.canICancel" > <button v-on:click="komentarisi(t)"> Komentarisi</button> </td>
             <div>
             
             </div>
@@ -131,14 +135,71 @@ template: `
     </table>
   </div>     
 		                 
-                    
+                   <div v-if="com" style="height: 50rem;width: 50rem; margin-left: 30%" > 
+		    
+		    <label> Ocena: </label>
+		    
+		     <select class="form-control" v-model="comment.grade"  style="background-color: lightgray">
+                                         
+                                          <option  v-bind:value="1" style=" background-color:white; color: black">1</option>
+                                           <option  v-bind:value="2" style=" background-color:white; color: black">2</option>
+                                           <option  v-bind:value="3" style=" background-color:white; color: black" >3</option>
+                                           <option  v-bind:value="4" style=" background-color:white; color: black">4</option>
+                                           <option  v-bind:value="5" style=" background-color:white; color: black">5</option>
+                            </select>
+                            
+                <label> Komentar </label>   
+                
+                <textarea class="form-control" v-model="comment.comment" type="text">            </textarea> 
+		    <button type="button" v-on:click="commentCreate()"> Komentarisi</button> </td>
+		     </div>       
            
 		             
-		    </div>          
+		    </div>     
+		    
+		  
+		    
+    
 </div> 
 `,
 methods:{
+komentarisi(training){
+this.selected=training,
+console.log(training)
+this.com= true;
 
+},
+commentCreate:function(){
+      let komentar ={}
+      komentar.idComment = 0, 
+      komentar.idPlace = this.selected.idPlace,
+      komentar.comment = this.comment.comment
+      komentar.grade = this.comment.grade;
+      komentar.deleted=false
+      komentar.approved = false
+      
+      console.log(komentar)
+      
+      	 axios.post("/EliminacioniREST/rest/comment/createComment", komentar)
+      .then( response => {
+     	 axios.get("/EliminacioniREST/rest/trainingHistory/getTrainingsByUser")
+      .then( response => {
+     
+          this.trainings = response.data;
+          console.log(this.trainings)
+      
+      })
+      .catch(function(error){
+          console.log(error)
+      });
+      
+      })
+      .catch(function(error){
+          console.log(error)
+      });
+      
+
+},
 
 	  otkazi(tr){
        console.log(tr)

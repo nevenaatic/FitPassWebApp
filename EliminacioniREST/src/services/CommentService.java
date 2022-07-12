@@ -11,11 +11,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import dao.CommentDao;
 import dao.PlaceDao;
+import dao.UserDao;
 import dto.CommentDto;
+import dto.NewUserDto;
 import model.Comment;
+import model.User;
 
 @Path("/comment")
 public class CommentService {
@@ -95,6 +99,22 @@ public class CommentService {
 		return ret;
 	
 }
+	
+	@POST
+	@Path("/createComment")
+	@Produces(MediaType.TEXT_HTML)
+	public Response createComment(Comment comment){
+		CommentDao commentsDao = getComments();
+		System.out.println("KOMENATR");
+		User userSession = (User)request.getSession().getAttribute("loginUser");
+		comment.setUsernameCustomer(userSession.getUsername());
+		
+		commentsDao.createComment(comment);
+			
+				return Response.status(Response.Status.CREATED)
+						 .build();
+	}
+	
 	
 	@POST
 	@Path("/getCommentsForPlace")

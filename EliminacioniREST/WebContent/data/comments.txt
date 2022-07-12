@@ -70,5 +70,14 @@
     "grade" : 5.0,
     "deleted" : true,
     "approved" : false
+  },
+  "8" : {
+    "idComment" : 8,
+    "usernameCustomer" : "nevena",
+    "idPlace" : 1,
+    "comment" : "PLIZ",
+    "grade" : 5.0,
+    "deleted" : false,
+    "approved" : false
   }
 }

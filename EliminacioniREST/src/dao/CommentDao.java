@@ -171,7 +171,11 @@ public class CommentDao {
 		}
 		
 		public void createComment(Comment comment) {
-			this.comments.put(generateId(), comment);
+			Comment newComment = new Comment(generateId(),comment.getUsernameCustomer(), comment.getIdPlace(), comment.getComment(),
+					comment.getGrade(), false, false );
+			
+			this.getComments().put(newComment.getIdComment(), newComment);
+			System.out.println(newComment.getIdComment() +  newComment.getUsernameCustomer()+newComment.getApproved()+ newComment.getComment());
 			saveComments();
 		}
 		

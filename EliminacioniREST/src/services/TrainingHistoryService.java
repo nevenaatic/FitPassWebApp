@@ -95,7 +95,7 @@ public class TrainingHistoryService {
 		for(TrainingHistory th: getTrainingHistory().getMyTrainingHistory(userSession.getUsername())) {
 			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
 			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
-			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th),placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType(), th.isCanceled()));
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, canICancel(th),placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType(), th.isCanceled(), th.getPlaceId()));
 		}
 		
 		return ret;
@@ -114,7 +114,7 @@ public class TrainingHistoryService {
 		for(TrainingHistory th: getTrainingHistory().getCoachTrainingHistory(userSession.getUsername())) {
 			String placeName = placeDao.getPlaceById(th.getPlaceId()).getName();
 			String trainingName = trainingDao.getById(th.getIdTraining()).getName();
-			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, getTrainingHistory().canCoachCancel(th,trainingDao.getById(th.getIdTraining()).getType() ) , placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType(), th.isCanceled() ));
+			ret.add(new KupacTrainingDto(th.getStartDate(), placeName, trainingName, getTrainingHistory().canCoachCancel(th,trainingDao.getById(th.getIdTraining()).getType() ) , placeDao.getPlaceById(th.getPlaceId()).getType(),trainingDao.getById(th.getIdTraining()).getType(), th.isCanceled(), th.getPlaceId() ));
 		}
 		
 		return ret;
