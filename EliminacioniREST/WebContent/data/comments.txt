@@ -57,7 +57,7 @@
     "idComment" : 6,
     "usernameCustomer" : "nevena",
     "idPlace" : 3,
-    "comment" : "HAHHHIDHNKBBHBHBHHVVGHVJVHVHVVHVHVHVHVHVHVHVHVHVHVHVVHVHVHVHVHVHVHVHVHVHVHVHVHVVHVHVHVHVHV",
+    "comment" : "Moja velika preporuka za ovo carobno mesto! Necete se pokajati, uzivanje je zagarantovano",
     "grade" : 5.0,
     "deleted" : false,
     "approved" : true

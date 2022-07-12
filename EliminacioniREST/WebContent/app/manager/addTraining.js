@@ -108,13 +108,13 @@ methods:{
 
        saveTraining: function(){
        if(this.training.type == 3 || this.training.type == 4 ){
-       this.training.coachUsername == "/"
+       this.training.coachUsername == ""
        }
        if(this.training.image==undefined){
        this.training.image="C:\\fakepath\empty.jpg"
        }
        if(this.training.coachUsername==undefined){
-       this.training.coachUsername == "/"
+       this.training.coachUsername == ""
        }
         axios.post("/EliminacioniREST/rest/training/createTraining", {
       "name":''+ this.training.name,

@@ -98,18 +98,20 @@ public class TrainingService {
 		
 		
 		for(Training  t: placeTrainings) {
+			if(!t.getUsernameCoach().equals("")|| t.getUsernameCoach()!=null ) {
 			User u =users.getUserByUsername(t.getUsernameCoach());
-			
+			System.out.println(u.getUsername());
 			
 				ret.add(u);
 			
 			}
-		
+		}
 	
 		 ret2.add(ret.get(0)); 
 		 for(User u1: ret) {
 			 for(User u2: ret2) {
-				 if(!u1.getUsername().equals(u2.getUsername())) {
+				
+				 if(!u1.getUsername().equals(u2.getUsername()) && u1.getUsername()!=null) {
 					 ret2.add(u1);
 				 }
 			 }

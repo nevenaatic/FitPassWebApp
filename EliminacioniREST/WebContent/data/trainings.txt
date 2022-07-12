@@ -1,13 +1,13 @@
 {
   "0" : {
     "idTraining" : 0,
-    "name" : "Aqua aerobik",
+    "name" : "Plivanje",
     "type" : "GRUPNI",
     "idPlace" : 1,
-    "duration" : 60,
+    "duration" : 120,
     "usernameCoach" : "trener",
     "description" : "Odlican sport za ljubitelje vode",
-    "image" : "plesniStudio1.jpg",
+    "image" : "plivanje-i-zdravlje_27550485.jpg",
     "deleted" : false,
     "price" : 0
   },
@@ -53,11 +53,35 @@
     "type" : "SAUNA",
     "idPlace" : 3,
     "duration" : 20,
-    "usernameCoach" : "/",
+    "usernameCoach" : "jelena",
     "description" : "Sauna, cena za dati vremenski period",
     "image" : "C:\\fakepath\\empty.jpg",
     "deleted" : true,
     "price" : 0
+  },
+  "5" : {
+    "idTraining" : 5,
+    "name" : "Aqua aqrobatic",
+    "type" : "GRUPNI",
+    "idPlace" : 1,
+    "duration" : 90,
+    "usernameCoach" : "",
+    "description" : "Za sve one koji zele da isprobavaju vodene akrobacije",
+    "image" : "bazen.jpg",
+    "deleted" : false,
+    "price" : 0
+  },
+  "6" : {
+    "idTraining" : 6,
+    "name" : "fdsgfsd",
+    "type" : "TERETANA",
+    "idPlace" : 1,
+    "duration" : 3,
+    "usernameCoach" : "trener",
+    "description" : "fesdfsefd",
+    "image" : "mpty.jpg",
+    "deleted" : false,
+    "price" : 3
   },
   "7" : {
     "idTraining" : 7,
