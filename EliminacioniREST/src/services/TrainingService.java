@@ -13,11 +13,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dao.MembershipDao;
 import dao.TrainingDao;
+import dao.TrainingHistoryDao;
 import dao.UserDao;
 import dto.NewTrainingDto;
 import dto.TrainingViewDto;
 import model.Training;
+import model.TrainingHistory;
 import model.User;
 
 @Path("/training")
@@ -48,7 +51,14 @@ public class TrainingService {
 		}
 			return users;
 	}
-
+	private TrainingHistoryDao getMemberships() {
+		TrainingHistoryDao membership = (TrainingHistoryDao)context.getAttribute("trainingHistory");
+		if(membership == null) {
+			membership = new TrainingHistoryDao("");
+			context.setAttribute( "trainingHistory",membership);
+		}
+			return membership;
+	}
 	
 	@POST
 	@Path("/placeTrainings")
@@ -89,6 +99,41 @@ public class TrainingService {
 		
 		for(Training  t: placeTrainings) {
 			User u =users.getUserByUsername(t.getUsernameCoach());
+			
+			
+				ret.add(u);
+			
+			}
+		
+	
+		 ret2.add(ret.get(0)); 
+		 for(User u1: ret) {
+			 for(User u2: ret2) {
+				 if(!u1.getUsername().equals(u2.getUsername())) {
+					 ret2.add(u1);
+				 }
+			 }
+		 }
+		 
+		 
+		return ret2;
+		}
+
+	
+	@POST
+	@Path("/getUsersForPlace")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getUsersForPlace(String placeId) {
+		UserDao users = getUsers();
+		ArrayList<User> ret = new ArrayList<User>() ;
+		ArrayList<User> ret2 = new ArrayList<User>() ;
+		TrainingHistoryDao trainingDao = getMemberships();
+		TrainingHistory training = new TrainingHistory();
+		Collection<TrainingHistory> placeTrainings = trainingDao.getValues();
+		
+		
+		for(TrainingHistory  t: placeTrainings) {
+			User u =users.getUserByUsername(t.getUsernameCustomer());
 			
 			
 				ret.add(u);
