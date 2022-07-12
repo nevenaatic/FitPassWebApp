@@ -1,4 +1,16 @@
 {
+  "7623866923" : {
+    "id" : "7623866923",
+    "type" : "MESECNA",
+    "paidDate" : 1657623866923,
+    "dateValidFrom" : 1657623866923,
+    "dateValidTo" : 1660302266923,
+    "price" : 3200.0,
+    "usernameCustomer" : "darko",
+    "membershipStatus" : "AKTIVNA",
+    "placeId" : 0,
+    "numberOfTerms" : 30
+  },
   "7562224798" : {
     "id" : "7562224798",
     "type" : "MESECNA",

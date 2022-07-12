@@ -84,6 +84,35 @@
       "points" : 0.0,
       "sale" : 0.0
     },
+    "place" : 0
+  },
+  "darko" : {
+    "username" : "darko",
+    "password" : "darko",
+    "name" : "Darko",
+    "surname" : "Panic",
+    "gender" : "MUSKI",
+    "birthday" : 1656201600000,
+    "role" : "KUPAC",
+    "deleted" : false,
+    "blocked" : false,
+    "address" : {
+      "street" : "Jovana Cvijica",
+      "number" : 5,
+      "city" : "Novi Sad",
+      "longitude" : 0.0,
+      "latitude" : 0.0,
+      "zipCode" : 21000
+    },
+    "trainings" : [ ],
+    "memberships" : [ ],
+    "visitedPlaces" : [ ],
+    "poens" : 0.0,
+    "customerInfo" : {
+      "type" : "BRONZANI",
+      "points" : 0.0,
+      "sale" : 0.0
+    },
     "place" : -1
   },
   "menadzercic" : {
@@ -171,7 +200,7 @@
       "points" : 0.0,
       "sale" : 0.0
     },
-    "place" : -1
+    "place" : 0
   },
   "trener" : {
     "username" : "trener",

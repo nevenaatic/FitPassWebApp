@@ -15,8 +15,8 @@
       "zipCode" : 11040
     },
     "logo" : "plesniStudio1.jpg",
-    "grade" : 1.0,
-    "managerId" : null
+    "grade" : 5.0,
+    "managerId" : "nikolam"
   },
   "1" : {
     "id" : 1,
@@ -96,11 +96,11 @@
   },
   "5" : {
     "id" : 5,
-    "name" : "NOVIIIIII teretana zene",
-    "type" : "SPORTSKI_CENTAR",
+    "name" : "Zenska teretana ",
+    "type" : "TERETANA",
     "description" : "vdfvdsv",
     "status" : "ZATVORENO",
-    "workingTime" : "451215",
+    "workingTime" : "08-19",
     "address" : {
       "street" : "\u041A\u043E\u0440\u0434\u0443\u043D\u0441\u043A\u0430",
       "number" : 0,
@@ -115,13 +115,13 @@
   },
   "6" : {
     "id" : 6,
-    "name" : "MICA",
+    "name" : "Oaza",
     "type" : "BAZEN",
-    "description" : "dvgsdvf",
+    "description" : "Divan bazen",
     "status" : "OTVORENO",
     "workingTime" : "00-24",
     "address" : {
-      "street" : "bhdhfvcudsnv",
+      "street" : "Bez ulice",
       "number" : 8,
       "city" : "Bogatic Municipality",
       "longitude" : 19.43,

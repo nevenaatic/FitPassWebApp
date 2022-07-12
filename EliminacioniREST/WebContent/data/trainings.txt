@@ -59,7 +59,6 @@
     "deleted" : true,
     "price" : 0
   },
-
   "7" : {
     "idTraining" : 7,
     "name" : "dfdsf",
@@ -73,14 +72,14 @@
     "price" : 5
   },
   "8" : {
-    "idTraining" : 8,
-    "name" : "novi trening",
+    "idTraining" : 9,
+    "name" : "dance",
     "type" : "GRUPNI",
-    "idPlace" : 3,
+    "idPlace" : 0,
     "duration" : 45,
-    "usernameCoach" : "trener",
-    "description" : "nujhdcfsicfai",
-    "image" : "empty.jpg",
+    "usernameCoach" : "jelenaa",
+    "description" : "ples",
+    "image" : "download (1).jpg",
     "deleted" : false,
     "price" : 0
   }

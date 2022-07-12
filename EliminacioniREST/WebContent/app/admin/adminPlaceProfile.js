@@ -97,16 +97,16 @@ template: `
 			         </div> 
 		            
 	        	<div class="col-sm-7">
-			        	<div class="media-body" style="width: 40%; margin-left: 0.5em;">
+			        	<div class="media-body" style="width: 30rem; margin-left: 0.5em;">
 			         		   <div class="row"  >
 			            	 		 <div class=" col-sm-2 "> <h4 style="font-style: bold">{{comment.usernameCustomer}}  </h4>  </div>  
 			            	   </div>  
 					            <div class="row" >
 			             		
-			            	     <div class="col-sm-3" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
+			            	     <div class="col-sm-5" > <span v-for="g in comment.grade"> <span class="fa fa-star checked"></span></span> </div>
 			                     </div>
           			  
-                  				  <div class="row"  ><p>{{comment.comment}}</p>
+                  				  <div class="row" style="margin-left: 0.2rem;" ><p>{{comment.comment}}</p>
                   			  </div>
                		  </div> 
         			 </div>

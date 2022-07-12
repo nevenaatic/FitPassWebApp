@@ -79,5 +79,14 @@
     "grade" : 5.0,
     "deleted" : false,
     "approved" : false
+  },
+  "9" : {
+    "idComment" : 9,
+    "usernameCustomer" : "darko",
+    "idPlace" : 0,
+    "comment" : "Odlican trening!",
+    "grade" : 5.0,
+    "deleted" : false,
+    "approved" : true
   }
 }

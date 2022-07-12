@@ -126,7 +126,7 @@ template: `
                <td>{{t.trainingType}}</td>
              <td><button v-if="t.canICancel && !t.isCanceled" v-on:click="otkazi(t.date)"> Otkazi </button> </td>
                 <td v-if="t.isCanceled">OTKAZAN</td>
-                 <td v-if="t.canICancel" > <button v-on:click="komentarisi(t)"> Komentarisi</button> </td>
+                 <td v-if="!t.canICancel" > <button v-on:click="komentarisi(t)"> Komentarisi</button> </td>
             <div>
             
             </div>

@@ -84,7 +84,7 @@ template: `
                                 </div>
                               </div>
                           </div>
-                          <div v-if="p.status != 'OTVORENO'" class="col" style="margin-left: -30rem; margin-top: 3rem;">
+                          <div v-if="p.status != 'OTVORENO'" class="col" style=" margin-top: 3rem;">
                               <h4 style="width: 600px;" class="text">Naziv: {{p.name}} </h4>
                               <h4 style="width: 600px;" class="text">Tip objekta: {{p.type}} </h4>
                               <h4 style="width: 600px;" class="text">Lokacija: {{p.address.city}} </h4>
