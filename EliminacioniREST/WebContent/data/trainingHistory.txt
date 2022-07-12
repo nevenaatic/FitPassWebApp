@@ -21,7 +21,7 @@
     "usernameCustomer" : "nevena",
     "usernameCoach" : "trener",
     "placeId" : 3,
-    "canceled" : false
+    "canceled" : true
   },
   "1657670400000" : {
     "startDate" : 1657670400000,

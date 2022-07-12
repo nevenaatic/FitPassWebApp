@@ -271,8 +271,6 @@ public class TrainingHistoryDao {
 		Calendar today = Calendar.getInstance();
 		today.setTime(new Date()); //danasnji
 		
-		
-		
 		Calendar daysBeforeTraining = Calendar.getInstance();
 		daysBeforeTraining.setTime(th.getStartDate()); 
 		daysBeforeTraining.add(Calendar.DAY_OF_MONTH, -2);
@@ -289,8 +287,6 @@ public class TrainingHistoryDao {
 	public boolean canCoachCancel(TrainingHistory th, TrainingType type ) {
 		Calendar today = Calendar.getInstance();
 		today.setTime(new Date()); //danasnji
-		
-		
 		
 		Calendar daysBeforeTraining = Calendar.getInstance();
 		daysBeforeTraining.setTime(th.getStartDate()); 
