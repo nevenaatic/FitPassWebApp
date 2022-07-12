@@ -1,0 +1,14 @@
+{
+  "123" : {
+    "id" : "123",
+    "validUntil" : 1658019748823,
+    "remainingUses" : 5,
+    "discount" : 0.8
+  },
+  "12344" : {
+    "id" : "12344",
+    "validUntil" : 1658019771086,
+    "remainingUses" : 6,
+    "discount" : 0.9
+  }
+}

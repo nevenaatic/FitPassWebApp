@@ -11,6 +11,8 @@ Vue.component("kupac-placeProfile", {
 			description: "",
 			membershipType: -1,
 			trainingDate: new Date(),
+			promoCode: {},
+			code: ""
         }
     },
 
@@ -58,8 +60,14 @@ template: `
 							  <label for="price">Price: </label>
 								<br>
 							  <input type="text" id="price" name="price" v-model='price' disabled>
+								<br>
+							  <label for="code">Unesite promo kod: </label>
+								<br>
+							  <input type="text" id="code" name="code" v-model='code'>
+								<br>
+							  <button type="button" v-on:click="checkPromoCode()">Proveri promo kod!</button>
 								<br><br>
-							<button type="button" class="" v-if="membershipType != -1"  v-on:click="buyMembership()">Kupi clanarinu!</button>
+							<button type="button"  v-on:click="buyMembership()">Kupi clanarinu!</button>
 							</div>
                           </div>
 
@@ -291,6 +299,22 @@ methods:{
 		console.log(trainingDto.usernameCoach)
 		trainingDto.placeId = this.id
 		axios.post("/EliminacioniREST/rest/trainingHistory/checkInForTraining", trainingDto)
+	},
+	checkPromoCode: function(){
+		axios.post("/EliminacioniREST/rest/promoCodes/checkPromoCode", this.code)
+      .then( response => {
+          this.promoCode = response.data[0];
+			console.log(this.code)
+			console.log(JSON.stringify(this.promoCode))
+		  if(this.promoCode != null){
+			this.price = this.price * this.promoCode.discount
+		}
+          console.log(this.place)
+      })
+      .catch(function(error){
+          console.log(error)
+      });
+		
 	}
 	
 },

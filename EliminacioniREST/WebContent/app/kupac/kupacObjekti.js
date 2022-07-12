@@ -21,13 +21,8 @@ template: `
 										        </div>
                                                 <div class="dropdown col-lg-2 col-md-3 col-sm-12 p-0 filt">
                                                     <select v-model="search.type" style="height: 35px; width: 150px; background-color:#6c757d; color:white;  border-radius: 4px;">Tip
-                                                     <option value=6>Tip restorana</option>
-                                                    <option  v-bind:value="0" style=" background-color:white; color: black">Italijanski</option>
-                                                    <option  v-bind:value="1" style=" background-color:white; color: black">Kineski</option>
-                                                    <option  v-bind:value="2" style=" background-color:white; color: black">Pica</option>
-                                                    <option  v-bind:value="3" style=" background-color:white; color: black">Rostilj</option>
-                                                    <option  v-bind:value="4" style=" background-color:white; color: black">Riblji</option>
-                                                    <option  v-bind:value="5" style=" background-color:white; color: black">Veganski</option>
+                                                     <option value=6>Tip objekta</option>
+
                                                     </select>
                                                    
                                                 </div>
